@@ -2,7 +2,13 @@
 -- 1. 사용자 회원가입
     -- id 중복확인
     -- public int idConfirm (String mid)
-    SELECT * FROM MEMBER WHERE MID = 'test1';
+    SELECT * FROM MEMBER WHERE MID = 'aaa';
+    
+    -- tel 중복확인
+    -- public int telConfirm (String mtel)
+    SELECT * FROM MEMBER WHERE MTEL = '010-1111-1111';
+    
+    -- SELECT REGEXP_REPLACE(MTEL, '[^0-9]') FROM MEMBER;
     
     -- email 중복확인
     -- public int emailConfirm (String memail)

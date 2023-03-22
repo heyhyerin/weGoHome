@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap')
+	;
+/* 
+@font-face {
+	font-family: Noto Sans KR;
+	font-family: 'Outfit', sans-serif;
+	src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap');
+}
+ */
+* {
+	font-family: Noto Sans KR;
+	padding: 0;
+	margin: 0;
+}
+
+/* #content_form */
+#content_form {
+	width: 1100px;
+	/* height: 400px; */
+	margin: 40px auto;
+	display: flex;
+	justify-content: center;
+}
+
+/* .container_center */
+.container_center{
+	margin: 20px;
+}
+
+/* table */
+.container_center table {
+	margin: 0px auto;
+}
+
+.container_center table caption {
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 20pt;
+	font-weight: bold;
+}
+
+.container_center table tr {
+	height: 60px;
+}
+
+.container_center table th {
+	padding-right: 40px;
+}
+
+/* font */
+.Outfit {
+	font-family: 'Outfit', sans-serif;
+}
+
+b.red{
+	color: #FF4600;
+	font-size: 12pt;
+}
+
+b.green{
+	color: #14be00;
+	font-size: 12pt;
+}
+
+/* input */
+input:not(.btn, .btn-submit,[type=radio]) {
+	width: 340px;
+	height: 40px;
+	padding: 5px 10px;
+	outline: none;
+	border: 2px solid #dddddd;
+	border-radius: 40px;
+	box-sizing: border-box;
+}
+
+input:focus{
+	border-color: #FF4600;
+	box-shadow: 0 0 8px 0 FF4600;
+}
+
+/* button */
+input.btn, button:not(.btn-outline) {
+	font-family: 'Outfit', sans-serif;
+	font-weight: bold;
+	width: auto;
+	background: #FF4600;
+	padding: 10px 20px;
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+input.btn-submit{
+	font-family: 'Outfit', sans-serif;
+	font-weight: bold;
+	width: 100%;
+	background: #FF4600;
+	padding: 10px 10px;
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+input.btn, button:not(.btn-outline):hover {
+	background: #E63200;
+}
+
+input.btnLine, button.btn-outline {
+	font-family: 'Outfit', sans-serif;
+	font-weight: bold;
+	background: none;
+	padding: 10px 20px;
+	color: #aaaaaa;
+	text-align: center;
+	text-decoration: none;
+	border: 2px solid #aaaaaa;
+	border-radius: 50px;
+	width: auto;
+	cursor: pointer;
+}

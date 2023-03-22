@@ -75,7 +75,39 @@ public class MemberDao {
 		return result;
 	}
 
-	// 1-2. email 중복확인
+	// 1-2 tel 중복확인
+	public int telConfirm(String mtel) {
+		int result = EXISTENT;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM MEMBER WHERE MTEL = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mtel);
+			rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				result = NONEXISTENT;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+	
+	// 1-3. email 중복확인
 	public int emailConfirm(String memail) {
 		int result = EXISTENT;
 		Connection conn = null;
