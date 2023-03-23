@@ -9,11 +9,10 @@ import javax.servlet.http.HttpSession;
 import com.lec.animalAdoption.dao.MemberDao;
 import com.lec.animalAdoption.dto.MemberDto;
 
-public class MemberJoinService implements Service {
+public class MJoinService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		int result = MemberDao.FAIL;
 
 		String mid = request.getParameter("mid");
 		String mpw = request.getParameter("mpw");
@@ -31,7 +30,7 @@ public class MemberJoinService implements Service {
 		MemberDao mDao = MemberDao.getInstance();
 		MemberDto member = new MemberDto(mid, mpw, mname, mtel, memail, mgender, mbirth, maddress);
 
-		result = mDao.joinMember(member);
+		int result = mDao.joinMember(member);
 		if (result == MemberDao.SUCCESS) {
 			HttpSession session = request.getSession();
 			session.setAttribute("mid", mid);

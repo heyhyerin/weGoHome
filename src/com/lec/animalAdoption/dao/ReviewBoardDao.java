@@ -74,7 +74,7 @@ public class ReviewBoardDao {
 				String rip = rs.getString("rip");
 
 				// member
-				String mname = rs.getString("WRITERNAME");
+				String mname = rs.getString("writername");
 				reviewList.add(new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup,
 						rstep, rindent, rip, mname));
 			}

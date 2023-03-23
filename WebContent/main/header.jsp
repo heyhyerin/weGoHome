@@ -14,7 +14,13 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap"
 	rel="stylesheet">
-<style type="text/css">
+<!-- bootstrap -->
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+-->
+
+<style>
 header {
 	background-color: white;
 	border-bottom: 3px solid #FF5514;
@@ -67,30 +73,6 @@ header .lnb li a:hover {
 	font-weight: bold;
 }
 
-/* .lnb .dropdown */
-header .lnb ul li .dropdown {
-	display: none;
-}
-
-header .lnb ul li:hover .dropdown {
-	display: block;
-	margin-top: 10px;
-}
-
-header .lnb ul li:hover .dropdown li {
-	margin-top: 8px;
-}
-
-header .lnb ul li:hover .dropdown li a {
-	font-size: 12pt;
-	font-weight: 400;
-}
-
-header .lnb ul li:hover .dropdown li a:hover {
-	color: #FF5514;
-	font-weight: 500;
-}
-
 /* .gnb */
 header .gnb {
 	flex-grow: 1;
@@ -123,15 +105,9 @@ header .gnb li a {
 				<ul>
 					<li><a href="">위고홈 소개</a></li>
 					<li><a href="">활동</a></li>
-					<li><a href="">참여⋅봉사</a>
-						<ol class="dropdown">
-							<li><a href="">길고양이</a></li>
-							<li><a href="">동물실험</a></li>
-							<li><a href="">법과정책</a></li>
-							<li><a href="">전시동물</a></li>
-						</ol></li>
+					<li><a href="">참여⋅봉사</a></li>
 					<li><a href="">입양하기</a></li>
-					<li><a href="">입양 후기</a></li>
+					<li><a href="${conPath }/reviewBoardWriteView.do">입양 후기</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty member }">
@@ -146,11 +122,19 @@ header .gnb li a {
 				<div class="gnb">
 					<ul>
 						<li><a href="${conPath }/logout.do">로그아웃</a></li>
-						<li><a href="">정보 수정</a></li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+								href="#" role="button" aria-haspopup="true" aria-expanded="false">회원메뉴</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="${conPath }/memberView.do">회원정보 수정</a> 
+								<a class="dropdown-item" href="#">나의 관심 동물</a> 
+								<a class="dropdown-item" href="#">내가 작성한 글</a>
+							</div> 
 						<li><b>${member.mname }</b>님</li>
 					</ul>
 				</div>
 			</c:if>
+			
 		</div>
 		<!-- container -->
 	</header>

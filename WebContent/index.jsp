@@ -8,9 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<jsp:forward page="main.do"></jsp:forward>
+	<jsp:forward page="main.do" />
 </body>
 </html>

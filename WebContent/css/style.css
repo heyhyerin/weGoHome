@@ -3,6 +3,13 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap')
 	;
+
+@import
+	url(//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css)
+	;
+
+@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 /* 
 @font-face {
 	font-family: Noto Sans KR;
@@ -22,11 +29,12 @@
 	/* height: 400px; */
 	margin: 40px auto;
 	display: flex;
+	flex-direction: column; 
 	justify-content: center;
 }
 
 /* .container_center */
-.container_center{
+.container_center {
 	margin: 20px;
 }
 
@@ -50,23 +58,42 @@
 	padding-right: 40px;
 }
 
+.container_center table td.colspan {
+	text-align: center;
+}
+
+table.board {
+	width: 1100px;
+	padding: 0;
+	
+}
+
+table.board th {
+	text-align: center;
+	border-top: 1px solid #aaa;
+}
+
+table.board tr {
+	border-top: 1px solid #aaa;
+}
+
 /* font */
 .Outfit {
 	font-family: 'Outfit', sans-serif;
 }
 
-b.red{
+b.red {
 	color: #FF4600;
 	font-size: 12pt;
 }
 
-b.green{
+b.green {
 	color: #14be00;
 	font-size: 12pt;
 }
 
 /* input */
-input:not(.btn, .btn-submit,[type=radio]) {
+input:not(.btn, .btn-submit, .btn-outline, [type=radio]) {
 	width: 340px;
 	height: 40px;
 	padding: 5px 10px;
@@ -76,7 +103,7 @@ input:not(.btn, .btn-submit,[type=radio]) {
 	box-sizing: border-box;
 }
 
-input:focus{
+input:focus {
 	border-color: #FF4600;
 	box-shadow: 0 0 8px 0 FF4600;
 }
@@ -96,7 +123,7 @@ input.btn, button:not(.btn-outline) {
 	cursor: pointer;
 }
 
-input.btn-submit{
+input.btn-submit {
 	font-family: 'Outfit', sans-serif;
 	font-weight: bold;
 	width: 100%;
@@ -110,11 +137,12 @@ input.btn-submit{
 	cursor: pointer;
 }
 
-input.btn, button:not(.btn-outline):hover {
+input.btn:hover, button.btn:hover {
 	background: #E63200;
+	color: white;
 }
 
-input.btnLine, button.btn-outline {
+input.btn-outline, button.btn-outline {
 	font-family: 'Outfit', sans-serif;
 	font-weight: bold;
 	background: none;
@@ -122,8 +150,18 @@ input.btnLine, button.btn-outline {
 	color: #aaaaaa;
 	text-align: center;
 	text-decoration: none;
-	border: 2px solid #aaaaaa;
+	border: 1.5px solid #aaaaaa;
 	border-radius: 50px;
 	width: auto;
 	cursor: pointer;
+}
+
+input.btn-outline:hover, button.btn-outline:hover {
+	background: #eeeeee;
+}
+
+/* paging */
+div.pagin{
+	margin: 0 auto;
+	
 }

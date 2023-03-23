@@ -14,7 +14,12 @@ import com.lec.animalAdoption.service.LogoutService;
 import com.lec.animalAdoption.service.MEmailConfirmService;
 import com.lec.animalAdoption.service.MIdConfirmService;
 import com.lec.animalAdoption.service.MTelConfirmService;
-import com.lec.animalAdoption.service.MemberJoinService;
+import com.lec.animalAdoption.service.MJoinService;
+import com.lec.animalAdoption.service.MModifyService;
+import com.lec.animalAdoption.service.MViewService;
+import com.lec.animalAdoption.service.MWithDrawalService;
+import com.lec.animalAdoption.service.RBoardListService;
+import com.lec.animalAdoption.service.RBoardWriteService;
 import com.lec.animalAdoption.service.Service;
 
 @WebServlet("*.do")
@@ -76,12 +81,28 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "member/memailConfirm.jsp";
 		} else if (command.equals("/join.do")) {
-			service = new MemberJoinService();
+			service = new MJoinService();
 			service.execute(request, response);
 			viewPage = "loginView.do";
 		}
 		
 		// 회원 정보 수정
+		else if (command.equals("/memberView.do")) {
+			service = new MViewService();
+			service.execute(request, response);
+			viewPage = "member/memberModify.jsp";
+		} else if(command.equals("/memberModify.do")) {
+			service = new MModifyService();
+			service.execute(request, response);
+			viewPage = "memberView.do";
+		}
+		
+		// 회원 탈퇴
+		else if (command.equals("/memberWithDrawal.do")) {
+			service = new MWithDrawalService();
+			service.execute(request, response);
+			viewPage = "main.do";
+		}
 		
 		// 로그아웃
 		else if (command.equals("/logout.do")) {
@@ -90,6 +111,27 @@ public class FrontController extends HttpServlet {
 			viewPage = "main.do";
 		}
 
+		
+		// reviewBoard ----------------------------------------
+		// 리뷰게시판 글 목록
+		else if (command.equals("reviewBoardList.do")) {
+			service = new RBoardListService();
+			service.execute(request, response);
+			viewPage = "reviewBoard/reviewBoardList.jsp";
+		}
+
+		// 리뷰게시판 글 작성
+		else if (command.equals("/reviewBoardWriteView.do")) {
+			viewPage = "reviewBoard/reviewBoardWrite.jsp";
+		} else if (command.equals("/reviewBoardWrite.do")) {
+			service = new RBoardWriteService();
+			service.execute(request, response);
+			viewPage = "reviewBoardList.do";
+		} 
+		
+			
+			
+			
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 

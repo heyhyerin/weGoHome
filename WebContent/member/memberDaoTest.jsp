@@ -13,7 +13,7 @@
 <link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<%-- 	
+	<%-- 	
 	<h2>1. 사용자 회원가입</h2>
 	<h4>1-1. id 중복확인</h4>
 	<%
@@ -62,7 +62,7 @@
 	member = mDao.getMember(mid);
 	%>
 	mid : aaa<%=member %> --%>
-	
+	<%-- 
 	<h2>4. 회원정보 수정</h2>
 	<%
 	MemberDao mDao = MemberDao.getInstance();
@@ -77,8 +77,19 @@
 	MemberDto member = new MemberDto(mid, mpw, null, mtel, memail, mgender, null, maddress);
 	
 	result = mDao.modifyMember(member);
-	%>
+	%> 
 	<%=result == 0 ? "회원 정보수정 실패" : "회원 정보수정 성공"%><br>
 	<%=member %>
+	 --%>
+	<h2>5. 회원탈퇴</h2>
+	<%
+	MemberDao mDao = MemberDao.getInstance();
+	String mid = "kim";
+	String mpw = "111";
+	%>
+	
+	<%int result = mDao.withDrawalMember(mid);%>
+	<%=result == 0 ? "회원 탈퇴 실패" : "회원 탈퇴 성공"%><br>
+	
 </body>
 </html>

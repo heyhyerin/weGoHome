@@ -14,33 +14,9 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
 	$(function() {
-		// mid 유효성검사
-		$('input[name="midConfirm"]').click(function() {
-			var mid = $('#mid').val();
-			if (mid.length < 4) {
-				$('#midConfirmResult').html('<b class="red">아이디는 4자 이상 입력해야 합니다.</b>');
-			} else {
-				$.ajax({
-					url: '${conPath}/midConfirm.do',
-					data: 'mid='+mid,
-					type: 'get',
-					dataType: 'html',
-					success: function(data) {
-						/* 
-						var result = data;
-						var preIdx = data.indexOf('<body>')+6;
-						var postIdx = data.indexOf('</body>');
-						msg = result.substring(preIdx, postIdx); */
-						$('#midConfirmResult').html(data);
-					},
-				}); // ajax
-			}
-		});
-		
-		// mtel 중복확인
+		// mtel 수정 시
 		$('input[name="mtelConfirm"]').click(function() {
 			var mtel = $('#mtel').val().replace(/[^0-9]/g, "");
-			/* alert(mtel); */
 			if (!mtel || mtel.length < 9){
 				$('#mtelConfirmResult').html('<b class="red">올바른 전화번호를 입력하세요.</b>');
 			} else {
@@ -91,31 +67,53 @@
 		// 중복확인 후 회원가입 진행
 		$('form').submit(function() {
 			var mname = $('#mname').val();
+			var oldmpw = $('#oldmpw').val();
+			var mpw = $('#mpw').val();
+			var mpwChk = $('#mpwChk').val();
+			var mtel = $('#mtel').val();
+			var memail = $('#memail').val();
 			var midConfirmResult = $('#midConfirmResult').text().trim();
 			var mpwChkResult = $('#mpwChkResult').text().trim();
 			var mtelConfirmResult = $('#mtelConfirmResult').text().trim();
 			var memailConfirmResult = $('#memailConfirmResult').text().trim();
 			
-			if (midConfirmResult != '사용가능한 아이디입니다.') {
-				alert('아이디 중복 확인이 필요합니다.');
-				$('input[name="mname"]').focus();
-				return false; // submit 제한
-			} else if (!mname){
-				alert('이름은 필수 입력값입니다.')
-				$('#mname').focus();
+			if (!oldmpw || oldmpw != '${member.mpw}'){
+				alert('정보 수정 시 현재 비밀번호를 입력해 주세요.');
 				return false;
-			} else if (mpwChkResult != '비밀번호가 일치합니다.') {
-				alert('비밀번호를 확인이 필요합니다.');
-				$('input[name="mpw"]').focus();
+				oldmpw.focus();
+			} else {
+				// 현재 비밀번호 입력 시
+				if (mpw || mpwChk) {
+					if(mpwChkResult != '비밀번호가 일치합니다.'){
+						alert('비밀번호를 확인이 필요합니다.');
+						$('input[name="mpw"]').focus();
+					return false;
+					}
+				} else if (mtel != '${member.mtel}') {
+					if(mtelConfirmResult != '사용가능한 전화번호입니다.'){
+						alert('전화번호 중복 확인이 필요합니다.');
+						$('input[name="mtel"]').focus();
+					return false;
+					}
+				} else if(memail != '${member.memail}'){ 
+					if(memailConfirmResult != '사용가능한 이메일입니다.'){
+						alert('이메일 중복 확인이 필요합니다.');
+						$('input[name="memail"]').focus();
+					return false;
+					}
+				}
+			}
+		});
+		
+		$('.memberWithDrawal').click(function() {
+			var mid = $('#mid').val()
+			var oldmpw = $('#oldmpw').val();
+			if (!oldmpw || oldmpw != '${member.mpw}'){
+				alert('회원 탈퇴 시 현재 비밀번호를 입력해 주세요.');
+				$('input[name="oldmpw"]').focus();
 				return false;
-			} else if (mtelConfirmResult != '사용가능한 전화번호입니다.') {
-				alert('전화번호 중복 확인이 필요합니다.');
-				$('input[name="mtel"]').focus();
-				return false;
-			} else if(memailConfirmResult != "" && memailConfirmResult != '사용가능한 이메일입니다.'){
-				alert('이메일 중복 확인이 필요합니다.');
-				$('input[name="memail"]').focus();
-				return false;
+			} else {
+				location.href='${conPath}/memberWithDrawal.do?mid='+mid;
 			}
 		});
 	});
@@ -140,49 +138,58 @@
 </script>
 </head>
 <body>
-	<!-- 로그인 상태일 경우 메인 페이지로  -->
-	<c:if test="${not empty member }">
+	<!-- 로그아웃 상태일 경우 로그인 페이지로  -->
+	<c:if test="${empty member }">
 		<script>
-			location.href = '${conPath}/main.do';
+			location.href = '${conPath}/loginView.do?next=memberView.do';
 		</script>
 	</c:if>
-
+	
+		<!-- 정보수정 결과 출력 -->
+	<c:if test="${not empty modifyResult}">
+		<script>
+			alert('${modifyResult}');
+		</script>
+	</c:if>
+	
 	<jsp:include page="../main/header.jsp" />
 	<div id="content_form">
-		<!-- join form -->
-		<form action="${conPath }/join.do" method="post">
+		<form action="${conPath }/memberModify.do" method="post">
 			<div class="container_center">
 				<table>
-					<caption>회원가입</caption>
+					<caption>회원정보 조회</caption>
 					<tr>
-						<th>아이디<b class="red">&nbsp;*</b></th> 
+						<th>아이디</th> 
 						<td>
-							<input type="text" name="mid" id="mid" placeholder="아이디(영문/숫자 4자 이상)">
-							<input type="button" value="중복확인" name="midConfirm" class="btn">
-							<div id="midConfirmResult"> &nbsp; </div>
+							<input type="text" name="mid" id="mid" value="${member.mid }" readonly="readonly">
 						</td>
 					</tr>
 					<tr>
-						<th>이름<b class="red">&nbsp;*</b></th> 
+						<th>이름</th> 
 						<td>
-						<input type="text" name="mname" id="mname" placeholder="실명이 아닌 경우 이용에 제한이 있을 수 있습니다."></td>
+						<input type="text" name="mname" id="mname" value="${member.mname }" readonly="readonly"></td>
 					</tr>
 					<tr>
-						<th>비밀번호<b class="red">&nbsp;*</b></th>
+						<th>현재 비밀번호</th>
 						<td>
-						<input type="password" name="mpw" id="mpw" placeholder="비밀번호(영문/숫자 /특수문자 6자리 이상)"></td>
+						<input type="password" name="oldmpw" id="oldmpw" placeholder="정보 수정 시 현재 비밀번호를 입력하세요."></td>
 					</tr>
 					<tr>
-						<th>비밀번호 확인<b class="red">&nbsp;*</b></th>
+						<th>새 비밀번호</th>
 						<td>
-							<input type="password" name="mpwChk" id="mpwChk" placeholder="한번 더 입력해 주세요.">
+						<input type="password" name="mpw" id="mpw" ></td>
+					</tr>
+					<tr>
+						<th>새 비밀번호 확인</th>
+						<td>
+							<input type="password" name="mpwChk" id="mpwChk" >
 							<div id="mpwChkResult"> &nbsp; </div>
 						</td>
 					</tr>
 					<tr>
-						<th>휴대전화 번호<b class="red">&nbsp;*</b></th> 
+						<th>휴대전화 번호</th> 
 						<td>
-							<input type="text" name="mtel" id="mtel" placeholder="전화번호 입력 후 중복확인을 해주세요.">
+							<input type="text" name="mtel" id="mtel" value="${member.mtel }">
 							<input type="button" value="중복확인" name="mtelConfirm" class="btn">
 							<div id="mtelConfirmResult"> &nbsp; </div>
 						</td>
@@ -190,30 +197,47 @@
 					<tr>
 						<th>이메일</th> 
 						<td>
-							<input type="email" name="memail" id="memail" placeholder="활동에 참여하시려면 기입 후 인증해 주세요.">
+							<input type="email" name="memail" id="memail" value="${member.memail }">
 							<input type="button" value="중복확인" name="memailConfirm" class="btn">
 							<div id="memailConfirmResult"> &nbsp; </div>
 						</td>
 					</tr>
 					<tr>
 						<th>성별</th> 
-						<td>
-						<input type="radio" name="mgender" value="M">남 &nbsp;
-						<input type="radio" name="mgender" value="F">여</td>
+						<c:if test="${empty member.mgender}">
+							<td>
+								<input type="radio" name="mgender" value="M">남 &nbsp;
+								<input type="radio" name="mgender" value="F">여
+							</td>
+						</c:if>
+						<c:if test="${member.mgender eq 'M' }">
+							<td>
+								<input type="radio" name="mgender" value="M" checked="checked">남 &nbsp;
+								<input type="radio" name="mgender" value="F">여
+							</td>
+						</c:if>
+						<c:if test="${member.mgender eq 'F' }">
+							<td>
+								<input type="radio" name="mgender" value="M">남 &nbsp;
+								<input type="radio" name="mgender" value="F" checked="checked">여
+							</td>
+						</c:if>
 					</tr>
 					<tr>
 						<th>생년월일</th> 
 						<td>
-						<input type="text" name="mbirth" id="datepicker"></td>
+						<input type="text" name="mbirth" id="datepicker" value="${member.mbirth }"></td>
 					</tr>
 					<tr>
 						<th>주소</th> 
 						<td>
-						<input type="text" name="maddress"></td>
+						<input type="text" name="maddress" value="${member.maddress }"></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="colspan">
-							<input type="submit" value="회원가입" class="btn-submit">
+							<input type="button" value="회원 탈퇴" class="memberWithDrawal btn-outline" >
+							<input type="submit" value="회원정보수정" class="btn">
+							<input type="button" value="취소" class="btn-outline" onclick="location.href='${conPath}/main.do'">
 						</td>
 					</tr>
 				</table>

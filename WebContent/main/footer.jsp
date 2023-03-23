@@ -28,11 +28,9 @@ footer .container p{
 	font-size: 8pt;
 	font-weight: 400;
 	color: gray;
+	margin: 10px;
 }
 
-footer .container p span{
-	margin-right: 10px;
-}
 
 /* footer-left */
 footer .container .footer-left{
@@ -51,29 +49,14 @@ footer .container .right{
 		<div class="container">
 			<div class="footer-left">
 				<p>
-					<span>
-						<b>사)WEGOHOME 위고홈</b>
-					</span>
-					<span>
-						서울특별시 성동구 독서당로 166(우)04736
-					</span>
-					<span>
-						대표: 김밤
-					</span>
-				</p>
-				<p>
-					<span>
-						MAIL  info@wegohome.org
-					</span>
-					<span>
-						TEL  02-2018-0401
-					</span>
-					<span>
-						FAX  02-2018-0401
-					</span>
-					<span>
-						사업자등록번호  410-82-11332
-					</span>
+					<span><b>사)WEGOHOME 위고홈</b></span>
+					<span>서울특별시 성동구 독서당로 166(우)04736</span>
+					<span>대표: 김밤</span>
+					<br>
+					<span>MAIL  info@wegohome.org</span>
+					<span>TEL  02-2018-0401</span>
+					<span>FAX  02-2018-0401</span>
+					<span>사업자등록번호  410-82-11332</span>
 				</p>
 				<p class="font-Outfit">
 					COPYRIGHT 2023 WEGOHOME. ALL RIGHT RESERVED
@@ -82,8 +65,7 @@ footer .container .right{
 			<div class="footer-right">
 				<p>
 					본 사이트는 개인 프로젝트를 위한 비상업용 사이트입니다.
-				</p>
-				<p>
+				<br>
 					데이터 출처 <b>농림축산식품부 / 포인핸드 / 동물권행동 카라</b>
 				</p>
 			</div>

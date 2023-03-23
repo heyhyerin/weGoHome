@@ -5,25 +5,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lec.animalAdoption.dao.MemberDao;
-import com.lec.animalAdoption.dto.MemberDto;
 
-public class LoginService implements Service {
+public class MWithDrawalService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String mid = request.getParameter("mid");
-		String mpw = request.getParameter("mpw");
-		
+
 		MemberDao mDao = MemberDao.getInstance();
-		int result = mDao.loginMember(mid, mpw);
-		
-		if(result == MemberDao.SUCCESS) {
+		int result = mDao.withDrawalMember(mid);
+
+		if (result == MemberDao.SUCCESS) {
 			HttpSession session = request.getSession();
-			MemberDto member = mDao.getMember(mid);
-			session.setAttribute("member", member);
-		} else if(result == MemberDao.FAIL) {
-			request.setAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인하세요.");
+			session.invalidate();
+			request.setAttribute("withDrawalResult", "회원 탈퇴가 정상적으로 처리되었습니다. 이용해 주셔서 감사합니다.");
+		} else if (result == MemberDao.FAIL) {
+			request.setAttribute("withDrawalResultError", "회원 탈퇴가 실패했습니다.");
 		}
+
 	}
 
 }

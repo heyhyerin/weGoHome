@@ -6,7 +6,8 @@
     
     -- tel 중복확인
     -- public int telConfirm (String mtel)
-    SELECT * FROM MEMBER WHERE MTEL = '010-1111-1111';
+    -- SELECT * FROM MEMBER WHERE MTEL = '010-1111-1111';
+    SELECT * FROM MEMBER WHERE MTEL = REGEXP_REPLACE('01011111111', '[^0-9]');
     
     -- SELECT REGEXP_REPLACE(MTEL, '[^0-9]') FROM MEMBER;
     
@@ -17,7 +18,7 @@
     -- 회원가입
     -- public int joinMember(MemberDto member)
     INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)
-        VALUES ('test3', '111', '사용자3' , '010-3333-3333', 'test3@gmail.com', 'M', 
+        VALUES ('test3', '111', '사용자3' , REGEXP_REPLACE('010-3333-3333','[^0-9]'), 'test3@gmail.com', 'M', 
                 '1995/01/01', '서울시 용산구');
 
 -- 2. 로그인
@@ -34,7 +35,7 @@ SELECT * FROM MEMBER
     -- public int modifyMember(MemberDto member)
     UPDATE MEMBER SET
             MPW = '111',
-            MTEL = '010-1111-1111',
+            MTEL = REGEXP_REPLACE('010-3333-3333','[^0-9]'),
             MEMAIL = 'test@gmail.com',
             MGENDER = 'M',
             MBIRTH = '1995/01/01',
@@ -42,9 +43,9 @@ SELECT * FROM MEMBER
     WHERE MID = 'test1';
 
 -- 5. 회원 탈퇴
-    -- 좋아요 목록
+    -- 좋아요 목록 삭제
     DELETE FROM LIKELIST
-        WHERE MID = 'test1';
+        WHERE MID = 'bam';
         
     -- 작성한 댓글 삭제
     DELETE FROM ANIMALCOMMENT
@@ -56,7 +57,7 @@ SELECT * FROM MEMBER
     
     -- public int withDrawalMember(String mpw)
     DELETE FROM MEMBER 
-        WHERE MPW = '111';
+        WHERE MID = 'aaa' AND MPW = '111';
 
 COMMIT;
 ROLLBACK;
@@ -78,7 +79,7 @@ SELECT * FROM SHELTER
     UPDATE SHELTER SET
             SPW = '111',
             SNAME = '서울시립유기동물보호소',
-            STEL = '02-111-1111',
+            STEL = '021111111',
             SEMAIL = 'seoul@animal.co.kr',
             SADDRESS = '서울시 용산구'
     WHERE SID = 'SHELTER1';

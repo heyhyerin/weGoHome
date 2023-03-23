@@ -33,7 +33,7 @@
 	<%
 	int totCnt = rDao.getReviewTotCnt();
 	%>
-	등록된 전체 동물 수 : <%=totCnt %>
+	등록된 전체 글 갯수 : <%=totCnt %>
 	
 	<%-- 
 	<h3>3. 리뷰게시판 게시글 작성</h3>

@@ -17,6 +17,14 @@
 </style>
 </head>
 <body>
+	<!-- 로그인 상태일 경우 메인 페이지로  -->
+	<c:if test="${not empty member }">
+		<script>
+			location.href = '${conPath}/main.do';
+		</script>
+	</c:if>
+	
+	<!-- 회원가입 결과 출력 -->
 	<c:if test="${not empty joinResult }">
 		<script>
 			alert('${joinResult}');

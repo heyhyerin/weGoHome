@@ -71,12 +71,33 @@
 </style>
 </head>
 <body>
+	<!-- 로그인 결과 출력 -->
+	<c:if test="${not empty loginErrorMsg }">
+		<script>
+			alert('${loginErrorMsg}');
+			history.back();
+		</script>
+	</c:if>
+	
+	<!-- 로그아웃 결과 출력 -->
 	<c:if test="${not empty logoutMsg }">
 		<script>
 			alert('${logoutMsg}');
 		</script>
 	</c:if>
-
+	
+	<!-- 회원탈퇴 결과 출력 -->
+	<c:if test="${not empty withDrawalResult }">
+		<script>
+			alert('${withDrawalResult}')
+		</script>
+	</c:if>
+	<c:if test="${not empty withDrawalResultError }">
+		<script>
+			history.back();
+		</script>
+	</c:if>
+	
 	<jsp:include page="../main/header.jsp" />
 	<div class="main">
 		<div class="container">

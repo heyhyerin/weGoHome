@@ -81,7 +81,7 @@ public class MemberDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM MEMBER WHERE MTEL = ?";
+		String sql = "SELECT * FROM MEMBER WHERE MTEL = REGEXP_REPLACE(?, '[^0-9]')";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -145,7 +145,7 @@ public class MemberDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)\r\n" + 
-					 "    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+					 "    VALUES (?, ?, ?, REGEXP_REPLACE( ?,'[^0-9]'), ?, ?, ?, ?)";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -253,7 +253,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		String sql = "UPDATE MEMBER SET" + 
 				"            MPW = ?," + 
-				"            MTEL = ?," + 
+				"            MTEL = REGEXP_REPLACE( ?,'[^0-9]')," + 
 				"            MEMAIL = ?," + 
 				"            MGENDER = ?," + 
 				"            MBIRTH = ?," + 
@@ -362,7 +362,7 @@ public class MemberDao {
 	}
 	
 	// 5-4. 해당회원 탈퇴
-	public int withDrawalMember(String mid, String mpw) {
+	public int withDrawalMember(String mid) {
 		deleteMemberLikeList(mid);
 		deleteMemberComment(mid);
 		deleteMemberReviewBoard(mid);
@@ -372,11 +372,11 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "DELETE FROM MEMBER" + 
-					 "    WHERE MPW = ?";
+					 "    WHERE MID = ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mpw);
+			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = SUCCESS;
