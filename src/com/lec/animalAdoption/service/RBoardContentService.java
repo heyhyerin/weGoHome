@@ -15,11 +15,7 @@ public class RBoardContentService implements Service {
 		ReviewBoardDao rbDao = ReviewBoardDao.getInstance();
 		ReviewBoardDto review = rbDao.getReview(rno);
 		
-		if(review != null) {
-			request.setAttribute("review", review);
-		} else {
-			
-		}
+		request.setAttribute("review", review);
 	}
 
 }

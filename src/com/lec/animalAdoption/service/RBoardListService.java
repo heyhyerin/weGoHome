@@ -14,6 +14,7 @@ public class RBoardListService implements Service {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) {
+			
 			if(request.getAttribute("pageNum") != null) {
 				pageNum = (String) request.getAttribute("pageNum");
 			} else {

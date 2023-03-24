@@ -181,6 +181,18 @@ textarea {
 	margin: 20px;
 	padding: 20px;
 	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+textarea:disabled {
+	background-color: white;
+	border: none;
+	border-radius: 0;
+	
 }
 
 /* ---------- button.Sign-in ---------- */

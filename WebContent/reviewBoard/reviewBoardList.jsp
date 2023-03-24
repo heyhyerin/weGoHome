@@ -11,6 +11,11 @@
 <link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<style>
+.dataTable td:not(.td-tltle) {
+	text-align: center;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
@@ -29,16 +34,15 @@
 	<!-- 게시물 작성 결과 출력 -->
 	<c:if test="${not empty withDrawalResult }">
 		<script>
-			alert('${withDrawalResult}')
+			alert('${reviewBoardResult}')
 		</script>
 	</c:if>
 	<c:if test="${not empty withDrawalResultError }">
 		<script>
-			alert('${withDrawalResultError}')
+			alert('${reviewBoardResultError}')
 			history.back();
 		</script>
 	</c:if>
-
 
 	<jsp:include page="../main/header.jsp" />
 	<div id="wrap">

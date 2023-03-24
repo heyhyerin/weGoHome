@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lec.animalAdoption.service.MLoginService;
 import com.lec.animalAdoption.service.LogoutService;
 import com.lec.animalAdoption.service.MEmailConfirmService;
 import com.lec.animalAdoption.service.MIdConfirmService;
-import com.lec.animalAdoption.service.MTelConfirmService;
 import com.lec.animalAdoption.service.MJoinService;
+import com.lec.animalAdoption.service.MLoginService;
 import com.lec.animalAdoption.service.MModifyService;
+import com.lec.animalAdoption.service.MTelConfirmService;
 import com.lec.animalAdoption.service.MViewService;
 import com.lec.animalAdoption.service.MWithDrawalService;
 import com.lec.animalAdoption.service.RBoardContentService;
 import com.lec.animalAdoption.service.RBoardDeleteService;
 import com.lec.animalAdoption.service.RBoardListService;
 import com.lec.animalAdoption.service.RBoardModifyService;
-import com.lec.animalAdoption.service.RBoardModifyViewService;
 import com.lec.animalAdoption.service.RBoardSchListService;
 import com.lec.animalAdoption.service.RBoardWriteService;
 import com.lec.animalAdoption.service.SLoginService;
@@ -150,13 +149,13 @@ public class FrontController extends HttpServlet {
 		
 		// 리뷰게시글 수정
 		else if (command.equals("/reviewBoardModifyView.do")) {
-			service = new RBoardModifyViewService();
+			service = new RBoardContentService();
 			service.execute(request, response);
 			viewPage = "reviewBoard/reviewBoardModify.jsp";
 		} else if (command.equals("/reviewBoardModify.do")) {
 			service = new RBoardModifyService();
 			service.execute(request, response);
-			viewPage = "reviewBoardContent.do";
+			viewPage = "/reviewBoardContent.do";
 		}
 		
 		// 리뷰게시글 삭제

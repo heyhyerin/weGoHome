@@ -104,7 +104,7 @@ div.main-banner {
 			<div class="content">
 				<b>We Go Home Together!</b>
 				<h1>
-					위고홈은 전국의<br>보호소의 유기동물과 사람을 이어주는<br>따듯한 서비스입니다.
+					위고홈은 전국의<br>보호소의 유기동물과 사람을 이어주는<br>따뜻한 서비스입니다.
 				</h1>
 				<button class="signBtn-outline">보호중인 동물 확인하기&#128073;</button>
 			</div>

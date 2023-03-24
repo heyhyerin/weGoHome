@@ -218,7 +218,6 @@ public class ReviewBoardDao {
 		String sql = "UPDATE REVIEWBOARD SET" + 
 					 "    RTITLE = ?," + 
 					 "    RCONTENT = ?," + 
-					 "    RPW = ?," + 
 					 "    RPHOTO = ?," + 
 					 "    RRDATE = SYSDATE," + 
 					 "    RIP = ?" + 
@@ -228,10 +227,9 @@ public class ReviewBoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, review.getRtitle());
 			pstmt.setString(2, review.getRcontent());
-			pstmt.setString(3, review.getRpw());
-			pstmt.setString(4, review.getRphoto());
-			pstmt.setString(5, review.getRip());
-			pstmt.setInt(6, review.getRno());
+			pstmt.setString(3, review.getRphoto());
+			pstmt.setString(4, review.getRip());
+			pstmt.setInt(5, review.getRno());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -255,7 +253,6 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "DELETE FROM REVIEWBOARD WHERE RNO = ?";
-		System.out.println("게시글 삭제 query 1");
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -263,10 +260,8 @@ public class ReviewBoardDao {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = SUCCESS;
-				System.out.println("게시글 삭제 query 2 / result = " + result);
 			}
 		} catch (Exception e) {
-			System.out.println("게시글 삭제 실패");
 			System.out.println(e.getMessage());
 		} finally {
 			try {

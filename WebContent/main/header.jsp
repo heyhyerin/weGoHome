@@ -92,6 +92,45 @@ header .gnb ul li {
 header .gnb li a {
 	color: black;
 }
+
+/* ---------- 회원 메뉴 드롭다운 ---------- */
+.dropdown{
+  position : relative;
+  display : inline-block;
+}
+
+.dropbtn{
+  cursor : pointer;
+}
+
+.dropdown-content{
+  display : none;
+  position : absolute;
+  z-index : 1; /*다른 요소들보다 앞에 배치*/
+  font-weight: 400;
+  background-color: #ffffff;
+  min-width : 150px;
+  border-radius: 10px;
+  border: 1px solid #eeeeee;
+  overflow: hidden;
+}
+
+.dropdown-content a{
+  display : block;
+  text-decoration : none;
+  color : #444444;
+  font-size: 14px;
+  padding : 12px 20px;
+}
+
+.dropdown-content a:hover{
+ 	background-color: #efefef;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 </style>
 </head>
 <body>
@@ -110,7 +149,8 @@ header .gnb li a {
 					<li><a href="${conPath }/reviewBoardList.do">입양 후기</a></li>
 				</ul>
 			</div>
-			<c:if test="${empty member }">
+			<!-- 로그아웃 gnb -->
+			<c:if test="${empty member && empty shelter}">
 				<div class="gnb">
 					<button class="signBtn"
 						onclick="location.href='${conPath}/loginView.do'" >Sign-in</button>
@@ -118,19 +158,42 @@ header .gnb li a {
 						onclick="location.href='${conPath}/joinView.do'" >Register</button>
 				</div>
 			</c:if>
+			
+			<!-- 회원 gnb -->
 			<c:if test="${not empty member}">
 				<div class="gnb">
 					<ul>
 						<li><a href="${conPath }/logout.do">로그아웃</a></li>
+						<!-- 회원 메뉴 드롭 다운 -->
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-								href="#" role="button" aria-haspopup="true" aria-expanded="false">회원메뉴</a>
-							<div class="dropdown-menu">
+							<a class="dropbtn">
+								<b>${member.mname }</b>님▾
+							</a>
+							<div class="dropdown-content">
 								<a class="dropdown-item" href="${conPath }/memberView.do">회원정보 수정</a> 
 								<a class="dropdown-item" href="#">나의 관심 동물</a> 
 								<a class="dropdown-item" href="#">내가 작성한 글</a>
 							</div> 
-						<li><b>${member.mname }</b>님</li>
+						</li>
+					</ul>
+				</div>
+			</c:if>
+
+			<!-- 보호소 로그온 gnb -->
+			<c:if test="${not empty shelter}">
+				<div class="gnb">
+					<ul>
+						<li><a href="${conPath }/logout.do">로그아웃</a></li>
+						<!-- 회원 메뉴 드롭 다운 -->
+						<li class="nav-item dropdown">
+							<a class="dropbtn">
+								<b>${shelter.sname }</b>님▾
+							</a>
+							<div class="dropdown-content">
+								<a class="dropdown-item" href="${conPath }/memberView.do">보호소 정보 수정</a> 
+								<a class="dropdown-item" href="#">보호 동물 현황 관리</a> 
+							</div> 
+						</li>
 					</ul>
 				</div>
 			</c:if>
