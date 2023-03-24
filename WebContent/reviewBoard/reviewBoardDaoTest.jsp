@@ -103,7 +103,7 @@
 	
 	<h2>8. 게시글 검색</h2>
 	<%
-	String schStr = "주차";
+	String schStr = "입양";
 	startRow = 1;
 	endRow = 10;
 	ArrayList<ReviewBoardDto> searchList = rDao.searchReviewList(schStr, startRow, endRow);

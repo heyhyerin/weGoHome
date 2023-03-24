@@ -20,7 +20,7 @@ public class ReviewBoardDto {
 	private String rip;
 
 	// member
-	private String mname;
+	private String name;
 
 	public ReviewBoardDto() {
 		super();
@@ -28,7 +28,7 @@ public class ReviewBoardDto {
 	}
 
 	public ReviewBoardDto(int rno, String mid, String sid, String rtitle, String rcontent, String rpw, String rphoto,
-			Timestamp rrdate, int rhit, int rgroup, int rstep, int rindent, String rip, String mname) {
+			Timestamp rrdate, int rhit, int rgroup, int rstep, int rindent, String rip, String name) {
 		super();
 		this.rno = rno;
 		this.mid = mid;
@@ -43,7 +43,7 @@ public class ReviewBoardDto {
 		this.rstep = rstep;
 		this.rindent = rindent;
 		this.rip = rip;
-		this.mname = mname;
+		this.name = name;
 	}
 
 	public int getRno() {
@@ -150,20 +150,20 @@ public class ReviewBoardDto {
 		this.rip = rip;
 	}
 
-	public String getMname() {
-		return mname;
+	public String getName() {
+		return name;
 	}
 
-	public void setMname(String mname) {
-		this.mname = mname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
 		return "ReviewBoardDto [rno=" + rno + ", mid=" + mid + ", sid=" + sid + ", rtitle=" + rtitle + ", rcontent="
 				+ rcontent + ", rpw=" + rpw + ", rphoto=" + rphoto + ", rrdate=" + rrdate + ", rhit=" + rhit
-				+ ", rgroup=" + rgroup + ", rstep=" + rstep + ", rindent=" + rindent + ", rip=" + rip + ", mname="
-				+ mname + "]";
+				+ ", rgroup=" + rgroup + ", rstep=" + rstep + ", rindent=" + rindent + ", rip=" + rip + ", name=" + name
+				+ "]";
 	}
 
 }

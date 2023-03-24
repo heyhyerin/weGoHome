@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import com.lec.animalAdoption.dao.MemberDao;
 import com.lec.animalAdoption.dto.MemberDto;
 
-public class LoginService implements Service {
+public class MLoginService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

@@ -50,7 +50,7 @@ footer .container .right{
 			<div class="footer-left">
 				<p>
 					<span><b>사)WEGOHOME 위고홈</b></span>
-					<span>서울특별시 성동구 독서당로 166(우)04736</span>
+					<span>서울특별시 성동구 독서당로 166 (우)04736</span>
 					<span>대표: 김밤</span>
 					<br>
 					<span>MAIL  info@wegohome.org</span>

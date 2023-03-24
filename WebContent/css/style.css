@@ -4,80 +4,278 @@
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap')
 	;
 
-@import
-	url(//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css)
-	;
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 
 @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-/* 
-@font-face {
-	font-family: Noto Sans KR;
-	font-family: 'Outfit', sans-serif;
-	src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap');
-}
- */
 * {
 	font-family: Noto Sans KR;
 	padding: 0;
 	margin: 0;
 }
 
-/* #content_form */
-#content_form {
+/* ------------- wrap ------------- */
+div#wrap {
 	width: 1100px;
-	/* height: 400px; */
-	margin: 40px auto;
-	display: flex;
-	flex-direction: column; 
+	margin: 0 auto;
+	padding: 60px; display : flex;
+	flex-direction: column;
 	justify-content: center;
+	display: flex;
 }
 
-/* .container_center */
-.container_center {
-	margin: 20px;
+/* ---------- container ---------- */
+/* 세로배치 */
+div.container-row {
+	width: 1100px;
+	height: auto;
+	margin: 10px auto;
+	display: flex;
+	/* 수평정렬 */
+	justify-content: center;
+	/* 수직정렬 */
+	/* align-items: center; */
 }
 
-/* table */
-.container_center table {
-	margin: 0px auto;
+/* 가로배치 */
+div.container-col {
+	width: 1100px;
+	height: auto;
+	margin: 10px auto;
+	display: inline-flex;
+	justify-content: space-between;
 }
 
-.container_center table caption {
-	padding: 10px;
-	margin-bottom: 10px;
-	font-size: 20pt;
-	font-weight: bold;
+/* ----------- div ----------- */
+.div-title {
+	margin: 20px 0;
 }
 
-.container_center table tr {
-	height: 60px;
+.div-search {
+	display: flex;
+	flex-direction: row-reverse;
 }
 
-.container_center table th {
-	padding-right: 40px;
-}
-
-.container_center table td.colspan {
+.center {
 	text-align: center;
 }
 
-table.board {
+/* ----------- banner ----------- */
+.half-banner {
+	width: 545px;
+	height: 220px;
+	border-radius: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: flex-end;
+}
+
+.red-banner {
 	width: 1100px;
-	padding: 0;
+	height: 100px;
+	background-color: #FF4600;
+	margin: 10px auto 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.red-banner p {
+	color: white;
+	font-size: 16px;
+}
+
+/* ----------- content ----------- */
+/* 
+.column {
+	flex-direction: column;
+} */
+
+/* ---------- table ---------- */
+table caption {
+	font-size: 22pt;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+/* ---------- table.dataTable ---------- */
+table.dataTable {
+	width: 1100px;
+	margin: 20px 0;
+	/* tr에 border 주기 위함 */
+	border-collapse: collapse;
+}
+
+table.dataTable th, td {
+	padding: 6px 10px;
+	text-align: center;
+	font-size: 14px;
+	color: #444444;
+}
+
+table.dataTable td.td-tltle {
+	width: 35%;
+	text-align: left;
+}
+
+table.dataTable tr {
+	text-align: center;
+	border-top: 1px solid #aaa;
+	cursor: pointer;
+}
+
+/* ---------- table.contentTable ---------- */
+table.contentTable {
+	width: 800px;
+	margin: 20px auto;
+}
+
+table.contentTable th, td {
+	text-align: left;
+	font-size: 14px;
+	color: #444444;
+}
+
+table.contentTable td.td-tltle {
+	width: 35%;
+	text-align: left;
+}
+
+/* contentTable 제목 */
+table.contentTable span {
+	margin: 0 20px;
+}
+
+/* contentTable 본문 */
+table.contentTable textarea{
+	width: 800px;
+	height: auto;
+	padding-top: 20px;
+	margin: 20px 0;
+	border: none;
+	border-top: 1px solid #eeeeee;
 	
 }
 
-table.board th {
+/* ---------- input ---------- */
+input.data-input {
+	width: 340px;
+	height: 32px;
+	padding: 5px 10px;
+	outline: none;
+	border: 2px solid #dddddd;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+input:focus {
+	border-color: #FF4600;
+	box-shadow: 0 0 2px 0 #FF4600;
+}
+
+/* ---------- textarea ---------- */
+textarea {
+	width: 96%;
+	height: 400px;
+	margin: 20px;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+/* ---------- button.Sign-in ---------- */
+input.signBtn, button.signBtn {
+	font-family: 'Outfit', sans-serif;
+	font-weight: bold;
+	width: auto;
+	background: #FF4600;
+	padding: 10px 20px;
+	margin: 0 auto;
+	color: #ffffff;
 	text-align: center;
-	border-top: 1px solid #aaa;
+	text-decoration: none;
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
 }
 
-table.board tr {
-	border-top: 1px solid #aaa;
+input.signBtn:hover, button.signBtn:hover {
+	background: #E63200;
+	color: white;
 }
 
-/* font */
+input.signBtn-outline, button.signBtn-outline {
+	font-family: 'Outfit', sans-serif;
+	font-weight: bold;
+	width: auto;
+	background-color: white;
+	padding: 10px 20px;
+	color: #aaaaaa;
+	border: 1.5px solid #aaaaaa;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+input.signBtn-outline:hover, button.signBtn-outline:hover {
+	background: #eeeeee;
+}
+
+/* ---------- button.submit ---------- */
+/* 로그인버튼 */
+button.btn-submit, input.btn-submit {
+	width: 340px;
+	height: 32px;
+	padding: 5px 10px;
+	outline: none;
+	background: #FF4600;
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	box-sizing: border-box;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/* radius 버튼 */
+input.btn, button.btn {
+	width: auto;
+	height: 32px;
+	padding: 5px 15px;
+	margin: 0 5px;
+	outline: none;
+	background: #FF4600;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+input.btn-grey, button.btn-grey {
+	width: auto;
+	height: 32px;
+	padding: 5px 15px;
+	margin: 0 5px;
+	outline: none;
+	background: #bbbbbb;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/* ----------- .paging ----------- */
+.paging {
+	text-align: center;
+	margin: 10px 0;
+}
+
+/* ---------- font ---------- */
 .Outfit {
 	font-family: 'Outfit', sans-serif;
 }
@@ -92,76 +290,9 @@ b.green {
 	font-size: 12pt;
 }
 
-/* input */
-input:not(.btn, .btn-submit, .btn-outline, [type=radio]) {
-	width: 340px;
-	height: 40px;
-	padding: 5px 10px;
-	outline: none;
-	border: 2px solid #dddddd;
-	border-radius: 40px;
-	box-sizing: border-box;
-}
-
-input:focus {
-	border-color: #FF4600;
-	box-shadow: 0 0 8px 0 FF4600;
-}
-
-/* button */
-input.btn, button:not(.btn-outline) {
-	font-family: 'Outfit', sans-serif;
-	font-weight: bold;
-	width: auto;
-	background: #FF4600;
-	padding: 10px 20px;
-	color: #ffffff;
-	text-align: center;
-	text-decoration: none;
-	border: none;
-	border-radius: 50px;
-	cursor: pointer;
-}
-
-input.btn-submit {
-	font-family: 'Outfit', sans-serif;
-	font-weight: bold;
-	width: 100%;
-	background: #FF4600;
-	padding: 10px 10px;
-	color: #ffffff;
-	text-align: center;
-	text-decoration: none;
-	border: none;
-	border-radius: 50px;
-	cursor: pointer;
-}
-
-input.btn:hover, button.btn:hover {
-	background: #E63200;
-	color: white;
-}
-
-input.btn-outline, button.btn-outline {
-	font-family: 'Outfit', sans-serif;
-	font-weight: bold;
-	background: none;
-	padding: 10px 20px;
-	color: #aaaaaa;
-	text-align: center;
-	text-decoration: none;
-	border: 1.5px solid #aaaaaa;
-	border-radius: 50px;
-	width: auto;
-	cursor: pointer;
-}
-
-input.btn-outline:hover, button.btn-outline:hover {
-	background: #eeeeee;
-}
-
-/* paging */
-div.pagin{
-	margin: 0 auto;
-	
+/* ----------- launcher ----------- */
+.launcher {
+	position: fixed;
+	bottom: 50px;
+	right: 100px;
 }

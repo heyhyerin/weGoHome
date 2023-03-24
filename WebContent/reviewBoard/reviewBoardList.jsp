@@ -13,65 +13,96 @@
 	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+	$(document).ready(function(){
+		$('tr').click(function(){
+			var rno = Number($(this).children().eq(0).text()); // 0번째 td안의 있는 text;
+			// alert(rid);
+			if(!isNaN(rno)){
+				location.href = '${conPath }/reviewBoardContent.do?rno='+rno+'&pageNum=${pageNum}';
+			}
+		});
+	});
+</script>
 </head>
 <body>
+	<!-- 게시물 작성 결과 출력 -->
+	<c:if test="${not empty withDrawalResult }">
+		<script>
+			alert('${withDrawalResult}')
+		</script>
+	</c:if>
+	<c:if test="${not empty withDrawalResultError }">
+		<script>
+			alert('${withDrawalResultError}')
+			history.back();
+		</script>
+	</c:if>
+
+
 	<jsp:include page="../main/header.jsp" />
-	<div id="content_form">
-		<div class="container_center">
-			<div class="div_title">
-				<h2>입양후기 게시판</h2>
+	<div id="wrap">
+		<h2>입양 후기 게시판</h2>
+			<div class="div-search">
+				<form action="${conPath}/reviewSearch.do">
+					<input type="text" name="searchBox" id="searchBox"
+						class="data-input" placeholder="검색어를 입력하세요">
+					<button class="btn-grey">검색</button>
+					<input type="button" value="글 작성" class="btn" onclick="location.href='reviewBoardWriteView.do'">
+				</form>
 			</div>
-			<table class="board">
+		<table class="dataTable">
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+				<th>날짜</th>
+			</tr>
+			<c:if test="${totCnt == 0}">
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>조회수</th>
-					<th>날짜</th>
+					<td colspan="5">등록된 게시글이 없습니다.</td>
 				</tr>
-				<c:if test="${totCnt == 0}">
+			</c:if>
+			<c:if test="${totCnt != 0}">
+				<c:forEach var="review" items="${reviewList }">
 					<tr>
-						<td colspan="5">등록된 게시글이 없습니다.</td>
+						<td>${review.rno }</td>
+						<td class="td-tltle"><c:forEach var="i" begin="1"
+								end="${review.rindent }">
+								<c:if test="${i == review.rindent }">
+									 &nbsp; ㄴ
+									</c:if>
+								<c:if test="${i != review.rindent }">
+									 &nbsp; &nbsp; 
+									</c:if>
+							</c:forEach>${review.rtitle }</td>
+						<td>${review.name }</td>
+						<td>${review.rhit }</td>
+						<td><fmt:formatDate value="${review.rrdate }" type="date"
+								dateStyle="short" /></td>
 					</tr>
-				</c:if>
-				<c:if test="${totCnt != 0}">
-					<c:forEach var="review" items="${reviewList }">
-						<tr>
-							<td>${review.rno }</td>
-							<td><c:forEach var="i" begin="1" end="${review.rindent }">
-									<c:if test="${i == review.rindent }">
-										ㄴ
-									</c:if>
-									<c:if test="${i != review.rindent }">
-										 &nbsp; &nbsp; 
-									</c:if>
-								</c:forEach>${review.rtitle }</td>
-							<td>${review.mname }</td>
-							<td>${review.rhit }</td>
-							<td><fmt:formatDate value="${review.rdate }" type="date"
-									dateStyle="short" /></td>
-						</tr>
-					</c:forEach>
-				</c:if>
-			</table>
-		</div>
+				</c:forEach>
+			</c:if>
+		</table>
+
 		<div class="paging">
 			<c:if test="${startPage > BLOCKSIZE }">
-				[ <a href="${conPath }/boardList.do?pageNum=${startPage-1}"> 이전
-				</a> ]
+				<a href="${conPath }/boardList.do?pageNum=${startPage-1}"> 이전 </a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage }" end="${endPage }">
 				<c:if test="${i == pageNum }">
-					<b> [ ${i } ] </b>
+					<b class="red"> ${i } </b>
 				</c:if>
 				<c:if test="${i != pageNum }">
-					[ <a href="${conPath }/boardList.do?pageNum=${i}"> ${i } </a> ]
+					<a href="${conPath }/boardList.do?pageNum=${i}"> ${i } </a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage<pageCnt }">
-			  [ <a href="${conPath }/boardList.do?pageNum=${endPage+1}"> 다음 </a> ]
+				<a href="${conPath }/boardList.do?pageNum=${endPage+1}"> 다음 </a>
 			</c:if>
 		</div>
+
 	</div>
 	<jsp:include page="../main/footer.jsp" />
 </body>

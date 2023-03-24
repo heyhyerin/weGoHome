@@ -10,67 +10,58 @@
 <title>Insert title here</title>
 <link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-.main {
-	/* background: #aaaaaa; */
-}
-
-.main .container {
-	width: 1200px;
-	height: 480px;
+div#main {
+	width: 1100px;
 	margin: 0 auto;
-	background-image: url(${conPath}/img/main_img.png);
 	display: flex;
-	align-items: center;
+	flex-direction: column;
+	justify-content: center;
 }
 
-/* content */
-.main .container .content {
-	flex-wrap: wrap;
-	margin-left: 60px;
+/* 메인배너 */
+div.main-banner {
+	width: 1100px;
+	height: 420px;
+	background-image: url(${conPath}/img/main_img.png);
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	box-sizing: border-box;
+	
 }
 
-.main .container .content h1 {
-	font-size: 24pt;
+.main-banner .content{
 	color: white;
 }
 
-.main .container .content b {
+.main-banner .content h1{
+	margin: 5px 0 12px;
+}
+
+.main-banner .content button.signBtn-outline{
+	color: #222222;
+	font-weight: bold;
+}
+
+/* 하단 2분할 배너 */
+.half-banner:nth-child(1) {
+	background-image: url(${conPath}/img/sub_img01.png);
+}
+
+.half-banner:nth-child(2) {
+	background-image: url(${conPath}/img/sub_img02.png);
+}
+
+.half-banner p {
 	color: white;
-	font-family: 'Outfit', sans-serif;
-	font-size: 16pt;
-	padding-top: 10px;
-}
-
-.main .container .content button.btn-outline {
-	color: white;
-	border: 2px solid white;
-	margin-top: 15px;
-}
-
-/* section */
-.main .section {
-	width: 1200px;
-	height: 80px;
-	background-color: #FF4600;
-	margin: 20px auto;
-}
-
-.main .section p {
-	color: white;
-	position: absolute;
-	margin-top: 15px;
-	margin-left: 60px;
-}
-
-.main .absolute {
-	position: absolute;
-    bottom: 50px; 
-    right: 50px;
+	font-size: 18px;
 }
 
 </style>
 </head>
 <body>
+	<!-- --------------- user --------------- -->
 	<!-- 로그인 결과 출력 -->
 	<c:if test="${not empty loginErrorMsg }">
 		<script>
@@ -78,46 +69,65 @@
 			history.back();
 		</script>
 	</c:if>
-	
+
 	<!-- 로그아웃 결과 출력 -->
 	<c:if test="${not empty logoutMsg }">
 		<script>
 			alert('${logoutMsg}');
 		</script>
 	</c:if>
-	
+
 	<!-- 회원탈퇴 결과 출력 -->
-	<c:if test="${not empty withDrawalResult }">
+	<c:if test="${not empty reviewBoardResult }">
 		<script>
 			alert('${withDrawalResult}')
 		</script>
 	</c:if>
-	<c:if test="${not empty withDrawalResultError }">
+	<c:if test="${not empty reviewBoardResultError }">
 		<script>
+			alert('${reviewBoardResultError}')
 			history.back();
 		</script>
 	</c:if>
-	
+
+	<!-- --------------- board --------------- -->
+	<c:if test="${not empty deleteReviewResult }">
+		<script>
+			alert('${deleteReviewResult}');
+		</script>
+	</c:if>
+
+
 	<jsp:include page="../main/header.jsp" />
-	<div class="main">
-		<div class="container">
+	<div id="main">
+		<div class="main-banner">
 			<div class="content">
 				<b>We Go Home Together!</b>
 				<h1>
 					위고홈은 전국의<br>보호소의 유기동물과 사람을 이어주는<br>따듯한 서비스입니다.
 				</h1>
-				<button class="btn-outline">보호중인 동물 확인하기&#128073;</button>
-			</div><!-- content -->
-		</div><!-- container -->
-		<div class="section">
+				<button class="signBtn-outline">보호중인 동물 확인하기&#128073;</button>
+			</div>
+		</div>
+		<!-- main-banner -->
+		<div class="red-banner">
 			<p>
-				위고홈은 정부후원금 없이 오직 시민의 후원으로 활동합니다.<br>
-				한국 가이드스타에서 동물단체 중 유일하게 2020 2021 연속 책무성 및 투명성, 재무안정성 및 효율성 모두 최고 별점을 받았습니다.
+				<b>위고홈은 정부후원금 없이 오직 시민의 후원으로 활동합니다.</b><br> 한국 가이드스타에서 동물단체 중 유일하게
+				2020 2021 연속 책무성 및 투명성, 재무안정성 및 효율성 모두 최고 별점을 받았습니다.
 			</p>
 		</div>
-		<div class="absolute">
-			<img alt="문의하기" src="${conPath }/img/QnA_icon.png">
+		<div class="container-col">
+			<div class="half-banner">
+				<p>위고홈은 더 나은<br><b>반려문화를 위해 노력합니다.</b></p>
+			</div>	
+			<div class="half-banner">
+				<p>[3월] 더 홈 센터 단체/기업 봉사 후기</p>
+			</div>	
 		</div>
+		<!-- container-col -->
+	</div>
+	<div class="launcher">
+		<img alt="문의하기" src="${conPath }/img/QnA_icon.png">
 	</div>
 	<jsp:include page="../main/footer.jsp" />
 </body>

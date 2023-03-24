@@ -74,9 +74,9 @@ public class ReviewBoardDao {
 				String rip = rs.getString("rip");
 
 				// member
-				String mname = rs.getString("writername");
+				String name = rs.getString("writername");
 				reviewList.add(new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup,
-						rstep, rindent, rip, mname));
+						rstep, rindent, rip, name));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -124,6 +124,7 @@ public class ReviewBoardDao {
 		}
 		return totCnt;
 	}
+	
 	// 3. 후기게시판 게시글 작성
 	public int writeReview(ReviewBoardDto review) {
 		int result = FAIL;
@@ -190,8 +191,8 @@ public class ReviewBoardDao {
 				String rip = rs.getString("rip");
 
 				// member
-				String mname = rs.getString("WRITERNAME");
-				review = new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup, rstep, rindent, rip, mname);
+				String name = rs.getString("WRITERNAME");
+				review = new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup, rstep, rindent, rip, name);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -254,6 +255,7 @@ public class ReviewBoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "DELETE FROM REVIEWBOARD WHERE RNO = ?";
+		System.out.println("게시글 삭제 query 1");
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -261,8 +263,10 @@ public class ReviewBoardDao {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = SUCCESS;
+				System.out.println("게시글 삭제 query 2 / result = " + result);
 			}
 		} catch (Exception e) {
+			System.out.println("게시글 삭제 실패");
 			System.out.println(e.getMessage());
 		} finally {
 			try {
@@ -355,7 +359,7 @@ public class ReviewBoardDao {
 		ResultSet         rs    = null;
 		String sql = "SELECT L.*," + 
 				"        (SELECT MNAME FROM MEMBER WHERE L.MID = MID) || " + 
-				"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) WRITERNAME" + 
+				"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) NAME" + 
 				"        FROM (SELECT ROWNUM RN, RBOARD.*" + 
 				"            FROM(SELECT * FROM REVIEWBOARD " + 
 				"                 WHERE RTITLE LIKE '%' || ? || '%'" + 
@@ -384,9 +388,9 @@ public class ReviewBoardDao {
 				String rip = rs.getString("rip");
 
 				// member
-				String mname = rs.getString("WRITERNAME");
+				String name = rs.getString("NAME");
 				reviewList.add(new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup,
-						rstep, rindent, rip, mname));
+						rstep, rindent, rip, name));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -404,4 +408,37 @@ public class ReviewBoardDao {
 		}
 		return reviewList;
 	}
+	
+	// 9. 검색된 총 글 갯수 조회
+		public int getSchReviewTotCnt(String schStr) {
+			int totCnt = 0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT COUNT(*) CNT "+ 
+					"		FROM REVIEWBOARD "+ 
+					"		 WHERE RTITLE LIKE '%' || ? || '%'";
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, schStr);
+				rs = pstmt.executeQuery();
+				rs.next();
+				totCnt = rs.getInt("cnt");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			return totCnt;
+		}
 }

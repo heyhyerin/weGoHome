@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap"
 	rel="stylesheet">
@@ -107,14 +107,14 @@ header .gnb li a {
 					<li><a href="">활동</a></li>
 					<li><a href="">참여⋅봉사</a></li>
 					<li><a href="">입양하기</a></li>
-					<li><a href="${conPath }/reviewBoardWriteView.do">입양 후기</a></li>
+					<li><a href="${conPath }/reviewBoardList.do">입양 후기</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty member }">
 				<div class="gnb">
-					<button class="btn"
-						onclick="location.href='${conPath}/loginView.do'" >Sign-up</button>
-					<button class="btn-outline" 
+					<button class="signBtn"
+						onclick="location.href='${conPath}/loginView.do'" >Sign-in</button>
+					<button class="signBtn-outline" 
 						onclick="location.href='${conPath}/joinView.do'" >Register</button>
 				</div>
 			</c:if>
