@@ -19,6 +19,7 @@ div#login-form {
 	justify-content: center;
 }
 
+
 /* 탭 전체 스타일 */
 .tabs {
 	margin-top: 50px;
@@ -74,6 +75,10 @@ input[name="tab_item"] {
 div#login-form .login-table {
 	text-align: center;
 	margin: 0 auto;
+}
+
+.login-table td{
+	padding-bottom: 10px;
 }
 
 .login-table td p {

@@ -171,12 +171,34 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "animal/animalBoardList.jsp";
 		}
+		
+		// 보호동물 상세보기
+		else if (command.equals("/animalContent.do")) {
+			service = new AContentService();
+			service.execute(request, response);
+			viewPage = "animal/animalContent.jsp";
+		}
 
 		// 보호동물 검색
 		else if (command.equals("/animalSearch.do")) {
 			service = new ASearchService();
 			service.execute(request, response);
 			viewPage = "animal/animalBoardList.jsp";
+		}
+
+		// likeList ----------------------------------------
+		// 관심동물 등록
+		else if (command.equals("/likeListAdd.do")) {
+			service = new LikeListAddService();
+			service.execute(request, response);
+			viewPage = "likeList/likeListAdd.jsp";
+		}
+
+		// 관심동물 해제
+		else if (command.equals("/likeListRemove.do")) {
+			service = new LikeListRemoveService();
+			service.execute(request, response);
+			viewPage = "likeList/likeListRemove.jsp";
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

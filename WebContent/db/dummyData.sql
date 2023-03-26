@@ -26,7 +26,7 @@ INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER,
 
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
                    AAGE, AWEIGHT, ACONTENT, AADDRESS, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'SHELTER2', 'NOIMG.jpg', '푸들', '암컷(중성화 O)', '5', '4',
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'SHELTER2', 'wgh_0000.png', '푸들', '암컷(중성화 O)', '5', '4',
             '사람을 잘 따라요', '중산마을 9단지', 'PROTECT', '197.0.0.1');
 
 -- ANIMALCOMMENT

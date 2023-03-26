@@ -158,9 +158,9 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
               AND ABREED LIKE '%' || '' || '%' 
               AND AGENDER LIKE '%'|| '' || '%'
               AND AWEIGHT BETWEEN 0 AND 8
-              AND SNAME LIKE '%'|| '¼­¿ï' || '%'
+              AND SNAME LIKE '%'|| '' || '%'
             ORDER BY ARDATE DESC)ANIMALlIST)
-         WHERE RN BETWEEN 1 AND 2;
+         WHERE RN BETWEEN 1 AND 100;
          
 SELECT COUNT(*) CNT FROM ANIMAL, SHELTER
             WHERE ANIMAL.SID = SHELTER.SID

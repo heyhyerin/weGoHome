@@ -28,10 +28,16 @@
 	margin-bottom: 30px;
 	border-radius: 10px;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .animalBox:not(:nth-child(4n)){
 	margin-right:33.3px;
+}
+
+.animalBox img.board-img{
+	width: 250px;
+	height: 200px;
 }
 
 .animalBox .content {
@@ -45,7 +51,7 @@
 	font-size: 10pt;
 }
 
-.animalBox img.heart{
+.animalBox span.heart{
 	position: relative;
 	bottom: 112px;
 	left: 200px;
@@ -73,11 +79,34 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
 	$(function() {
+		// 상세보기
+		$('div.animalBox').click(function() {
+			var ano = $(this).children().eq(0).val();
+			// alert(ano);
+			location.href="${conPath}/animalContent.do?ano="+ano;
+		});
+		
+		
 		// 관심동물 등록
 		$('.heart').click(function() {
+			var ano = $(this).children().eq(0).val();
+			// var mid = document.getElementById("member");
+			// 세션에 있는 member의 mid 필요 **
+			var mid = sessionStorage.getItem('mid');
+			alert(ano);
+			alert(mid);
 			$.ajax({
-				
-			});
+				url: '${conPath}/LikeListAdd.do',
+				data: 'mid=' + mid + '&ano=' + ano,
+				type: 'get',
+				dataType: 'html',
+				success: function() {
+					$('.heart').html(data);
+				},
+				/* error: function() {
+					alert('로그인 이후 이용가능한 서비스 입니다.');
+				}, */
+			}); // ajax
 		});
 	});
 
@@ -135,7 +164,8 @@
 			<c:if test="${not empty animalList }">
 				<c:forEach var="animal" items="${animalList }">
 					<div class="animalBox">
-						<img alt="보호 동물 프로필 사진" src="${conPath }/animalImgUp/${animal.aphoto }">
+						<input type="hidden" name="ano" value="${animal.ano }">
+						<img alt="보호 동물 프로필 사진" src="${conPath }/animalImgUp/${animal.aphoto }" class="board-img">
 						<div class="content">
 							<h2>${animal.abreed }</h2>
 							<p>
@@ -144,7 +174,10 @@
 								<b>${animal.sname }</b>
 							</p>
 						</div>
-						<img alt="관심동물 표시" src="${conPath }/img/heart-line.png" class="heart">
+						<span class="heart">
+							<input type="hidden" name="ano" value="${animal.ano }">
+							<img alt="관심동물 표시" src="${conPath }/img/heart-line.png">
+						</span>
 					</div>
 				</c:forEach>
 			</c:if>

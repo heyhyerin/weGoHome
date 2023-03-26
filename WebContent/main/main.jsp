@@ -59,6 +59,18 @@ div.main-banner {
 }
 
 </style>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$('button[name="goAnimalBoard"]').click(
+			function() {
+				location.href='${conPath}/animalBoardList.do';
+		});
+	});
+</script>
 </head>
 <body>
 	<!-- --------------- user --------------- -->
@@ -85,7 +97,7 @@ div.main-banner {
 				<h1>
 					위고홈은 전국의<br>보호소의 유기동물과 사람을 이어주는<br>따뜻한 서비스입니다.
 				</h1>
-				<button class="signBtn-outline">보호중인 동물 확인하기&#128073;</button>
+				<button class="signBtn-outline" name="goAnimalBoard">보호중인 동물 확인하기&#128073;</button>
 			</div>
 		</div>
 		<!-- main-banner -->
@@ -104,9 +116,6 @@ div.main-banner {
 			</div>	
 		</div>
 		<!-- container-col -->
-	</div>
-	<div class="launcher">
-		<img alt="문의하기" src="${conPath }/img/QnA_icon.png">
 	</div>
 	<jsp:include page="../main/footer.jsp" />
 </body>

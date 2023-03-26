@@ -71,5 +71,8 @@ footer .container .right{
 			</div>
 		</div>
 	</footer>
+	<div class="launcher">
+		<img alt="문의하기" src="${conPath }/img/QnA_icon.png">
+	</div>
 </body>
 </html>
