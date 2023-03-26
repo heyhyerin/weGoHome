@@ -26,8 +26,26 @@
 	padding: 40px;
 }
 </style>
+<script>
+	/* 게시글 수정 시 비밀번호 확인 */
+	$(function() {
+		$('#deleteBtn').click(function() {
+			var pwChk = $('#pwChk').val();
+			if(pwChk == ""){
+				alert("게시글 삭제 시 비밀번호를 입력해 주세요.");
+				return false;
+			} else if (pwChk != '${review.rpw}'){
+				alert("비밀번호가 일치하지 않습니다.");
+				return false;
+			} else {
+				location.href='${conPath}/reviewBoardDelete.do?rno=${review.rno }';
+			}
+		});
+	});
+</script>
 </head>
 <body>
+	<!-- 비로그인시 로그인 화면으로 -->
 	<c:if test="${empty member && empty shelter}">
 		<script>
 			location.href = '${conPath}/loginView.do?next=reviewBoardList.do';
@@ -61,9 +79,15 @@
 					</td>
 				</tr>
 				<tr>
+					<th>삭제 시 비밀번호</th>
+					<td>
+						<input type="password" id="pwChk" class="data-input" placeholder="삭제시 비밀번호를 입력해 주세요.">
+					</td>
+				</tr>
+				<tr>
 					<td colspan="2" class="center">
 						<input type="submit" value="수정" class="btn">
-						<input type="button" value="글목록" class="btn-grey" onclick="location.href='${conPath}/reviewBoardList.do'">
+						<input type="button" value="삭제" id="deleteBtn" class="btn-grey">
 					</td>
 				</tr>
 			</table>

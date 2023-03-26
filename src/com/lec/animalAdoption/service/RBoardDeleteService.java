@@ -15,9 +15,9 @@ public class RBoardDeleteService implements Service {
 		int result = rbDao.deleteReview(rno);
 		
 		if (result == ReviewBoardDao.SUCCESS) {
-			request.setAttribute("deleteReviewResult", "게시글 삭제가 정상적으로 처리되었습니다.");
+			request.setAttribute("resultMsg", "게시글 삭제가 정상적으로 처리되었습니다.");
 		} else if (result == ReviewBoardDao.FAIL) {
-			request.setAttribute("deleteReviewResult", "게시글 삭제가 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "게시글 삭제가 실패했습니다.");
 		}
 	}
 

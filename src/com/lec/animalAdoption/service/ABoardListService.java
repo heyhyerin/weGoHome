@@ -5,33 +5,33 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lec.animalAdoption.dao.ReviewBoardDao;
-import com.lec.animalAdoption.dto.ReviewBoardDto;
+import com.lec.animalAdoption.dao.AnimalDao;
+import com.lec.animalAdoption.dto.AnimalDto;
 
-public class RBoardListService implements Service {
+public class ABoardListService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String pageNum = request.getParameter("pageNum");
-		if(pageNum == null) {
-			if(request.getAttribute("pageNum") != null) {
+		if (pageNum == null) {
+			if (request.getAttribute("pageNum") != null) {
 				pageNum = (String) request.getAttribute("pageNum");
 			} else {
 				pageNum = "1";
 			}
 		}
-
+		
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE = 10, BLOCKSIZE = 10;
-		int startRow = (currentPage - 1) * PAGESIZE + 1;
-		int endRow = startRow + PAGESIZE - 1;
+		final int PAGESIZE = 8, BLOCKSIZE = 10;
+		int startRow = (currentPage -1) * PAGESIZE + 1;
+		int endRow = startRow + PAGESIZE -1;
 		
-		ReviewBoardDao rbDao = ReviewBoardDao.getInstance();
-		ArrayList<ReviewBoardDto> reviewList = rbDao.getReviewList(startRow, endRow);
-		request.setAttribute("reviewList", reviewList);
+		AnimalDao aDao = AnimalDao.getInstance();
+		ArrayList<AnimalDto> animalList = aDao.getAnimalList(startRow, endRow);
+		request.setAttribute("animalList", animalList);
 		
-		int totCnt = rbDao.getReviewTotCnt();
-		int pageCnt = (int) Math.ceil((double) totCnt / PAGESIZE);
+		int totCnt = aDao.getAnimalTotCnt();
+		int pageCnt = (int)Math.ceil((double)totCnt / PAGESIZE);
 		int startPage = ((currentPage - 1) / BLOCKSIZE) * BLOCKSIZE + 1;
 		int endPage = startPage + BLOCKSIZE - 1;
 		if (endPage > pageCnt) {

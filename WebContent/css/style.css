@@ -44,7 +44,26 @@ div.container-col {
 	margin: 10px auto;
 	display: inline-flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
+	
 }
+/* 가로배치 */
+div.container-image {
+	width: 1100px;
+	height: auto;
+	margin: 10px auto;
+	display: inline-flex;
+    flex-wrap: wrap;
+	
+}
+
+/* div.container-animalBoard{
+	height: auto;
+	margin: 10px auto;
+	display: inline-flex;
+	justify-content: space-between;
+}
+ */
 
 /* ----------- div ----------- */
 .div-title {
@@ -60,7 +79,7 @@ div.container-col {
 	text-align: center;
 }
 
-/* ----------- banner ----------- */
+/* ----------- main banner ----------- */
 .half-banner {
 	width: 545px;
 	height: 220px;
@@ -86,12 +105,6 @@ div.container-col {
 	font-size: 16px;
 }
 
-/* ----------- content ----------- */
-/* 
-.column {
-	flex-direction: column;
-} */
-
 /* ---------- table ---------- */
 table caption {
 	font-size: 22pt;
@@ -99,7 +112,17 @@ table caption {
 	margin-bottom: 20px;
 }
 
-/* ---------- table.dataTable ---------- */
+/* ---------- table modify-table ---------- */
+.modify-table {
+	margin: 0 auto;
+}
+
+.modify-table td:not(.center) {
+	text-align: left;
+	margin-left: 20px;
+}
+
+/* ---------- table dataTable ---------- */
 table.dataTable {
 	width: 1100px;
 	margin: 20px 0;
@@ -150,34 +173,16 @@ table.contentTable span {
 /* contentTable 본문 */
 table.contentTable textarea{
 	width: 800px;
-	height: auto;
+	height: 340px;
 	padding-top: 20px;
 	margin: 20px 0;
 	border: none;
 	border-top: 1px solid #eeeeee;
-	
 }
 
-/* ---------- input ---------- */
-input.data-input {
-	width: 340px;
-	height: 32px;
-	padding: 5px 10px;
-	outline: none;
-	border: 2px solid #dddddd;
-	border-radius: 8px;
-	box-sizing: border-box;
-}
-
-input:focus {
-	border-color: #FF4600;
-	box-shadow: 0 0 2px 0 #FF4600;
-}
-
-/* ---------- textarea ---------- */
 textarea {
 	width: 96%;
-	height: 400px;
+	height: 340px;
 	margin: 20px;
 	padding: 20px;
 	box-sizing: border-box;
@@ -194,6 +199,23 @@ textarea:disabled {
 	border-radius: 0;
 	
 }
+
+/* ---------- input ---------- */
+input.data-input {
+	width: 340px;
+	height: 34px;
+	padding: 5px 10px;
+	outline: none;
+	border: 2px solid #dddddd;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+input:focus {
+	border-color: #FF4600;
+	box-shadow: 0 0 2px 0 #FF4600;
+}
+
 
 /* ---------- button.Sign-in ---------- */
 input.signBtn, button.signBtn {
@@ -253,7 +275,7 @@ button.btn-submit, input.btn-submit {
 /* radius 버튼 */
 input.btn, button.btn {
 	width: auto;
-	height: 32px;
+	height: 34px;
 	padding: 5px 15px;
 	margin: 0 5px;
 	outline: none;
@@ -268,7 +290,7 @@ input.btn, button.btn {
 
 input.btn-grey, button.btn-grey {
 	width: auto;
-	height: 32px;
+	height: 34px;
 	padding: 5px 15px;
 	margin: 0 5px;
 	outline: none;

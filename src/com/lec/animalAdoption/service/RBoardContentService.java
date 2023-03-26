@@ -11,7 +11,6 @@ public class RBoardContentService implements Service {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		int rno = Integer.parseInt(request.getParameter("rno"));
-		
 		ReviewBoardDao rbDao = ReviewBoardDao.getInstance();
 		ReviewBoardDto review = rbDao.getReview(rno);
 		

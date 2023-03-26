@@ -14,11 +14,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@400;500;600&display=swap"
 	rel="stylesheet">
-<!-- bootstrap -->
-<!--
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">	
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
--->
 
 <style>
 header {
@@ -145,7 +140,7 @@ header .gnb li a {
 					<li><a href="">위고홈 소개</a></li>
 					<li><a href="">활동</a></li>
 					<li><a href="">참여⋅봉사</a></li>
-					<li><a href="">입양하기</a></li>
+					<li><a href="${conPath }/animalBoardList.do">입양하기</a></li>
 					<li><a href="${conPath }/reviewBoardList.do">입양 후기</a></li>
 				</ul>
 			</div>

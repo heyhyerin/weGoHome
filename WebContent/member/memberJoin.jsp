@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="conPath" value="${pageContext.request.contextPath }" />
@@ -9,19 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
-<style>
-.modify-table {
-	margin: 0 auto;
-}
-
-.modify-table td:not(.center){
-	text-align: left;
-	margin-left: 20px;
-}
-
-</style>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
@@ -184,63 +171,83 @@
 				<caption>회원가입</caption>
 				<tr>
 					<th>아이디<b class="red">&nbsp;*</b></th>
-					<td><input type="text" name="mid" id="mid" class="data-input"
-							placeholder="아이디(영문/숫자 4자 이상)"> <input type="button"
-							value="중복확인" name="midConfirm" class="btn">
-						<div id="midConfirmResult">&nbsp;</div></td>
+					<td>
+						<input type="text" name="mid" id="mid" class="data-input" placeholder="아이디(영문/숫자 4자 이상)">
+						<input type="button" value="중복확인" name="midConfirm" class="btn">
+						<div id="midConfirmResult">&nbsp;</div>
+					</td>
 				</tr>
 				<tr>
 					<th>이름<b class="red">&nbsp;*</b></th>
-					<td><input type="text" name="mname" id="mname"
-							class="data-input" placeholder="실명이 아닌 경우 이용에 제한이 있을 수 있습니다."></td>
+					<td>
+						<input type="text" name="mname" id="mname" class="data-input"
+							placeholder="실명이 아닌 경우 이용에 제한이 있을 수 있습니다.">
+					</td>
 				</tr>
 				<tr>
 					<th>비밀번호<b class="red">&nbsp;*</b></th>
-					<td><input type="password" name="mpw" id="mpw"
-							class="data-input" placeholder="비밀번호(영문/숫자 /특수문자 6자리 이상)"></td>
+					<td>
+						<input type="password" name="mpw" id="mpw" class="data-input"
+							placeholder="비밀번호(영문/숫자 /특수문자 6자리 이상)">
+					</td>
 				</tr>
 				<tr>
 					<th>비밀번호 확인<b class="red">&nbsp;*</b></th>
-					<td><input type="password" name="mpwChk" id="mpwChk"
-							class="data-input" placeholder="한번 더 입력해 주세요.">
-						<div id="mpwChkResult">&nbsp;</div></td>
+					<td>
+						<input type="password" name="mpwChk" id="mpwChk" class="data-input"
+							placeholder="한번 더 입력해 주세요.">
+						<div id="mpwChkResult">&nbsp;</div>
+					</td>
 				</tr>
 				<tr>
 					<th>휴대전화 번호<b class="red">&nbsp;*</b></th>
-					<td><input type="text" name="mtel" id="mtel"
-							class="data-input" placeholder="전화번호 입력 후 중복확인을 해주세요."> <input
-							type="button" value="중복확인" name="mtelConfirm" class="btn">
-						<div id="mtelConfirmResult">&nbsp;</div></td>
+					<td>
+						<input type="text" name="mtel" id="mtel" class="data-input"
+							placeholder="전화번호 입력 후 중복확인을 해주세요.">
+						<input type="button" value="중복확인" name="mtelConfirm" class="btn">
+						<div id="mtelConfirmResult">&nbsp;</div>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2" class="center">추가입력사항</td>
 				</tr>
 				<tr>
-					<td colspan="2"><hr></td>
+					<td colspan="2">
+						<hr>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2">&nbsp;</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><input type="email" name="memail" id="memail"
-							class="data-input" placeholder="활동에 참여하시려면 기입 후 인증해 주세요.">
+					<td>
+						<input type="email" name="memail" id="memail" class="data-input"
+							placeholder="활동에 참여하시려면 기입 후 인증해 주세요.">
 						<input type="button" value="중복확인" name="memailConfirm" class="btn">
-						<div id="memailConfirmResult">&nbsp;</div></td>
+						<div id="memailConfirmResult">&nbsp;</div>
+					</td>
 				</tr>
 				<tr>
 					<th>성별</th>
-					<td><input type="radio" name="mgender" value="M">&nbsp; 남
-						&nbsp; <input type="radio" name="mgender" value="F">&nbsp; 여</td>
+					<td>
+						<input type="radio" name="mgender" value="M">
+						&nbsp; 남 &nbsp;
+						<input type="radio" name="mgender" value="F">
+						&nbsp; 여
+					</td>
 				</tr>
 				<tr>
 					<th>생년월일</th>
-					<td><input type="text" name="mbirth" id="datepicker"
-							class="data-input"></td>
+					<td>
+						<input type="text" name="mbirth" id="datepicker" class="data-input">
+					</td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="maddress" class="data-input"></td>
+					<td>
+						<input type="text" name="maddress" class="data-input">
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2" class="center">

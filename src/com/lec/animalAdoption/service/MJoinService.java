@@ -34,9 +34,9 @@ public class MJoinService implements Service {
 		if (result == MemberDao.SUCCESS) {
 			HttpSession session = request.getSession();
 			session.setAttribute("mid", mid);
-			session.setAttribute("joinResult", "회원가입이 완료되었습니다.");
+			session.setAttribute("resultMsg", "회원가입이 완료되었습니다.");
 		} else if (result == MemberDao.FAIL) {
-			request.setAttribute("joinResult", "회원가입이 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "회원가입이 실패했습니다.");
 		}
 
 	}

@@ -61,7 +61,7 @@
 					<th>비밀번호<b class="red">&nbsp;*</b></th>
 					<td>
 						<input type="password" name="rpw" class="data-input" required="required"
-							placeholder="비밀번호는 글 삭제 시 작성해야 합니다.">
+							placeholder="비밀번호는 글 수정 시 사용됩니다.">
 					</td>
 				<tr>
 					<td colspan="2" class="center">

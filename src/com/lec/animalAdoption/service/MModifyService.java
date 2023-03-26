@@ -38,9 +38,9 @@ public class MModifyService implements Service {
 		if (result == MemberDao.SUCCESS) {
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
-			session.setAttribute("modifyResult", "정보수정이 완료되었습니다.");
+			session.setAttribute("resultMsg", "정보수정이 완료되었습니다.");
 		} else if (result == MemberDao.FAIL) {
-			request.setAttribute("modifyResult", "정보수정이 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "정보수정이 실패했습니다.");
 		}
 		
 	}

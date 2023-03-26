@@ -60,9 +60,9 @@ public class RBoardWriteService implements Service {
 			}
 			
 			if (result == ReviewBoardDao.SUCCESS) {
-				request.setAttribute("reviewBoardResult", "게시글 작성이 완료되었습니다.");
+				request.setAttribute("resultMsg", "게시글 작성이 완료되었습니다.");
 			} else if (result == ReviewBoardDao.FAIL) {
-				request.setAttribute("reviewBoardResultError", "게시글 작성이 실패했습니다.");
+				request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
 			}
 			
 		} catch (Exception e) {

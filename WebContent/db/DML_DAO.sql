@@ -161,6 +161,13 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
               AND SNAME LIKE '%'|| '서울' || '%'
             ORDER BY ARDATE DESC)ANIMALlIST)
          WHERE RN BETWEEN 1 AND 2;
+         
+SELECT COUNT(*) CNT FROM ANIMAL, SHELTER
+            WHERE ANIMAL.SID = SHELTER.SID
+              AND ABREED LIKE '%' || '' || '%' 
+              AND AGENDER LIKE '%'|| '' || '%'
+              AND AWEIGHT BETWEEN 0 AND 8
+              AND SNAME LIKE '%'|| '서울' || '%';
       
 -- 8. 나의 관심동물 조회(최근에 좋아요한 순서로 정렬)
 -- public ArrayList<AnimalDto> getLikeList(String mid, int startRow, int endRow)

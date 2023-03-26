@@ -52,14 +52,14 @@ public class RBoardModifyService implements Service {
 			result = rbDao.modifyReview(review);
 
 			if (result == ReviewBoardDao.SUCCESS) {
-				request.setAttribute("reviewBoardResult", "게시글 수정이 완료되었습니다.");
+				request.setAttribute("resultMsg", "게시글 수정이 완료되었습니다.");
 			} else if (result == ReviewBoardDao.FAIL) {
-				request.setAttribute("reviewBoardResultError", "게시글 수정이 실패했습니다.");
+				request.setAttribute("resultErrorMsg", "게시글 수정이 실패했습니다.");
 			}
 			request.setAttribute("pageNum", mRequest.getParameter("pageNum"));
 			
 		} catch (Exception e) {
-			request.setAttribute("reviewBoardResultError", "게시글 수정이 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "게시글 수정이 실패했습니다.");
 			System.out.println(e.getMessage());
 		}
 		

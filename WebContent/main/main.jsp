@@ -63,40 +63,19 @@ div.main-banner {
 <body>
 	<!-- --------------- user --------------- -->
 	<!-- 로그인 결과 출력 -->
-	<c:if test="${not empty loginErrorMsg }">
-		<script>
-			alert('${loginErrorMsg}');
-			history.back();
-		</script>
-	</c:if>
-
 	<!-- 로그아웃 결과 출력 -->
-	<c:if test="${not empty logoutMsg }">
-		<script>
-			alert('${logoutMsg}');
-		</script>
-	</c:if>
-
 	<!-- 회원탈퇴 결과 출력 -->
-	<c:if test="${not empty reviewBoardResult }">
+	<c:if test="${not empty resultMsg }">
 		<script>
-			alert('${withDrawalResult}')
+			alert('${resultMsg}');
 		</script>
 	</c:if>
-	<c:if test="${not empty reviewBoardResultError }">
+	<c:if test="${not empty resultErrorMsg }">
 		<script>
-			alert('${reviewBoardResultError}')
+			alert('${resultErrorMsg}');
 			history.back();
 		</script>
 	</c:if>
-
-	<!-- --------------- board --------------- -->
-	<c:if test="${not empty deleteReviewResult }">
-		<script>
-			alert('${deleteReviewResult}');
-		</script>
-	</c:if>
-
 
 	<jsp:include page="../main/header.jsp" />
 	<div id="main">

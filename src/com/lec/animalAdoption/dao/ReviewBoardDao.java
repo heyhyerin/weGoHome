@@ -161,11 +161,38 @@ public class ReviewBoardDao {
 	}
 	
 	// 4. 게시글 상세보기
-	public ReviewBoardDto getReview(int rno) {
-		ReviewBoardDto review 	= null;
-		Connection        conn  = null;
+	// 4-1 조회수 1 증가
+	private void hitUpBoard(int rno) {
+		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet         rs    = null;
+		String sql = "UPDATE REVIEWBOARD SET RHIT = RHIT + 1 WHERE RNO = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+	
+	
+	// 4-2 상세보기 출력
+	public ReviewBoardDto getReview(int rno) {
+		hitUpBoard(rno);
+		ReviewBoardDto review = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		String sql = "SELECT L.*," + 
 				"        (SELECT MNAME FROM MEMBER WHERE L.MID = MID) ||" + 
 				"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) WRITERNAME" + 

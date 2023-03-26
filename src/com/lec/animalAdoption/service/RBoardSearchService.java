@@ -8,19 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.lec.animalAdoption.dao.ReviewBoardDao;
 import com.lec.animalAdoption.dto.ReviewBoardDto;
 
-public class RBoardSchListService implements Service {
+public class RBoardSearchService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String schStr = request.getParameter("searchBox");
 		
+		// 검색 시 1page로
 		String pageNum = "1";
 		int currentPage = Integer.parseInt(pageNum);
 		final int PAGESIZE = 10, BLOCKSIZE = 10;
-		/*
-		 * int startRow = (currentPage - 1) * PAGESIZE + 1; int endRow = startRow +
-		 * PAGESIZE - 1;
-		 */
 		int startRow = (currentPage - 1) * PAGESIZE + 1;
 		int endRow = startRow + PAGESIZE - 1;
 		

@@ -18,9 +18,9 @@ public class MWithDrawalService implements Service {
 		if (result == MemberDao.SUCCESS) {
 			HttpSession session = request.getSession();
 			session.invalidate();
-			request.setAttribute("withDrawalResult", "회원 탈퇴가 정상적으로 처리되었습니다. 이용해 주셔서 감사합니다.");
+			request.setAttribute("resultMsg", "회원 탈퇴가 정상적으로 처리되었습니다. 이용해 주셔서 감사합니다.");
 		} else if (result == MemberDao.FAIL) {
-			request.setAttribute("withDrawalResultError", "회원 탈퇴가 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "회원 탈퇴가 실패했습니다.");
 		}
 
 	}

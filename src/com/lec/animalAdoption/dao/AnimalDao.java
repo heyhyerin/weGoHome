@@ -294,7 +294,6 @@ public class AnimalDao {
 	public void deleteAnimalComment(int ano) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		String sql = "DELETE FROM ANIMALCOMMENT" + 
 					 "    WHERE ANO = ?";
 		try {
@@ -417,7 +416,48 @@ public class AnimalDao {
 			return list;
 		}
 		
-		// 8. 나의 관심동물 조회
+		// 8. 검색된 총 글 갯수 조회
+		public int getSchAnimalTotCnt(String schAbreed, String schAgender, 
+				int schRowAweight, int schHighAweight, String schSname) {
+			int totCnt = 0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT COUNT(*) CNT FROM ANIMAL, SHELTER" + 
+					"        WHERE ANIMAL.SID = SHELTER.SID" + 
+					"          AND ABREED LIKE '%' || ? || '%' " + 
+					"          AND AGENDER LIKE '%'|| ? || '%'" + 
+					"          AND AWEIGHT BETWEEN ? AND ?" + 
+					"          AND SNAME LIKE '%'|| ? || '%'";
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, schAbreed);
+				pstmt.setString(2, schAgender);
+				pstmt.setInt(3, schRowAweight);
+				pstmt.setInt(4, schHighAweight);
+				pstmt.setString(5, schSname);
+				rs = pstmt.executeQuery();
+				rs.next();
+				totCnt = rs.getInt("cnt");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			return totCnt;
+		}
+		
+		// 9. 나의 관심동물 조회
 		public ArrayList<AnimalDto> getLikeList(String mid, int startRow, int endRow){
 			ArrayList<AnimalDto> list = new ArrayList<AnimalDto>();
 			Connection        conn  = null;

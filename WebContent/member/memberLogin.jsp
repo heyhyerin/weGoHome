@@ -90,9 +90,14 @@ div#login-form .login-table {
 	</c:if>
 
 	<!-- 회원가입 결과 출력 -->
-	<c:if test="${not empty joinResult }">
+	<c:if test="${not empty resultMsg }">
 		<script>
-			alert('${joinResult}');
+			alert('${resultMsg}');
+		</script>
+	</c:if>
+	<c:if test="${not empty resultErrorMsg }">
+		<script>
+			alert('${resultErrorMsg}');
 		</script>
 	</c:if>
 

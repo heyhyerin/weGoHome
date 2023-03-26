@@ -9,23 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lec.animalAdoption.service.LogoutService;
-import com.lec.animalAdoption.service.MEmailConfirmService;
-import com.lec.animalAdoption.service.MIdConfirmService;
-import com.lec.animalAdoption.service.MJoinService;
-import com.lec.animalAdoption.service.MLoginService;
-import com.lec.animalAdoption.service.MModifyService;
-import com.lec.animalAdoption.service.MTelConfirmService;
-import com.lec.animalAdoption.service.MViewService;
-import com.lec.animalAdoption.service.MWithDrawalService;
-import com.lec.animalAdoption.service.RBoardContentService;
-import com.lec.animalAdoption.service.RBoardDeleteService;
-import com.lec.animalAdoption.service.RBoardListService;
-import com.lec.animalAdoption.service.RBoardModifyService;
-import com.lec.animalAdoption.service.RBoardSchListService;
-import com.lec.animalAdoption.service.RBoardWriteService;
-import com.lec.animalAdoption.service.SLoginService;
-import com.lec.animalAdoption.service.Service;
+import com.lec.animalAdoption.service.*;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -69,7 +53,7 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "main.do";
 		}
-		
+
 		// 회원가입
 		else if (command.equals("/joinView.do")) {
 			viewPage = "member/memberJoin.jsp";
@@ -90,25 +74,25 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "loginView.do";
 		}
-		
+
 		// 회원 정보 수정
 		else if (command.equals("/memberView.do")) {
 			service = new MViewService();
 			service.execute(request, response);
 			viewPage = "member/memberModify.jsp";
-		} else if(command.equals("/memberModify.do")) {
+		} else if (command.equals("/memberModify.do")) {
 			service = new MModifyService();
 			service.execute(request, response);
 			viewPage = "memberView.do";
 		}
-		
+
 		// 회원 탈퇴
 		else if (command.equals("/memberWithDrawal.do")) {
 			service = new MWithDrawalService();
 			service.execute(request, response);
 			viewPage = "main.do";
 		}
-		
+
 		// 로그아웃
 		else if (command.equals("/logout.do")) {
 			service = new LogoutService();
@@ -117,12 +101,13 @@ public class FrontController extends HttpServlet {
 		}
 
 		// shelter ----------------------------------------
+		// 보호소 로그인
 		else if (command.equals("/shelterLogin.do")) {
 			service = new SLoginService();
 			service.execute(request, response);
 			viewPage = "main.do";
 		}
-		
+
 		// reviewBoard ----------------------------------------
 		// 리뷰게시판 글 목록
 		else if (command.equals("/reviewBoardList.do")) {
@@ -138,15 +123,15 @@ public class FrontController extends HttpServlet {
 			service = new RBoardWriteService();
 			service.execute(request, response);
 			viewPage = "reviewBoardList.do";
-		} 
-		
+		}
+
 		// 리뷰게시판 글 상세보기
 		else if (command.equals("/reviewBoardContent.do")) {
 			service = new RBoardContentService();
 			service.execute(request, response);
 			viewPage = "reviewBoard/reviewBoardContent.jsp";
 		}
-		
+
 		// 리뷰게시글 수정
 		else if (command.equals("/reviewBoardModifyView.do")) {
 			service = new RBoardContentService();
@@ -155,31 +140,45 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/reviewBoardModify.do")) {
 			service = new RBoardModifyService();
 			service.execute(request, response);
-			viewPage = "/reviewBoardContent.do";
+			viewPage = "/reviewBoardList.do";
 		}
-		
+
 		// 리뷰게시글 삭제
 		else if (command.equals("/reviewBoardDelete.do")) {
 			service = new RBoardDeleteService();
 			service.execute(request, response);
-			viewPage = "main.do";
+			viewPage = "reviewBoardList.do";
 		}
-		
+
 		// 특정 게시글에 답변글 작성
 		else if (command.equals("/reviewBoardReplyView.do")) {
-			
+
 		} else if (command.equals("/reviewBoardReply.do")) {
-			
+
 		}
-		
+
 		// 리뷰게시판 검색
 		else if (command.equals("/reviewSearch.do")) {
-			service = new RBoardSchListService();
+			service = new RBoardSearchService();
 			service.execute(request, response);
 			viewPage = "reviewBoard/reviewBoardList.jsp";
 		}
-			
-			
+
+		// animal ----------------------------------------
+		// 보호동물 목록
+		else if (command.equals("/animalBoardList.do")) {
+			service = new ABoardListService();
+			service.execute(request, response);
+			viewPage = "animal/animalBoardList.jsp";
+		}
+
+		// 보호동물 검색
+		else if (command.equals("/animalSearch.do")) {
+			service = new ASearchService();
+			service.execute(request, response);
+			viewPage = "animal/animalBoardList.jsp";
+		}
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 

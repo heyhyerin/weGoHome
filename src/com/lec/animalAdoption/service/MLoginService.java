@@ -22,7 +22,7 @@ public class MLoginService implements Service {
 			MemberDto member = mDao.getMember(mid);
 			session.setAttribute("member", member);
 		} else if(result == MemberDao.FAIL) {
-			request.setAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인하세요.");
+			request.setAttribute("resultErrorMsg", "아이디 또는 비밀번호를 확인하세요.");
 		}
 	}
 
