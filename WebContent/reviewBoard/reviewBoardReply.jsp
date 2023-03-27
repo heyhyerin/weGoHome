@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="conPath" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
@@ -9,8 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <style>
@@ -36,8 +35,12 @@
 	
 	<jsp:include page="../main/header.jsp" />
 	<div id="wrap">
-		<h2>게시물 작성</h2>
-		<form action="${conPath }/reviewBoardWrite.do" method="post" enctype="multipart/form-data">
+		<h2>답변 게시물 작성</h2>
+		<form action="${conPath }/reviewBoardReply.do" method="post" enctype="multipart/form-data">
+			<input type="text" name="rgroup" value="${originReview.rgroup }">
+			<input type="text" name="rstep" value="${originReview.rstep }">
+			<input type="text" name="rindent" value="${originReview.rindent }">
+			<input type="text" name="pageNum" value="${param.pageNum }">
 			<table class="dataTable">
 				<tr>
 					<th>제목<b class="red">&nbsp;*</b></th>
@@ -48,7 +51,7 @@
 				<tr>
 					<td colspan="2">
 						<textarea name="rcontent" required="required"
-							placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
+							><&nbsp;${originReview.rtitle }&nbsp;> 답변글입니다. &#10;</textarea>
 					</td>
 				</tr>
 				<tr>

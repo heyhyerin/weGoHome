@@ -41,21 +41,26 @@ public class AnimalDao {
 	}
 	
 	// 1. 보호동물 목록 출력
-	public ArrayList<AnimalDto> getAnimalList(int startRow, int endRow){
+	public ArrayList<AnimalDto> getAnimalList(String mid, int startRow, int endRow){
 		ArrayList<AnimalDto> animalList = new ArrayList<AnimalDto>();
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
 		ResultSet         rs    = null;
 		String sql = "SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*" + 
-				"         FROM(SELECT ANIMAL.*, SNAME FROM ANIMAL, SHELTER" + 
-				"            WHERE ANIMAL.SID = SHELTER.SID" + 
-				"            ORDER BY ARDATE DESC)ANIMALlIST)" + 
-				"         WHERE RN BETWEEN ? AND ?";
+				"             FROM(SELECT A.*, SNAME, LNO LIKECHK" + 
+				"             FROM ANIMAL A" + 
+				"                , SHELTER S" + 
+				"                ,(SELECT * FROM LIKELIST WHERE MID = ?) L" + 
+				"            WHERE A.SID = S.SID" + 
+				"              AND A.ANO = L.ANO(+)" + 
+				"         ORDER BY A.ANO DESC)ANIMALlIST)" + 
+				"            WHERE RN BETWEEN ? AND ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, mid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				// animal
@@ -69,16 +74,16 @@ public class AnimalDao {
 				String acontent = rs.getString("acontent");
 				String aaddress = rs.getString("aaddress");
 				Timestamp ardate = rs.getTimestamp("ardate");
-				String aAdopt = rs.getString("aAdopt");
+				String aadopt = rs.getString("aadopt");
 				String aip = rs.getString("aip");
+				int likeChk = rs.getInt("likeChk");
 
 				// shelter
 				String sname = rs.getString("sname");
 				/* String stel = rs.getString("stel");
 				String semail = rs.getString("semail");
 				String saddress = rs.getString("saddress"); */
-				animalList.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress,
-						ardate, aAdopt, aip, sname, null, null, null));
+				animalList.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress, ardate, aadopt, aip, sname, null, null, null, likeChk));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -198,8 +203,8 @@ public class AnimalDao {
 				String stel = rs.getString("stel");
 				String semail = rs.getString("semail");
 				String saddress = rs.getString("saddress");
-				animal = new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress, ardate,
-						aadopt, aip, sname, stel, semail, saddress);
+				
+				animal = new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress, ardate, aadopt, aip, sname, stel, semail, saddress, 0);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -396,8 +401,7 @@ public class AnimalDao {
 
 					// shelter
 					String sname = rs.getString("sname");
-					list.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress,
-							ardate, aadopt, aip, sname, null, null, null));
+					list.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress, ardate, aadopt, aip, schSname, null, null, null, 0));
 				}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
@@ -496,7 +500,7 @@ public class AnimalDao {
 					// shelter
 					String sname = rs.getString("sname");
 					list.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress,
-							ardate, aadopt, aip, sname, null, null, null));
+							ardate, aadopt, aip, sname, null, null, null, 0));
 				}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());

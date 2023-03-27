@@ -113,6 +113,71 @@ public class ShelterDao {
 	}
 	
 	// 3. 보호소 정보 수정
+	// 3-1. stel 중복체크
+	public int telConfirm(String stel) {
+		int result = EXISTENT;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM SHELTER WHERE STEL = REGEXP_REPLACE(?, '[^0-9]')";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, stel);
+			rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				result = NONEXISTENT;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+	
+	// 3-2. semail 중복체크
+	public int emailConfirm(String semail) {
+		int result = EXISTENT;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM SHELTER WHERE SEMAIL = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, semail);
+			rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				result = NONEXISTENT;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+	
+	// 3-3. 정보수정
 	public int modifyShelter(ShelterDto shelter) {
 		int result = FAIL;
 		Connection conn = null;

@@ -67,17 +67,18 @@ public class LikeListDao {
 	}
 	
 	// 2. 관심동물 해제
-	public int removeLikeList(int ano) {
+	public int removeLikeList(String mid, int ano) {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "DELETE FROM LIKELIST" + 
-				"    WHERE ANO = ?";
+					 "    WHERE MID = ? AND ANO = ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, ano);
+			pstmt.setString(1, mid);
+			pstmt.setInt(2, ano);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				result = SUCCESS;

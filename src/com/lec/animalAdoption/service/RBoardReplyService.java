@@ -19,7 +19,7 @@ import com.lec.animalAdoption.dto.ShelterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class RBoardWriteService implements Service {
+public class RBoardReplyService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -53,20 +53,23 @@ public class RBoardWriteService implements Service {
 				String rcontent = mRequest.getParameter("rcontent");
 				String rpw = mRequest.getParameter("rpw");
 				String rip = request.getLocalAddr();
+				int rgroup = Integer.parseInt(mRequest.getParameter("rgroup"));
+				int rstep = Integer.parseInt(mRequest.getParameter("rstep"));
+				int rindent = Integer.parseInt(mRequest.getParameter("rindent"));
 				
 				ReviewBoardDao rbDao = ReviewBoardDao.getInstance();
-				ReviewBoardDto review = new ReviewBoardDto(0, mid, sid, rtitle, rcontent, rpw, filename, null, 0, 0, 0, 0, rip, null); 
-				result = rbDao.writeReview(review);
+				ReviewBoardDto review = new ReviewBoardDto(0, mid, sid, rtitle, rcontent, rpw, filename, null, 0, rgroup, rstep, rindent, rip, null);
+				result = rbDao.replyReview(review);
 			}
 			
 			if (result == ReviewBoardDao.SUCCESS) {
-				request.setAttribute("resultMsg", "게시글 작성이 완료되었습니다.");
+				request.setAttribute("resultMsg", "답변 게시글 작성이 완료되었습니다.");
 			} else if (result == ReviewBoardDao.FAIL) {
-				request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
+				request.setAttribute("resultErrorMsg", "답변 게시글 작성이 실패했습니다.");
 			}
 			
 		} catch (Exception e) {
-			request.setAttribute("reviewBoardResultError", "게시글 작성이 실패했습니다.");
+			request.setAttribute("reviewBoardResultError", "답변 게시글 작성이 실패했습니다.");
 			System.out.println(e.getMessage());
 		}
 		

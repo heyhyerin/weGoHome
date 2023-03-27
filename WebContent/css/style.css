@@ -119,10 +119,7 @@ table caption {
 
 .modify-table td {
 	padding-bottom: 10px;
-}
-
-.modify-table td input{
-	margin-left: 20px;
+	padding-left: 20px;
 }
 
 .modify-table td:not(.center) {
@@ -204,6 +201,7 @@ textarea {
 	margin: 20px;
 	padding: 20px;
 	box-sizing: border-box;
+	border: 1px solid #dddddd;
 	/* border-radius: 10px; */
 }
 
@@ -234,47 +232,11 @@ input:focus {
 	box-shadow: 0 0 2px 0 #FF4600;
 }
 
-
-/* ---------- button.Sign-in ---------- */
-input.signBtn, button.signBtn {
-	font-family: 'Outfit', sans-serif;
-	font-weight: bold;
-	width: auto;
-	background: #FF4600;
-	padding: 10px 20px;
-	margin: 0 auto;
-	color: #ffffff;
-	text-align: center;
-	text-decoration: none;
-	border: none;
-	border-radius: 50px;
-	cursor: pointer;
-}
-
-input.signBtn:hover, button.signBtn:hover {
-	background: #E63200;
-	color: white;
-}
-
-input.signBtn-outline, button.signBtn-outline {
-	font-family: 'Outfit', sans-serif;
-	font-weight: bold;
-	width: auto;
-	background-color: white;
-	padding: 10px 20px;
-	color: #aaaaaa;
-	border: 1.5px solid #aaaaaa;
-	text-align: center;
-	text-decoration: none;
-	border-radius: 50px;
-	cursor: pointer;
-}
-
 input.signBtn-outline:hover, button.signBtn-outline:hover {
 	background: #eeeeee;
 }
 
-/* ---------- button.submit ---------- */
+/* ---------- button ---------- */
 /* 로그인버튼 */
 button.btn-submit, input.btn-submit {
 	width: 340px;
@@ -321,7 +283,42 @@ input.btn-grey, button.btn-grey {
 	cursor: pointer;
 }
 
-/* ----------- .paging ----------- */
+/* 로그인 버튼 */
+input.signBtn, button.signBtn {
+	font-family: 'Outfit', sans-serif;
+	font-weight: bold;
+	width: auto;
+	background: #FF4600;
+	padding: 10px 20px;
+	margin: 0 auto;
+	color: #ffffff;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+input.signBtn:hover, button.signBtn:hover {
+	background: #E63200;
+	color: white;
+}
+
+input.signBtn-outline, button.signBtn-outline {
+	font-family: 'Outfit', sans-serif;
+	font-weight: bold;
+	width: auto;
+	background-color: white;
+	padding: 10px 20px;
+	color: #aaaaaa;
+	border: 1.5px solid #aaaaaa;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+/* ----------- paging ----------- */
 .paging {
 	text-align: center;
 	margin: 10px 0;

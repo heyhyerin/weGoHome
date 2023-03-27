@@ -6,6 +6,6 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	${likeResult }
+${semailConfirmResult }
 </body>
 </html>

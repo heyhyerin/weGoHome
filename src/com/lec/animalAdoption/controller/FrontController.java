@@ -107,6 +107,25 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "main.do";
 		}
+		
+		// 보호소 정보 수정
+		else if (command.equals("/shelterView.do")) {
+			service = new SViewService();
+			service.execute(request, response);
+			viewPage = "shelter/shelterModify.jsp";
+		} else if (command.equals("/stelConfirm.do")) {
+			service = new STelConfirmService();
+			service.execute(request, response);
+			viewPage = "shelter/stelConfirm.jsp";
+		} else if (command.equals("/semailConfirm.do")) {
+			service = new SEmailConfirmService();
+			service.execute(request, response);
+			viewPage = "shelter/semailConfirm.jsp";
+		} else if (command.equals("/shelterModify.do")) {
+			service = new SModifyService();
+			service.execute(request, response);
+			viewPage = "shelterView.do";
+		}
 
 		// reviewBoard ----------------------------------------
 		// 리뷰게시판 글 목록
@@ -152,9 +171,13 @@ public class FrontController extends HttpServlet {
 
 		// 특정 게시글에 답변글 작성
 		else if (command.equals("/reviewBoardReplyView.do")) {
-
+			service = new RBoardReplyViewService();
+			service.execute(request, response);
+			viewPage = "reviewBoard/reviewBoardReply.jsp";
 		} else if (command.equals("/reviewBoardReply.do")) {
-
+			service = new RBoardReplyService();
+			service.execute(request, response);
+			viewPage = "reviewBoardList.do";
 		}
 
 		// 리뷰게시판 검색
@@ -169,9 +192,16 @@ public class FrontController extends HttpServlet {
 		else if (command.equals("/animalBoardList.do")) {
 			service = new ABoardListService();
 			service.execute(request, response);
-			viewPage = "animal/animalBoardList.jsp";
+			viewPage = "animal/animalBoard.jsp";
 		}
-		
+		// 보호동물 공고 작성
+		else if (command.equals("/animalWriteView.do")) {
+			viewPage = "animal/animalWrite.jsp";
+		} else if (command.equals("/animalWrite.do")) {
+			service = new AWriteService();
+			service.execute(request, response);
+			viewPage = "animalBoardList.do";
+		}
 		// 보호동물 상세보기
 		else if (command.equals("/animalContent.do")) {
 			service = new AContentService();
@@ -183,7 +213,7 @@ public class FrontController extends HttpServlet {
 		else if (command.equals("/animalSearch.do")) {
 			service = new ASearchService();
 			service.execute(request, response);
-			viewPage = "animal/animalBoardList.jsp";
+			viewPage = "animalBoardList.do";
 		}
 
 		// likeList ----------------------------------------
@@ -191,14 +221,14 @@ public class FrontController extends HttpServlet {
 		else if (command.equals("/likeListAdd.do")) {
 			service = new LikeListAddService();
 			service.execute(request, response);
-			viewPage = "likeList/likeListAdd.jsp";
+			viewPage = "animalBoardList.do";
 		}
 
 		// 관심동물 해제
 		else if (command.equals("/likeListRemove.do")) {
 			service = new LikeListRemoveService();
 			service.execute(request, response);
-			viewPage = "likeList/likeListRemove.jsp";
+			viewPage = "animalBoardList.do";
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

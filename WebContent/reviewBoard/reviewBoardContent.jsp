@@ -65,6 +65,8 @@
 				<tr>
 					<td><input type="button" value="수정" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardModifyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">
+						<input type="button" value="답변작성" class="btn-grey"
+							onclick="location.href='${conPath}/reviewBoardReplyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">
 						<input type="button" value="글목록" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardList.do'">
 					</td>
@@ -75,6 +77,8 @@
 				<tr>
 					<td><input type="button" value="수정" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardModifyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">
+						<input type="button" value="답변작성" class="btn-grey"
+							onclick="location.href='${conPath}/reviewBoardReplyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">
 						<input type="button" value="글목록" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardList.do'">
 					</td>
@@ -85,7 +89,7 @@
 			<c:if test="${review.mid != member.mid && review.sid != shelter.sid}">
 				<tr>
 					<td><input type="button" value="답변작성" class="btn-grey"
-							onclick="location.href='${conPath}/reviewBoardReplyView.do'">
+							onclick="location.href='${conPath}/reviewBoardReplyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">
 						<input type="button" value="목록" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardList.do'">
 					</td>

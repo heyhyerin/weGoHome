@@ -20,7 +20,6 @@ public class MEmailConfirmService implements Service {
 			request.setAttribute("memailConfirmResult", "<b class='red'>중복된 이메일입니다.<b>");
 		}
 
-
 	}
 
 }

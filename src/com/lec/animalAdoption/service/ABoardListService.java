@@ -12,6 +12,7 @@ public class ABoardListService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		String mid = request.getParameter("mid");
 		String pageNum = request.getParameter("pageNum");
 		if (pageNum == null) {
 			if (request.getAttribute("pageNum") != null) {
@@ -27,7 +28,7 @@ public class ABoardListService implements Service {
 		int endRow = startRow + PAGESIZE -1;
 		
 		AnimalDao aDao = AnimalDao.getInstance();
-		ArrayList<AnimalDto> animalList = aDao.getAnimalList(startRow, endRow);
+		ArrayList<AnimalDto> animalList = aDao.getAnimalList(mid, startRow, endRow);
 		request.setAttribute("animalList", animalList);
 		
 		int totCnt = aDao.getAnimalTotCnt();

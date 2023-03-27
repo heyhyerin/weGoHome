@@ -140,7 +140,14 @@ header .gnb li a {
 					<li><a href="">위고홈 소개</a></li>
 					<li><a href="">활동</a></li>
 					<li><a href="">참여⋅봉사</a></li>
-					<li><a href="${conPath }/animalBoardList.do">입양하기</a></li>
+					<li>
+						<c:if test="${not empty member }">
+							<a href="${conPath }/animalBoardList.do?mid=${member.mid}">입양하기</a>
+						</c:if>
+						<c:if test="${empty member }">
+							<a href="${conPath }/animalBoardList.do">입양하기</a>
+						</c:if>
+					</li>
 					<li><a href="${conPath }/reviewBoardList.do">입양 후기</a></li>
 				</ul>
 			</div>
@@ -185,7 +192,7 @@ header .gnb li a {
 								<b>${shelter.sname }</b>님▾
 							</a>
 							<div class="dropdown-content">
-								<a class="dropdown-item" href="${conPath }/memberView.do">보호소 정보 수정</a> 
+								<a class="dropdown-item" href="${conPath }/shelterView.do">보호소 정보 수정</a> 
 								<a class="dropdown-item" href="#">보호 동물 현황 관리</a> 
 							</div> 
 						</li>

@@ -9,19 +9,19 @@ INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)
             
 -- SHELTER
 INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
-    VALUES ('SHELTER1', '111', '서울유기동물보호소', '02-111-1111', 'seoul@animal.co.kr', '서울시 용산구');
+    VALUES ('ashel', '111', '서울동물복지지원센터', '02-2124-2839', 'ashel@seoulAnimal.co.kr', '서울특별시 마포구 매봉산로 31(상암동)');
 
 INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
-    VALUES ('SHELTER2', '111', '파주유기동물보호소', '031-222-2222', 'paju@animal.co.kr', '경기도 파주시');
+    VALUES ('bshel', '111', '강동구청 반려동물팀', '02-3425-6015', 'gangdong@seoulAnimal.co.kr', '서울특별시 강동구 성내로 25(성내동, 강동구청)');
     
 -- ANIMAL
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, AAGE, AWEIGHT, ACONTENT, AADDRESS, ARDATE, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'SHELTER1', 'NOIMG.jpg', '진돗개', '수컷(중성화 O)', '1', '10',
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'ashel', 'wgh_0001.png', '개/진도 믹스', '수컷', '4', '12',
             '사람을 잘 따라요', '서울시 용산역 부근', SYSDATE, 'PROTECT', '197.0.0.1');
             
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
                    AAGE, AWEIGHT, ACONTENT, AADDRESS, ARDATE, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'SHELTER2', 'NOIMG.jpg', '푸들', '암컷(중성화 O)', '5', '4',
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'bshel', 'wgh_0002.png', '개/푸들', '암컷(중성화 O)', '5', '4',
             '사람을 잘 따라요', '중산마을 9단지', SYSDATE, 'PROTECT', '197.0.0.1');
 
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
@@ -52,10 +52,14 @@ VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, NULL, 'SHELTER1', '입양 6주차 후기', '입양 
         
 -- LIKElIST
 INSERT INTO LIKELIST (LNO, MID, ANO)
-    VALUES (LIKELIST_LNO_SEQ.NEXTVAL ,'test1', '2');
+    VALUES (LIKELIST_LNO_SEQ.NEXTVAL ,'aaaa', '16');
     
     INSERT INTO LIKELIST (LNO, MID, ANO)
-    VALUES (LIKELIST_LNO_SEQ.NEXTVAL ,'test1', '3');
+    VALUES (LIKELIST_LNO_SEQ.NEXTVAL ,'test3', '14');
+    
+-- 2. 관심동물 해제
+DELETE FROM LIKELIST
+    WHERE MID = 'aaaa' AND ANO = '19';
 
 SELECT * FROM MEMBER;
 SELECT * FROM SHELTER;
@@ -65,3 +69,4 @@ SELECT * FROM REVIEWBOARD;
 SELECT * FROM LIKELIST;
 
 COMMIT;
+ROLLBACK;

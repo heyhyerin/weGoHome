@@ -12,17 +12,12 @@ public class LikeListAddService implements Service {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String mid = request.getParameter("mid");
 		int ano = Integer.parseInt(request.getParameter("ano"));
-		System.out.println("mid: " + mid + " / ano: " + ano);
 		
 		LikeListDao lLDao = LikeListDao.getInstance();
 		LikeListDto likeList = new LikeListDto(0, mid, ano);
-		int result = lLDao.addLikeList(likeList);
 		
-		if (result == LikeListDao.SUCCESS) {
-			request.setAttribute("likeResult", "<img alt='관심동물 표시' src='${conPath }/img/heart-fill.png'>");
-		} else if (result == LikeListDao.FAIL) {
-			
-		}
+		int result = lLDao.addLikeList(likeList);
+
 	}
 
 }

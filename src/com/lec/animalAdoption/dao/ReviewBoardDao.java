@@ -237,6 +237,7 @@ public class ReviewBoardDao {
 		}
 		return review;
 	}
+	
 	// 5. 리뷰게시판 게시글 수정
 	public int modifyReview(ReviewBoardDto review) {
 		int result = FAIL;
@@ -334,7 +335,7 @@ public class ReviewBoardDao {
 	}
 	
 	// 7-2. STEP2 답변글 작성
-	public int reply(ReviewBoardDto review) {
+	public int replyReview(ReviewBoardDto review) {
 		preReplyStep(review.getRgroup(), review.getRstep());
 		int result = FAIL;
 		Connection conn = null;	

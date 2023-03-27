@@ -70,7 +70,7 @@
 					}
 				});
 
-		// 중복확인 후 회원가입 진행
+		// 중복확인 후 정보수정 진행
 		$('form').submit(function() {
 			var mname = $('#mname').val();
 			var oldmpw = $('#oldmpw').val();

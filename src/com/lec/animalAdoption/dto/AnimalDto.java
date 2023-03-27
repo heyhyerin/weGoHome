@@ -24,6 +24,9 @@ public class AnimalDto {
 	private String semail;
 	private String saddress;
 
+	// likeList
+	private int likeChk;
+
 	public AnimalDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -31,7 +34,7 @@ public class AnimalDto {
 
 	public AnimalDto(int ano, String sid, String aphoto, String abreed, String agender, int aage, int aweight,
 			String acontent, String aaddress, Timestamp ardate, String aadopt, String aip, String sname, String stel,
-			String semail, String saddress) {
+			String semail, String saddress, int likeChk) {
 		super();
 		this.ano = ano;
 		this.sid = sid;
@@ -49,6 +52,7 @@ public class AnimalDto {
 		this.stel = stel;
 		this.semail = semail;
 		this.saddress = saddress;
+		this.likeChk = likeChk;
 	}
 
 	public int getAno() {
@@ -179,12 +183,20 @@ public class AnimalDto {
 		this.saddress = saddress;
 	}
 
+	public int getLikeChk() {
+		return likeChk;
+	}
+
+	public void setLikeChk(int likeChk) {
+		this.likeChk = likeChk;
+	}
+
 	@Override
 	public String toString() {
 		return "AnimalDto [ano=" + ano + ", sid=" + sid + ", aphoto=" + aphoto + ", abreed=" + abreed + ", agender="
 				+ agender + ", aage=" + aage + ", aweight=" + aweight + ", acontent=" + acontent + ", aaddress="
 				+ aaddress + ", ardate=" + ardate + ", aadopt=" + aadopt + ", aip=" + aip + ", sname=" + sname
-				+ ", stel=" + stel + ", semail=" + semail + ", saddress=" + saddress + "]";
+				+ ", stel=" + stel + ", semail=" + semail + ", saddress=" + saddress + ", likeChk=" + likeChk + "]";
 	}
 
 }

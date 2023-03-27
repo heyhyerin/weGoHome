@@ -102,7 +102,17 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
             WHERE ANIMAL.SID = SHELTER.SID
             ORDER BY ARDATE DESC)ANIMALlIST)
          WHERE RN BETWEEN 1 AND 2;
-         
+        
+    -- 좋아요 체크까지 출력
+    SELECT A.*, LNO LIKECHK
+        FROM ANIMAL A
+           , LIKELIST L
+        WHERE A.ANO = L.ANO(+)
+          AND L.ANO = (SELECT LNO FROM LIKELIST WHERE MID = 'aaaa');
+        
+    SELECT LNO FROM LIKELIST WHERE MID = 'aaaa'
+    
+    
 -- 2. 등록된 전체 동물 수 조회
 -- public int getAnimalTotCnt()
 SELECT COUNT(*) CNT FROM ANIMAL;    

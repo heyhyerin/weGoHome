@@ -51,7 +51,7 @@
 	font-size: 10pt;
 }
 
-.animalBox span.heart{
+.animalBox div.heart{
 	position: relative;
 	bottom: 112px;
 	left: 200px;
@@ -80,34 +80,26 @@
 <script>
 	$(function() {
 		// 상세보기
-		$('div.animalBox').click(function() {
+		$('.clickBox').click(function() {
 			var ano = $(this).children().eq(0).val();
-			// alert(ano);
-			location.href="${conPath}/animalContent.do?ano="+ano;
+			location.href='${conPath}/animalContent.do?ano=' + ano;
 		});
 		
-		
-		// 관심동물 등록
-		$('.heart').click(function() {
-			var ano = $(this).children().eq(0).val();
-			// var mid = document.getElementById("member");
-			// 세션에 있는 member의 mid 필요 **
-			var mid = sessionStorage.getItem('mid');
-			alert(ano);
-			alert(mid);
-			$.ajax({
-				url: '${conPath}/LikeListAdd.do',
-				data: 'mid=' + mid + '&ano=' + ano,
-				type: 'get',
-				dataType: 'html',
-				success: function() {
-					$('.heart').html(data);
-				},
-				/* error: function() {
-					alert('로그인 이후 이용가능한 서비스 입니다.');
-				}, */
-			}); // ajax
+		$('div.heart-line').click(function() {
+			if(${empty member.mid}){
+				alert('로그인 후 이용 가능한 서비스입니다.');
+				location.href='${conPath}/loginView.do';
+			} else {
+				var ano = $(this).children().eq(0).val();
+				location.href='${conPath}/likeListAdd.do?mid=${member.mid}&ano=' + ano;
+			};
 		});
+		
+		$('div.heart-fill').click(function() {
+			var ano = $(this).children().eq(0).val();
+			location.href='${conPath}/likeListRemove.do?mid=${member.mid}&ano=' + ano;
+		});
+		
 	});
 
 </script>
@@ -164,8 +156,10 @@
 			<c:if test="${not empty animalList }">
 				<c:forEach var="animal" items="${animalList }">
 					<div class="animalBox">
-						<input type="hidden" name="ano" value="${animal.ano }">
-						<img alt="보호 동물 프로필 사진" src="${conPath }/animalImgUp/${animal.aphoto }" class="board-img">
+						<div class="clickBox">
+							<input type="hidden" name="ano" value="${animal.ano }">
+							<img alt="보호 동물 프로필 사진" src="${conPath }/animalImgUp/${animal.aphoto }" class="board-img">
+						</div>
 						<div class="content">
 							<h2>${animal.abreed }</h2>
 							<p>
@@ -174,14 +168,28 @@
 								<b>${animal.sname }</b>
 							</p>
 						</div>
-						<span class="heart">
-							<input type="hidden" name="ano" value="${animal.ano }">
-							<img alt="관심동물 표시" src="${conPath }/img/heart-line.png">
-						</span>
+						
+						<!-- 사용자 로그인 또는 비로그인 시 관심동물 표시 -->
+						<c:if test="${empty shelter }">
+							<div class="heart">
+								<c:if test="${animal.likeChk eq 0}">
+									<div class="heart-line">
+										<input type="hidden" name="ano" value="${animal.ano }">
+										<img alt="관심동물 표시" src="${conPath }/img/heart-line.png">
+									</div>
+								</c:if>
+								<c:if test="${animal.likeChk != 0}">
+									<div class="heart-fill">
+										<input type="hidden" name="ano" value="${animal.ano }">
+										<img alt="관심동물 표시" src="${conPath }/img/heart-fill.png">
+									</div>
+								</c:if>
+							</div>
+						</c:if>
 					</div>
 				</c:forEach>
 			</c:if>
-		</div><!-- 유기동물 목록 -->
+		</div>
 		
 		<div class="paging">
 			<c:if test="${startPage > BLOCKSIZE }">
