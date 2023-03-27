@@ -142,7 +142,7 @@ header .gnb li a {
 					<li><a href="">참여⋅봉사</a></li>
 					<li>
 						<c:if test="${not empty member }">
-							<a href="${conPath }/animalBoardList.do?mid=${member.mid}">입양하기</a>
+							<a href="${conPath }/animalBoardList.do">입양하기</a>
 						</c:if>
 						<c:if test="${empty member }">
 							<a href="${conPath }/animalBoardList.do">입양하기</a>
@@ -173,7 +173,7 @@ header .gnb li a {
 							</a>
 							<div class="dropdown-content">
 								<a class="dropdown-item" href="${conPath }/memberView.do">회원정보 수정</a> 
-								<a class="dropdown-item" href="#">나의 관심 동물</a> 
+								<a class="dropdown-item" href="${conPath }/memberLikeList.do">나의 관심 동물</a> 
 								<a class="dropdown-item" href="#">내가 작성한 글</a>
 							</div> 
 						</li>
@@ -181,7 +181,7 @@ header .gnb li a {
 				</div>
 			</c:if>
 
-			<!-- 보호소 로그온 gnb -->
+			<!-- 보호소 gnb -->
 			<c:if test="${not empty shelter}">
 				<div class="gnb">
 					<ul>
@@ -193,7 +193,7 @@ header .gnb li a {
 							</a>
 							<div class="dropdown-content">
 								<a class="dropdown-item" href="${conPath }/shelterView.do">보호소 정보 수정</a> 
-								<a class="dropdown-item" href="#">보호 동물 현황 관리</a> 
+								<a class="dropdown-item" href="${conPath }/shelterAList.do">보호 동물 현황 관리</a> 
 							</div> 
 						</li>
 					</ul>

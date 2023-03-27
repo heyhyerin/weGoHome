@@ -99,6 +99,20 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "main.do";
 		}
+		
+		// 관심 동물 목록 출력
+		else if (command.equals("/memberLikeList.do")) {
+			service = new MLikeListService();
+			service.execute(request, response);
+			viewPage = "member/memberLikeList.jsp";
+		}
+		
+		// 관심동물 해제
+		else if (command.equals("/mlikeListRemove.do")) {
+			service = new LikeListRemoveService();
+			service.execute(request, response);
+			viewPage = "memberLikeList.do";
+		}
 
 		// shelter ----------------------------------------
 		// 보호소 로그인
@@ -127,6 +141,24 @@ public class FrontController extends HttpServlet {
 			viewPage = "shelterView.do";
 		}
 
+		// shelter: 보호동물 공고 ---------------------------------
+		// 보호동물 목록
+		else if (command.equals("/shelterAList.do")) {
+			service = new SaListService();
+			service.execute(request, response);
+			viewPage = "shelter/sAnimalList.jsp";
+		}
+		
+		// 보호동물 글 작성
+		else if (command.equals("/shelterAWriteView.do")) {
+			viewPage = "shelter/sAnimalWrite.jsp";
+		} else if (command.equals("/shelterAWrite.do")) {
+			service = new SaWriteService();
+			service.execute(request, response);
+			viewPage = "shelterAList.do";
+		}
+		
+		
 		// reviewBoard ----------------------------------------
 		// 리뷰게시판 글 목록
 		else if (command.equals("/reviewBoardList.do")) {

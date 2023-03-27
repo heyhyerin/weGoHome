@@ -76,13 +76,15 @@ public class AnimalDao {
 				Timestamp ardate = rs.getTimestamp("ardate");
 				String aadopt = rs.getString("aadopt");
 				String aip = rs.getString("aip");
-				int likeChk = rs.getInt("likeChk");
 
 				// shelter
 				String sname = rs.getString("sname");
 				/* String stel = rs.getString("stel");
 				String semail = rs.getString("semail");
 				String saddress = rs.getString("saddress"); */
+				
+				// likeList
+				int likeChk = rs.getInt("likeChk");
 				animalList.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress, ardate, aadopt, aip, sname, null, null, null, likeChk));
 			}
 		} catch (SQLException e) {
@@ -467,13 +469,13 @@ public class AnimalDao {
 			Connection        conn  = null;
 			PreparedStatement pstmt = null;
 			ResultSet         rs    = null;
-			String sql = "SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.* " + 
-					"         FROM(SELECT ANIMAL.*, SNAME " + 
-					"            FROM ANIMAL, SHELTER, LIKELIST " + 
-					"            WHERE ANIMAL.SID = SHELTER.SID " + 
-					"              AND LIKELIST.ANO = ANIMAL.ANO " + 
-					"              AND LIKELIST.MID = ? " + 
-					"            ORDER BY LNO DESC)ANIMALlIST) " + 
+			String sql = "SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*" + 
+					"         FROM(SELECT ANIMAL.*, SNAME, LNO LIKECHK" + 
+					"            FROM ANIMAL, SHELTER, LIKELIST" + 
+					"            WHERE ANIMAL.SID = SHELTER.SID" + 
+					"              AND LIKELIST.ANO = ANIMAL.ANO" + 
+					"              AND LIKELIST.MID = ?" + 
+					"            ORDER BY LNO)ANIMALlIST)" + 
 					"         WHERE RN BETWEEN ? AND ?";
 			try {
 				conn = getConnection();
@@ -499,8 +501,11 @@ public class AnimalDao {
 
 					// shelter
 					String sname = rs.getString("sname");
+					
+					// likeList
+					int likeChk = rs.getInt("likeChk");
 					list.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress,
-							ardate, aadopt, aip, sname, null, null, null, 0));
+							ardate, aadopt, aip, sname, null, null, null, likeChk));
 				}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
@@ -517,6 +522,130 @@ public class AnimalDao {
 				}
 			}
 			return list;
+		}
+		
+		// 10. 나의 관심동물 총 글 갯수 조회
+				public int getLikeListTotCnt(String mid) {
+					int totCnt = 0;
+					Connection conn = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					String sql = "SELECT COUNT(*) CNT" + 
+							"  FROM ANIMAL, LIKELIST" + 
+							" WHERE ANIMAL.ANO = LIKELIST.ANO" + 
+							"   AND LIKELIST.MID = ?";
+					try {
+						conn = getConnection();
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, mid);
+						rs = pstmt.executeQuery();
+						rs.next();
+						totCnt = rs.getInt("cnt");
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					} finally {
+						try {
+							if (rs != null)
+								rs.close();
+							if (pstmt != null)
+								pstmt.close();
+							if (conn != null)
+								conn.close();
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
+					}
+					return totCnt;
+				}
+				
+		// SHELTER ----------------------------------------
+		// 1-1. 해당 보호소가 등록한 유기동물 목록
+		public ArrayList<AnimalDto> getSAnimalList(String sid, int startRow, int endRow){
+			ArrayList<AnimalDto> animalList = new ArrayList<AnimalDto>();
+			Connection        conn  = null;
+			PreparedStatement pstmt = null;
+			ResultSet         rs    = null;
+			String sql = "SELECT * FROM(SELECT ROWNUM RN, ANIMALLIST.* " + 
+					"               FROM(SELECT A.*, (SELECT COUNT(*) " + 
+					"               FROM LIKELIST WHERE ANO = A.ANO) LIKECHK " + 
+					"      FROM ANIMAL A " + 
+					"      WHERE SID = ? " + 
+					"      ORDER BY ARDATE DESC) ANIMALLIST) " + 
+					"      WHERE RN BETWEEN ? AND ? ";
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, sid);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					// animal
+					int ano = rs.getInt("ano");
+					String aphoto = rs.getString("aphoto");
+					String abreed = rs.getString("abreed");
+					String agender = rs.getString("agender");
+					int aage = rs.getInt("aage");
+					int aweight = rs.getInt("aweight");
+					String acontent = rs.getString("acontent");
+					String aaddress = rs.getString("aaddress");
+					Timestamp ardate = rs.getTimestamp("ardate");
+					String aadopt = rs.getString("aadopt");
+					String aip = rs.getString("aip");
+
+					// likeList
+					int likeChk = rs.getInt("likeChk");
+					animalList.add(new AnimalDto(ano, sid, aphoto, abreed, agender, aage, aweight, acontent, aaddress, ardate, aadopt, aip, null, null, null, null, likeChk));
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			return animalList;
+		}
+		
+		// 1-2. 해당 보호소가 등록한 유기동물 총 게시글 수
+		// 2. 등록된 전체 동물 수 조회
+		public int getSAnimalTotCnt(String sid) {
+			int totCnt = 0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT COUNT(*) CNT " + 
+					"      FROM ANIMAL " + 
+					"     WHERE SID = ?";
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, sid);
+				rs = pstmt.executeQuery();
+				rs.next();
+				totCnt = rs.getInt("cnt");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			return totCnt;
 		}
 		
 } // AnimalDao

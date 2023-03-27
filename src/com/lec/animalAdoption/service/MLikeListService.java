@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.lec.animalAdoption.dao.AnimalDao;
 import com.lec.animalAdoption.dto.AnimalDto;
 import com.lec.animalAdoption.dto.MemberDto;
 
-public class ABoardListService implements Service {
-
+public class MLikeListService implements Service {
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession httpSession = request.getSession();
@@ -37,10 +38,10 @@ public class ABoardListService implements Service {
 		int endRow = startRow + PAGESIZE -1;
 		
 		AnimalDao aDao = AnimalDao.getInstance();
-		ArrayList<AnimalDto> animalList = aDao.getAnimalList(mid, startRow, endRow);
+		ArrayList<AnimalDto> animalList = aDao.getLikeList(mid, startRow, endRow);
 		request.setAttribute("animalList", animalList);
 		
-		int totCnt = aDao.getAnimalTotCnt();
+		int totCnt = aDao.getLikeListTotCnt(mid);
 		int pageCnt = (int)Math.ceil((double)totCnt / PAGESIZE);
 		int startPage = ((currentPage - 1) / BLOCKSIZE) * BLOCKSIZE + 1;
 		int endPage = startPage + BLOCKSIZE - 1;

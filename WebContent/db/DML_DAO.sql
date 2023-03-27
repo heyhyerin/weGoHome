@@ -82,20 +82,11 @@ SELECT * FROM SHELTER
             STEL = '021111111',
             SEMAIL = 'seoul@animal.co.kr',
             SADDRESS = '서울시 용산구'
-    WHERE SID = 'SHELTER1';
+    WHERE SID = 'SHELTER1'; 
 
 -- ANIMAL ----------------------------------------------------------------------
 -- 1. 보호동물 목록 출력
 -- public ArrayList<AnimalDto> getAnimalList(int startRow, int endRow)
--- SELECT ANIMAL.*, SHELTER.SNAME FROM ANIMAL, SHELTER
---    WHERE ANIMAL.SID = SHELTER.SID
---    ORDER BY ARDATE DESC;
---    
--- SELECT ROWNUM RN, ANIMALlIST.*
---    FROM(SELECT ANIMAL.*, SHELTER.SNAME FROM ANIMAL, SHELTER
---    WHERE ANIMAL.SID = SHELTER.SID
---    ORDER BY ARDATE DESC)ANIMALlIST;
-
 SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
          FROM(SELECT ANIMAL.*, SNAME 
             FROM ANIMAL, SHELTER
@@ -104,15 +95,34 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
          WHERE RN BETWEEN 1 AND 2;
         
     -- 좋아요 체크까지 출력
-    SELECT A.*, LNO LIKECHK
-        FROM ANIMAL A
-           , LIKELIST L
-        WHERE A.ANO = L.ANO(+)
-          AND L.ANO = (SELECT LNO FROM LIKELIST WHERE MID = 'aaaa');
-        
-    SELECT LNO FROM LIKELIST WHERE MID = 'aaaa'
-    
-    
+    SELECT A.*, SNAME, LNO LIKECHK
+      FROM ANIMAL A
+         , SHELTER S
+         , (SELECT * FROM LIKELIST WHERE MID = 'test3') L
+     WHERE A.SID = S.SID
+       AND  A.ANO = L.ANO(+)
+     ORDER BY ARDATE DESC;
+
+    -- 사용자 확인 화면
+    SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
+             FROM(SELECT A.*, SNAME, LNO LIKECHK
+             FROM ANIMAL A
+                , SHELTER S
+                ,(SELECT * FROM LIKELIST WHERE MID = '') L
+            WHERE A.SID = S.SID
+              AND A.ANO = L.ANO(+)
+         ORDER BY A.ANO DESC)ANIMALlIST)
+            WHERE RN BETWEEN 1 AND 8;
+
+    -- 보호소 확인 화면
+      SELECT * FROM(SELECT ROWNUM RN, ANIMALLIST.*
+               FROM(SELECT A.*, (SELECT COUNT(*) 
+               FROM LIKELIST WHERE ANO = A.ANO) LIKECHK
+      FROM ANIMAL A
+      WHERE SID = 'bshel'
+      ORDER BY ARDATE DESC) ANIMALLIST)
+      WHERE RN BETWEEN 1 AND 10;
+   
 -- 2. 등록된 전체 동물 수 조회
 -- public int getAnimalTotCnt()
 SELECT COUNT(*) CNT FROM ANIMAL;    
@@ -179,17 +189,23 @@ SELECT COUNT(*) CNT FROM ANIMAL, SHELTER
               AND AWEIGHT BETWEEN 0 AND 8
               AND SNAME LIKE '%'|| '서울' || '%';
       
--- 8. 나의 관심동물 조회(최근에 좋아요한 순서로 정렬)
+-- 8-1. 나의 관심동물 조회(최근에 좋아요한 순서로 정렬)
 -- public ArrayList<AnimalDto> getLikeList(String mid, int startRow, int endRow)
 SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
-         FROM(SELECT ANIMAL.*, SNAME 
+         FROM(SELECT ANIMAL.*, SNAME, LNO LIKECHK
             FROM ANIMAL, SHELTER, LIKELIST
             WHERE ANIMAL.SID = SHELTER.SID
               AND LIKELIST.ANO = ANIMAL.ANO
-              AND LIKELIST.MID = 'test1'
-            ORDER BY LNO DESC)ANIMALlIST)
-         WHERE RN BETWEEN 1 AND 10;
-    
+              AND LIKELIST.MID = 'aaaa'
+            ORDER BY LNO)ANIMALlIST)
+         WHERE RN BETWEEN 1 AND 8;
+
+-- 8-2. 나의 관심동물 총 갯수
+SELECT COUNT(*) CNT
+  FROM ANIMAL, LIKELIST
+ WHERE ANIMAL.ANO = LIKELIST.ANO
+   AND LIKELIST.MID = 'aaaa';
+
 -- ANIMALCOMMENT ---------------------------------------------------------------
 -- 1. 댓글 출력
 -- public ArrayList<AnimalCommentDto> getCommentList()
@@ -291,4 +307,4 @@ INSERT INTO LIKELIST (LNO, MID, ANO)
     
 -- 2. 관심동물 해제
 DELETE FROM LIKELIST
-    WHERE ANO = '2';
+    WHERE MID = 'aaaa' AND ANO = '19';

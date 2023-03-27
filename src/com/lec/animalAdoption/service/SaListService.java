@@ -9,17 +9,18 @@ import javax.servlet.http.HttpSession;
 import com.lec.animalAdoption.dao.AnimalDao;
 import com.lec.animalAdoption.dto.AnimalDto;
 import com.lec.animalAdoption.dto.MemberDto;
+import com.lec.animalAdoption.dto.ShelterDto;
 
-public class ABoardListService implements Service {
+public class SaListService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession httpSession = request.getSession();
-		MemberDto member = (MemberDto) httpSession.getAttribute("member");
+		ShelterDto shelter = (ShelterDto)httpSession.getAttribute("shelter");
 		
-		String mid = "";
-		if (member != null) {
-			mid = member.getMid();
+		String sid = "";
+		if(shelter != null) {
+			sid = shelter.getSid();
 		}
 		
 		String pageNum = request.getParameter("pageNum");
@@ -32,15 +33,15 @@ public class ABoardListService implements Service {
 		}
 		
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE = 8, BLOCKSIZE = 10;
+		final int PAGESIZE = 10, BLOCKSIZE = 10;
 		int startRow = (currentPage -1) * PAGESIZE + 1;
 		int endRow = startRow + PAGESIZE -1;
 		
 		AnimalDao aDao = AnimalDao.getInstance();
-		ArrayList<AnimalDto> animalList = aDao.getAnimalList(mid, startRow, endRow);
+		ArrayList<AnimalDto> animalList = aDao.getSAnimalList(sid, startRow, endRow);
 		request.setAttribute("animalList", animalList);
 		
-		int totCnt = aDao.getAnimalTotCnt();
+		int totCnt = aDao.getSAnimalTotCnt(sid);
 		int pageCnt = (int)Math.ceil((double)totCnt / PAGESIZE);
 		int startPage = ((currentPage - 1) / BLOCKSIZE) * BLOCKSIZE + 1;
 		int endPage = startPage + BLOCKSIZE - 1;
