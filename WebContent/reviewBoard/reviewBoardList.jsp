@@ -14,6 +14,11 @@
 .dataTable td:not(.td-tltle) {
 	text-align: center;
 }
+
+.dataTable h4{
+	color: #bbbbbb;
+	padding: 20px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -68,7 +73,7 @@
 			</tr>
 			<c:if test="${totCnt == 0}">
 				<tr>
-					<td colspan="5">등록된 게시글이 없습니다.</td>
+					<td colspan="5"><h4>등록된 게시글이 없습니다.</h4></td>
 				</tr>
 			</c:if>
 			<c:if test="${totCnt != 0}">

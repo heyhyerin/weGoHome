@@ -35,13 +35,18 @@
 	margin-right:33.3px;
 }
 
-.animalBox img.board-img{
+.animalBox .clickBox{
 	width: 250px;
 	height: 200px;
+	overflow: hidden;
+}
+
+.animalBox .clickBox img.board-img{
+	width: 250px;
+	position: center;
 }
 
 .animalBox .content {
-	width: 160px;
 	padding: 10px 20px;
 	font-size: 12pt;
 }
@@ -53,8 +58,8 @@
 
 .animalBox div.heart{
 	position: relative;
-	bottom: 112px;
-	left: 200px;
+	bottom: 40px;
+	left: 198px;
 	cursor: pointer;
 }
 
@@ -72,6 +77,14 @@
 	border: 2px solid #dddddd;
 	border-radius: 8px;
 	box-sizing: border-box;
+}
+
+.center{
+	margin: 0 auto;
+}
+
+.center h1{
+	color: #dddddd;
 }
 
 </style>
@@ -114,29 +127,29 @@
 			<div class="serchBox">
 				<h3>동물구분</h3>
 				<p>개/고양이<p>
-				<select name="abreed" >
-					<option value="" selected="selected">ALL</option>
-					<option value="개">개</option>
-					<option value="고양이">고양이</option>
+				<select name="abreed">
+					<option value="" <c:if test="${param.abreed == ''}">selected="selected"</c:if>>ALL</option>
+					<option value="개" <c:if test="${param.abreed == '개' }">selected="selected"</c:if>>개</option>
+					<option value="고양이" <c:if test="${param.abreed == '고양이' }">selected="selected"</c:if>>고양이</option>
 				</select>
 			</div>
 			<div class="serchBox">
 				<h3>성별</h3>
 				<p>수컷/암컷<p>
 				<select name="agender" >
-					<option value="" selected="selected">ALL</option>
-					<option value="수컷">수컷</option>
-					<option value="암컷">암컷</option>
+					<option value="" <c:if test="${param.agender == '' }">selected="selected"</c:if>>ALL</option>
+					<option value="수컷" <c:if test="${param.agender == '수컷' }">selected="selected"</c:if>>수컷</option>
+					<option value="암컷" <c:if test="${param.agender == '암컷' }">selected="selected"</c:if>>암컷</option>
 				</select>
 			</div>
 			<div class="serchBox">
 				<h3>크기</h3>
 				<p>대/중/소<p>
 				<select name="aweight" >
-					<option value="0/99" selected="selected">ALL</option>
-					<option value="0/8">소형견(8kg 미만)</option>
-					<option value="8/18">중형견(8~18kg 미만)</option>
-					<option value="18/99">대형견 (18kg 이상)</option>
+					<option value="0/99" <c:if test="${param.aweight == '' }">selected="selected"</c:if>>ALL</option>
+					<option value="0/8" <c:if test="${param.aweight == '0/8' }">selected="selected"</c:if>>소형견(8kg 미만)</option>
+					<option value="8/18" <c:if test="${param.aweight == '8/8' }">selected="selected"</c:if>>중형견(8~18kg 미만)</option>
+					<option value="18/99" <c:if test="${param.aweight == '18/99' }">selected="selected"</c:if>>대형견 (18kg 이상)</option>
 				</select>
 			</div>
 			<div class="serchBox">
@@ -153,6 +166,15 @@
 	
 		<!-- 유기동물 목록 4x3 -->
 		<div class="container-image">
+		
+			<!-- 검색 결과가 없을 때 -->
+			<c:if test="${empty animalList}">
+				<div class="center">
+					<img alt="검색결과없음 이미지" src="${conPath }/img/sch-noimg.png"><br>
+					<h1>검색 결과가 없습니다.</h1>
+				</div>
+			</c:if>
+			
 			<c:if test="${not empty animalList }">
 				<c:forEach var="animal" items="${animalList }">
 					<div class="animalBox">

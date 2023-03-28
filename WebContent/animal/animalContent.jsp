@@ -75,7 +75,7 @@
 				<tr>
 					<td colspan="4" class="center">
 						<input type="button" value="수정" class="btn" 
-							onclick="location.href='${conPath}/shelterAModifyView.do?ano=${animal.ano }'">
+							onclick="location.href='${conPath}/animalModifyView.do?ano=${animal.ano }'">
 					</td>
 				</tr>
 			</c:if>

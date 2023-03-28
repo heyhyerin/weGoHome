@@ -10,7 +10,7 @@ public class LogoutService implements Service {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		request.setAttribute("resultrMsg", "정상적으로 로그아웃 되었습니다.");
+		request.setAttribute("resultMsg", "정상적으로 로그아웃 되었습니다.");
 	}
 
 }

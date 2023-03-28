@@ -15,57 +15,60 @@ import javax.servlet.http.HttpSession;
 import com.lec.animalAdoption.dao.AnimalDao;
 import com.lec.animalAdoption.dao.ReviewBoardDao;
 import com.lec.animalAdoption.dto.AnimalDto;
-import com.lec.animalAdoption.dto.MemberDto;
-import com.lec.animalAdoption.dto.ReviewBoardDto;
 import com.lec.animalAdoption.dto.ShelterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class SaWriteService implements Service {
+public class AModifyService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String path = request.getRealPath("animalImgUp");
 		int maxSize = 1024 * 1024 * 4; // 4MB
 		String filename = "";
+		String dbfilename = null;
 		MultipartRequest mRequest = null;
 		int result = 0;
 
 		try {
 			mRequest = new MultipartRequest(request, path, maxSize, "utf-8", new DefaultFileRenamePolicy());
-			
 			Enumeration<String> params = mRequest.getFileNames();
 			String param = params.nextElement();
 			filename = mRequest.getFilesystemName(param);
-					
-			HttpSession httpsession = request.getSession();
 			
+			// 파일을 수정하지 않은 경우
+			if (filename == null) {
+				filename = dbfilename;
+			}
+			
+			HttpSession httpsession = request.getSession();
 			ShelterDto shelter = (ShelterDto) httpsession.getAttribute("shelter"); 
-			String sid = null;
 			
 			if (shelter != null) {
-				sid = shelter.getSid();
+				String sid = shelter.getSid();
+				int ano = Integer.parseInt(mRequest.getParameter("ano"));
 				String abreed = mRequest.getParameter("abreed");
 				String agender = mRequest.getParameter("agender");
 				int aage = Integer.parseInt(mRequest.getParameter("aage"));
 				int aweight = Integer.parseInt(mRequest.getParameter("aweight"));
 				String acontent = mRequest.getParameter("acontent");
 				String aaddress = mRequest.getParameter("aaddress");
+				String aadopt = mRequest.getParameter("aadopt");
 				String aip = request.getLocalAddr();
 				
 				AnimalDao aDao = AnimalDao.getInstance();
-				AnimalDto animal = new AnimalDto(0, sid, filename, abreed, agender, aage, aweight, acontent, aaddress, null, null, aip, null, null, null, null, 0);
-				result = aDao.writeAnimal(animal);
+				AnimalDto animal = new AnimalDto(ano, sid, filename, abreed, agender, aage, aweight, acontent, aaddress, null, aadopt, aip, null, null, null, null, 0);
+				result = aDao.modifyAnimal(animal);
 			}
 			
 			if (result == ReviewBoardDao.SUCCESS) {
-				request.setAttribute("resultMsg", "게시글 작성이 완료되었습니다.");
+				request.setAttribute("resultMsg", "게시글 수정이 완료되었습니다.");
 			} else if (result == ReviewBoardDao.FAIL) {
-				request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
+				request.setAttribute("resultErrorMsg", "게시글 수정이 실패했습니다.");
 			}
 			
 		} catch (Exception e) {
-			request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "게시글 수정이 실패했습니다.");
 			System.out.println(e.getMessage());
 		}
 		

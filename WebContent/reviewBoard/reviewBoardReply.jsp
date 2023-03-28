@@ -37,10 +37,10 @@
 	<div id="wrap">
 		<h2>답변 게시물 작성</h2>
 		<form action="${conPath }/reviewBoardReply.do" method="post" enctype="multipart/form-data">
-			<input type="text" name="rgroup" value="${originReview.rgroup }">
-			<input type="text" name="rstep" value="${originReview.rstep }">
-			<input type="text" name="rindent" value="${originReview.rindent }">
-			<input type="text" name="pageNum" value="${param.pageNum }">
+			<input type="hidden" name="rgroup" value="${originReview.rgroup }">
+			<input type="hidden" name="rstep" value="${originReview.rstep }">
+			<input type="hidden" name="rindent" value="${originReview.rindent }">
+			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<table class="dataTable">
 				<tr>
 					<th>제목<b class="red">&nbsp;*</b></th>

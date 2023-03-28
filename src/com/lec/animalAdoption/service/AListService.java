@@ -11,7 +11,7 @@ import com.lec.animalAdoption.dto.AnimalDto;
 import com.lec.animalAdoption.dto.MemberDto;
 import com.lec.animalAdoption.dto.ShelterDto;
 
-public class SaListService implements Service {
+public class AListService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

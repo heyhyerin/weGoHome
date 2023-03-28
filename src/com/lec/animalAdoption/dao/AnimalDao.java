@@ -373,7 +373,7 @@ public class AnimalDao {
 					"              AND AGENDER LIKE '%'|| ? || '%' " + 
 					"              AND AWEIGHT BETWEEN ? AND ?" + 
 					"              AND SNAME LIKE '%'|| ? || '%'" + 
-					"            ORDER BY ARDATE DESC)ANIMALlIST)" + 
+					"            ORDER BY ANIMAL.ANO DESC)ANIMALlIST)" + 
 					"         WHERE RN BETWEEN ? AND ?";
 			try {
 				conn = getConnection();

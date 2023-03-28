@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.lec.animalAdoption.dao.AnimalDao;
 import com.lec.animalAdoption.dto.AnimalDto;
 
-public class SaModifyService implements Service {
+public class AModifyViewService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -16,6 +16,7 @@ public class SaModifyService implements Service {
 		AnimalDto animal = aDao.getAnimal(ano);
 		
 		request.setAttribute("animal", animal);
+
 	}
 
 }

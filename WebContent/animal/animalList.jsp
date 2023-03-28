@@ -19,12 +19,37 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+	$(document).ready(function() {
+		$('tr').click(function() {
+			var ano = Number($(this).children().eq(0).text().substr(4));
+			if (!isNaN(ano)){
+				location.href='${conPath}/animalContent.do?ano='+ano;
+			}
+		});
+	});
+
+</script>
 </head>
 <body>
 	<!-- 로그아웃 상태일 경우 로그인 페이지로  -->
 	<c:if test="${empty shelter }">
 		<script>
-			location.href = '${conPath}/loginView.do?next=shelterView.do';
+			location.href = '${conPath}/loginView.do?next=animalList.do';
+		</script>
+	</c:if>
+
+	<!-- 보호동물 게시글 작성 결과 출력 -->
+	<!-- 보호동물 게시물 수정 결과 출력 -->
+	<c:if test="${not empty resultMsg}">
+		<script>
+			alert('${resultMsg}')
+		</script>
+	</c:if>
+	<c:if test="${not empty resultErrorMsg}">
+		<script>
+			alert('${resultErrorMsg}')
+			history.back();
 		</script>
 	</c:if>
 
@@ -33,7 +58,7 @@
 	
 		<h1>보호 동물 관리</h1>
 		<div class="div-search">
-			<input type="button" value="글 작성" class="btn" onclick="location.href='shelterAWriteView.do'">
+			<input type="button" value="글 작성" class="btn" onclick="location.href='animalWriteView.do'">
 			<span>total: ${totCnt }</span>
 		</div>
 		

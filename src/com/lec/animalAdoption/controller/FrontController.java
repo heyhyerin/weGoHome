@@ -140,34 +140,6 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "shelterView.do";
 		}
-
-		// shelter: 보호동물 공고 ---------------------------------
-		// 보호동물 목록
-		else if (command.equals("/shelterAList.do")) {
-			service = new SaListService();
-			service.execute(request, response);
-			viewPage = "shelter/sAnimalList.jsp";
-		}
-		
-		// 보호동물 글 작성
-		else if (command.equals("/shelterAWriteView.do")) {
-			viewPage = "shelter/sAnimalWrite.jsp";
-		} else if (command.equals("/shelterAWrite.do")) {
-			service = new SaWriteService();
-			service.execute(request, response);
-			viewPage = "shelterAList.do";
-		}
-		
-		// 보호동물 글 수정
-		else if (command.equals("/shelterAModifyView.do")) {
-			service = new SaModifyViewService();
-			service.execute(request, response);
-			viewPage = "shelter/sAnimalModify.jsp";
-		} else if (command.equals("/shelterAModify.do")) {
-			service = new SaModifyService();
-			service.execute(request, response);
-			viewPage = "shelterAList.do";
-		}
 		
 		// reviewBoard ----------------------------------------
 		// 리뷰게시판 글 목록
@@ -230,32 +202,59 @@ public class FrontController extends HttpServlet {
 		}
 
 		// animal ----------------------------------------
-		// 보호동물 목록
+		// 보호동물 목록: 사용자 확인 화면
 		else if (command.equals("/animalBoardList.do")) {
 			service = new ABoardListService();
 			service.execute(request, response);
 			viewPage = "animal/animalBoard.jsp";
 		}
+
+		// 보호동물 목록: 보호소 관리 화면
+		else if (command.equals("/animalList.do")) {
+			service = new AListService();
+			service.execute(request, response);
+			viewPage = "animal/animalList.jsp";
+		}
+		
 		// 보호동물 공고 작성
 		else if (command.equals("/animalWriteView.do")) {
 			viewPage = "animal/animalWrite.jsp";
 		} else if (command.equals("/animalWrite.do")) {
 			service = new AWriteService();
 			service.execute(request, response);
-			viewPage = "animalBoardList.do";
+			viewPage = "animalList.do";
 		}
+		
 		// 보호동물 상세보기
 		else if (command.equals("/animalContent.do")) {
 			service = new AContentService();
 			service.execute(request, response);
 			viewPage = "animal/animalContent.jsp";
 		}
-
+		
+		// 보호동물 글 수정
+		else if (command.equals("/animalModifyView.do")) {
+			service = new AModifyViewService();
+			service.execute(request, response);
+			viewPage = "animal/animalModify.jsp";
+		} else if (command.equals("/animalModify.do")) {
+			service = new AModifyService();
+			service.execute(request, response);
+			viewPage = "animalList.do";
+		}
+		
+		// 보호동물 글 삭제
+		else if (command.equals("/animalDelete.do")) {
+			service = new ADeleteService();
+			service.execute(request, response);
+			viewPage = "animalList.do";
+		}
+		
 		// 보호동물 검색
 		else if (command.equals("/animalSearch.do")) {
 			service = new ASearchService();
 			service.execute(request, response);
-			viewPage = "animalBoardList.do";
+			viewPage = "animal/animalBoard.jsp";
 		}
 
 		// likeList ----------------------------------------

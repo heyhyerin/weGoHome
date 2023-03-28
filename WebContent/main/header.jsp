@@ -193,7 +193,7 @@ header .gnb li a {
 							</a>
 							<div class="dropdown-content">
 								<a class="dropdown-item" href="${conPath }/shelterView.do">보호소 정보 수정</a> 
-								<a class="dropdown-item" href="${conPath }/shelterAList.do">보호 동물 현황 관리</a> 
+								<a class="dropdown-item" href="${conPath }/animalList.do">보호 동물 현황 관리</a> 
 							</div> 
 						</li>
 					</ul>
