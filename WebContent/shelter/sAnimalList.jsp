@@ -13,7 +13,8 @@
 <style>
 	.div-search span{
 		color: #aaaaaa;
-		margin-right: 10px; 
+		line-height: 34px;
+		margin-right: 10px;
 	}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -32,10 +33,8 @@
 	
 		<h1>보호 동물 관리</h1>
 		<div class="div-search">
-			<form action="${conPath}/reviewSearch.do">
+			<input type="button" value="글 작성" class="btn" onclick="location.href='shelterAWriteView.do'">
 			<span>total: ${totCnt }</span>
-				<input type="button" value="글 작성" class="btn" onclick="location.href='reviewBoardWriteView.do'">
-			</form>
 		</div>
 		
 		<table class="dataTable">

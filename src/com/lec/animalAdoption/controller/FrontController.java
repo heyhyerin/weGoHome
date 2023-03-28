@@ -158,6 +158,16 @@ public class FrontController extends HttpServlet {
 			viewPage = "shelterAList.do";
 		}
 		
+		// 보호동물 글 수정
+		else if (command.equals("/shelterAModifyView.do")) {
+			service = new SaModifyViewService();
+			service.execute(request, response);
+			viewPage = "shelter/sAnimalModify.jsp";
+		} else if (command.equals("/shelterAModify.do")) {
+			service = new SaModifyService();
+			service.execute(request, response);
+			viewPage = "shelterAList.do";
+		}
 		
 		// reviewBoard ----------------------------------------
 		// 리뷰게시판 글 목록

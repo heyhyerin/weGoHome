@@ -57,6 +57,7 @@
 				</c:if>
 			</form>
 		</div>
+		
 		<table class="dataTable">
 			<tr>
 				<th>번호</th>

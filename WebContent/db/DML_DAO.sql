@@ -122,6 +122,11 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
       WHERE SID = 'bshel'
       ORDER BY ARDATE DESC) ANIMALLIST)
       WHERE RN BETWEEN 1 AND 10;
+      
+    -- 보호동물 총 숫자
+    SELECT COUNT(*) CNT 
+      FROM ANIMAL
+     WHERE SID = 'bshel';  
    
 -- 2. 등록된 전체 동물 수 조회
 -- public int getAnimalTotCnt()

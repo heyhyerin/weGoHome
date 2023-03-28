@@ -77,6 +77,7 @@ div.container-image {
 
 .center {
 	text-align: center;
+	padding: 40px;
 }
 
 /* ----------- main banner ----------- */
@@ -217,7 +218,7 @@ textarea:disabled {
 }
 
 /* ---------- input ---------- */
-input.data-input {
+.data-input {
 	width: 340px;
 	height: 34px;
 	padding: 5px 10px;

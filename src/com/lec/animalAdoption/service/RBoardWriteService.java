@@ -66,7 +66,7 @@ public class RBoardWriteService implements Service {
 			}
 			
 		} catch (Exception e) {
-			request.setAttribute("reviewBoardResultError", "게시글 작성이 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
 			System.out.println(e.getMessage());
 		}
 		

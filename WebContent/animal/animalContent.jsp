@@ -71,8 +71,14 @@
 				<th>보호소 주소</th>
 				<td>${animal.saddress }</td>
 			</tr>
-			
-
+			<c:if test="${not empty shelter && shelter.sid eq animal.sid}">
+				<tr>
+					<td colspan="4" class="center">
+						<input type="button" value="수정" class="btn" 
+							onclick="location.href='${conPath}/shelterAModifyView.do?ano=${animal.ano }'">
+					</td>
+				</tr>
+			</c:if>
 		</table>
 
 	</div>
