@@ -19,7 +19,6 @@ div#login-form {
 	justify-content: center;
 }
 
-
 /* 탭 전체 스타일 */
 .tabs {
 	margin-top: 50px;

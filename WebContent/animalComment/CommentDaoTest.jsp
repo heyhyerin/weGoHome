@@ -30,8 +30,8 @@
 	
 	<h2>2. 댓글 작성</h2>
 	<%
-	String mid = "test2";
-	ano = 4;
+	String mid = "member";
+	ano = 3;
 	String accontent = "제가 입양하고 싶어요";
 	String acip = "195.0.0.1";
 	AnimalCommentDto comment = new AnimalCommentDto(0, mid, ano, accontent, null, acip);
@@ -43,19 +43,19 @@
 	<%
 	accontent = "다른 강아지들이랑 잘 지내나요?";
 	acip = "195.0.0.1";
-	int acno = 6;
+	int acno = 3;
 	AnimalCommentDto modifyComment = new AnimalCommentDto(acno, "0", 0, accontent, null, acip);
 	
 	result = acDao.modifyComment(modifyComment);
 	%>
 	<%=result == 0 ? "댓글 수정 실패" : "댓글 수정 성공" %>
-	
+	<%-- 
 	<h2>4. 댓글 삭제</h2>
 	<%
 	acno = 2;
 	result = acDao.deleteComment(acno);
 	%>
 	<%=result == 0 ? "댓글 삭제 실패" : "댓글 삭제 성공" %>
-	
+	 --%>
 </body>
 </html>

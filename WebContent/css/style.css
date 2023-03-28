@@ -160,17 +160,21 @@ table.contentTable {
 	margin: 20px auto;
 }
 
+
+th.board-img{
+	text-align: right;
+}
+
 .contentTable th img{
 	width: 400px;
 	border-radius: 10px;
-	margin: 10px;
 }
 
 table.contentTable td {
 	width: 250px;
 }
 
-table.contentTable th, td {
+table.contentTable th:not(.board-img), td {
 	text-align: left;
 	font-size: 14px;
 	color: #444444;
@@ -187,20 +191,19 @@ table.contentTable span {
 }
 
 /* contentTable 본문 */
-table.contentTable textarea{
+table.contentTable textarea:not(.textarea-comment){
 	width: 800px;
 	height: 200px; 
 	padding-top: 20px;
 	margin: 20px 0;
 	border: none;
-	border-top: 1px solid #eeeeee;
+	/* border-top: 1px solid #eeeeee; */
 }
 
 textarea {
 	width: 96%;
 	height: 340px;
-	margin: 20px;
-	padding: 20px;
+	padding: 15px;
 	box-sizing: border-box;
 	border: 1px solid #dddddd;
 	/* border-radius: 10px; */
@@ -214,9 +217,40 @@ textarea:disabled {
 	background-color: white;
 	border: none;
 	border-radius: 0;
-	
 }
 
+.textarea-comment {
+	width: 800px;
+	min-height: 100px;
+	padding: 15px;
+	font-size: 16px;
+}
+
+.textarea-review {
+	width: 800px;
+	min-height: 80px;
+	padding-top: 20px;
+	font-size: 16px;
+}
+/* ---------- 보호동물 > 문의 댓글 ---------- */
+.commentBox {
+	margin-top: 20px;
+} 
+
+.commentBox pre {
+	padding: 5px 0;
+	font-weight: bold;
+}
+
+.commentBox textarea{
+	width: 700px;
+	height: 100px;
+}
+
+.commentBox input.btn, button.btn{
+	margin: 0;
+	float: right;
+}
 /* ---------- input ---------- */
 .data-input {
 	width: 340px;

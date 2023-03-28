@@ -257,6 +257,15 @@ public class FrontController extends HttpServlet {
 			viewPage = "animal/animalBoard.jsp";
 		}
 
+		// 보호동물 > 문의댓글 -----------------------------------
+		// 댓글 작성
+		else if (command.equals("/commentWrite.do")) {
+			service = new CommentWriteService();
+			service.execute(request, response);
+			viewPage = "animalContent.do";
+		}
+
+		
 		// likeList ----------------------------------------
 		// 관심동물 등록
 		else if (command.equals("/likeListAdd.do")) {

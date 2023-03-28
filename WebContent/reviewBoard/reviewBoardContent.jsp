@@ -43,8 +43,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td><textarea name="rcontent" required="required"
-						disabled="disabled">${review.rcontent }</textarea></td>
+				<td>
+					<div class="textarea-review">
+						<pre>${review.rcontent }</pre>
+					</div>
+				</td>
 			</tr>
 			<!-- 첨부 이미지가 있는 경우 -->
 			<c:if test="${not empty review.rphoto}">
