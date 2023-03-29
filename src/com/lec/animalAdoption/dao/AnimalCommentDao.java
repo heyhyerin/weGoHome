@@ -110,14 +110,50 @@ public class AnimalCommentDao {
 		return result;
 	}
 	
-	// 3. 댓글 수정
+	// 3-1. 해당 댓글 정보 가져오기
+	public AnimalCommentDto getComment(int acno) {
+		AnimalCommentDto comment = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM ANIMALCOMMENT" + 
+				"    WHERE ACNO = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, acno);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String mid = rs.getString("mid");
+				int ano = rs.getInt("ano");
+				String accontent = rs.getString("accontent");
+				Timestamp acrdate = rs.getTimestamp("acrdate");
+				String acip = rs.getString("acip");
+				comment = new AnimalCommentDto(acno, mid, ano, accontent, acrdate, acip);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return comment;		
+	}
+	
+	
+	// 3-2. 댓글 수정
 	public int modifyComment(AnimalCommentDto comment) {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "UPDATE ANIMALCOMMENT SET" + 
 				"        ACCONTENT = ?," + 
-				"        ACRDATE = SYSDATE," + 
 				"        ACIP = ?" + 
 				"    WHERE ACNO = ?";
 		try {

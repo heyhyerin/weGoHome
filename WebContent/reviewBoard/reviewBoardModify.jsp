@@ -58,7 +58,7 @@
 		<form action="${conPath }/reviewBoardModify.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<input type="hidden" name="rno" value="${review.rno }">
-			<input type="hidden" name="rphoto" value="${review.rphoto }">
+			<input type="hidden" name="dbfilename" value="${review.rphoto }">
 			
 			<table class="dataTable">
 				<tr>

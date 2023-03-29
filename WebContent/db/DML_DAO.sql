@@ -158,7 +158,6 @@ UPDATE ANIMAL SET
         AWEIGHT = '5', 
         ACONTENT = '겁이 많음', 
         AADDRESS = '경기도 고양시 정발산역 부근', 
-        ARDATE = SYSDATE, 
         AADOPT = 'ADOPT', 
         AIP = '197.0.0.1'
     WHERE ANO = '2';
@@ -223,12 +222,15 @@ SELECT A.* , MNAME
 -- public int writeComment (AnimalCommentDto comment)
 INSERT INTO ANIMALCOMMENT (ACNO, MID, ANO, ACCONTENT, ACRDATE, ACIP)
     VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, 'test1', '2', '좋은 주인 만나렴', SYSDATE, '210.0.0.1');
-    
+
+-- 3-1. 특정 문의글 정보 확인
+SELECT * FROM ANIMALCOMMENT
+    WHERE ACNO = '1';
+
 -- 3. 특정 문의글 수정
 -- public int modifyComment (AnimalCommentDto comment)
 UPDATE ANIMALCOMMENT SET
         ACCONTENT = '입양 문의는 어디로 하면 될까요?',
-        ACRDATE = SYSDATE,
         ACIP = '200.0.0.1'
     WHERE ACNO = '4';
     
@@ -271,7 +273,6 @@ UPDATE REVIEWBOARD SET
     RCONTENT = '후기입니다',
     RPW = '111',
     RPHOTO = 'NOIMG.jpg',
-    RRDATE = SYSDATE,
     RIP = '200.0.0.1'
 WHERE RNO = '1';
 

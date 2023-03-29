@@ -47,7 +47,7 @@ div.container-col {
 	flex-wrap: wrap;
 	
 }
-/* 가로배치 */
+
 div.container-image {
 	width: 1100px;
 	height: auto;
@@ -127,12 +127,18 @@ table caption {
 	text-align: left;
 }
 
-/* ---------- table dataTable ---------- */
+/* table dataTable -------------------- */
 table.dataTable {
 	width: 1100px;
 	margin: 20px 0;
 	/* tr에 border 주기 위함 */
 	border-collapse: collapse;
+}
+
+table.dataTable tr {
+	text-align: center;
+	border-top: 1px solid #aaa;
+	cursor: pointer;
 }
 
 table.dataTable th, 
@@ -143,35 +149,24 @@ table.dataTable td {
 	color: #444444;
 }
 
-table.dataTable td.td-tltle {
+.dataTable td.td-tltle {
 	width: 35%;
 	text-align: left;
 }
 
-table.dataTable tr {
+.dataTable td:not(.td-tltle) {
 	text-align: center;
-	border-top: 1px solid #aaa;
-	cursor: pointer;
 }
 
-/* ---------- table.contentTable ---------- */
+.dataTable h4{
+	color: #bbbbbb;
+	padding: 20px;
+}
+
+/* table.contentTable -------------------- */
 table.contentTable {
 	width: 800px;
 	margin: 20px auto;
-}
-
-
-th.board-img{
-	text-align: right;
-}
-
-.contentTable th img{
-	width: 400px;
-	border-radius: 10px;
-}
-
-table.contentTable td {
-	width: 250px;
 }
 
 table.contentTable th:not(.board-img), td {
@@ -180,13 +175,26 @@ table.contentTable th:not(.board-img), td {
 	color: #444444;
 }
 
+.contentTable th > img{
+	width: 400px;
+	border-radius: 10px;
+}
+
+th.board-img{
+	text-align: right;
+}
+
+table.contentTable th {
+	width: 120px;
+}
+
 table.contentTable td.td-tltle {
 	width: 35%;
 	text-align: left;
 }
 
 /* contentTable 제목 */
-table.contentTable span {
+table.contentTable span:not(.span-comment) {
 	margin: 0 20px;
 }
 
@@ -232,25 +240,7 @@ textarea:disabled {
 	padding-top: 20px;
 	font-size: 16px;
 }
-/* ---------- 보호동물 > 문의 댓글 ---------- */
-.commentBox {
-	margin-top: 20px;
-} 
 
-.commentBox pre {
-	padding: 5px 0;
-	font-weight: bold;
-}
-
-.commentBox textarea{
-	width: 700px;
-	height: 100px;
-}
-
-.commentBox input.btn, button.btn{
-	margin: 0;
-	float: right;
-}
 /* ---------- input ---------- */
 .data-input {
 	width: 340px;

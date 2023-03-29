@@ -4,14 +4,21 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.lec.animalAdoption.dao.AnimalDao;
 import com.lec.animalAdoption.dto.AnimalDto;
+import com.lec.animalAdoption.dto.MemberDto;
+import com.lec.animalAdoption.dto.ShelterDto;
 
 public class ASearchService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession httpSession = request.getSession();
+		MemberDto member = (MemberDto)httpSession.getAttribute("member");
+		
+		String mid = member.getMid();
 		String schAbreed = request.getParameter("abreed");
 		String schAgender = request.getParameter("agender");
 		String aweightStr = request.getParameter("aweight");
@@ -28,7 +35,7 @@ public class ASearchService implements Service {
 		int endRow = startRow + PAGESIZE -1;
 		
 		AnimalDao aDao = AnimalDao.getInstance();
-		ArrayList<AnimalDto> animalList = aDao.searchAnimal(schAbreed, schAgender, schRowAweight, schHighAweight, schSname, startRow, endRow);
+		ArrayList<AnimalDto> animalList = aDao.searchAnimal(mid, schAbreed, schAgender, schRowAweight, schHighAweight, schSname, startRow, endRow);
 		request.setAttribute("animalList", animalList);
 		
 		int totCnt = aDao.getSchAnimalTotCnt(schAbreed, schAgender, schRowAweight, schHighAweight, schSname);

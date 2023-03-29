@@ -20,9 +20,9 @@ public class CommentWriteService implements Service {
 		int result = acDao.writeComment(comment);
 		
 		if (result == AnimalCommentDao.SUCCESS) {
-			request.setAttribute("resultMsg", "게시글 작성이 완료되었습니다.");
+			request.setAttribute("resultMsg", "문의글 작성이 완료되었습니다.");
 		} else if (result == AnimalCommentDao.FAIL) {
-			request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "문의글 작성이 실패했습니다.");
 		}
 	}
 

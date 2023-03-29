@@ -10,16 +10,6 @@
 <title>Insert title here</title>
 <link href="${conPath }/css/style.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<style>
-.dataTable td:not(.td-tltle) {
-	text-align: center;
-}
-
-.dataTable h4{
-	color: #bbbbbb;
-	padding: 20px;
-}
-</style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>

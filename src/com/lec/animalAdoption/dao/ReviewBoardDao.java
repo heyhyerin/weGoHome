@@ -40,7 +40,8 @@ public class ReviewBoardDao {
 		return conn;
 	}
 	
-	// 1. 후기게시판 글 목록 출력
+	// 1. 후기게시판 글 목록 출력  --------------------------------------------------
+	// 1-1. 등록 순 정렬
 	public ArrayList<ReviewBoardDto> getReviewList(int startRow, int endRow){
 		ArrayList<ReviewBoardDto> reviewList = new ArrayList<ReviewBoardDto>();
 		Connection        conn  = null;
@@ -95,7 +96,10 @@ public class ReviewBoardDao {
 		return reviewList;
 	}
 	
-	// 2. 등록된 총 글 갯수 조회
+	// 1-2. 인기순 정렬(hit수)
+	
+	
+	// 1-3. 등록된 총 글 갯수 조회  --------------------------------------------------
 	public int getReviewTotCnt() {
 		int totCnt = 0;
 		Connection conn = null;
@@ -125,7 +129,98 @@ public class ReviewBoardDao {
 		return totCnt;
 	}
 	
-	// 3. 후기게시판 게시글 작성
+	// 2-1. 게시글 검색
+		public ArrayList<ReviewBoardDto> searchReviewList(String schStr, int startRow, int endRow){
+			ArrayList<ReviewBoardDto> reviewList = new ArrayList<ReviewBoardDto>();
+			Connection        conn  = null;
+			PreparedStatement pstmt = null;
+			ResultSet         rs    = null;
+			String sql = "SELECT L.*," + 
+					"        (SELECT MNAME FROM MEMBER WHERE L.MID = MID) || " + 
+					"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) NAME" + 
+					"        FROM (SELECT ROWNUM RN, RBOARD.*" + 
+					"            FROM(SELECT * FROM REVIEWBOARD " + 
+					"                 WHERE RTITLE LIKE '%' || ? || '%'" + 
+					"                 ORDER BY RGROUP DESC, RSTEP) RBOARD) L" + 
+					"    WHERE RN BETWEEN ? AND ?";
+			try {
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, schStr);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					int rno = rs.getInt("rno");
+					String mid = rs.getString("mid");
+					String sid = rs.getString("sid");
+					String rtitle = rs.getString("rtitle");
+					String rcontent = rs.getString("rcontent");
+					String rpw = rs.getString("rpw");
+					String rphoto = rs.getString("rphoto");
+					Timestamp rrdate = rs.getTimestamp("rrdate");
+					int rhit = rs.getInt("rhit");
+					int rgroup = rs.getInt("rgroup");
+					int rstep = rs.getInt("rstep");
+					int rindent = rs.getInt("rindent");
+					String rip = rs.getString("rip");
+
+					// member
+					String name = rs.getString("NAME");
+					reviewList.add(new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup,
+							rstep, rindent, rip, name));
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			return reviewList;
+		}
+		
+		// 2-2. 검색된 총 글 갯수 조회
+			public int getSchReviewTotCnt(String schStr) {
+				int totCnt = 0;
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String sql = "SELECT COUNT(*) CNT "+ 
+						"		FROM REVIEWBOARD "+ 
+						"		 WHERE RTITLE LIKE '%' || ? || '%'";
+				try {
+					conn = getConnection();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, schStr);
+					rs = pstmt.executeQuery();
+					rs.next();
+					totCnt = rs.getInt("cnt");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				} finally {
+					try {
+						if (rs != null)
+							rs.close();
+						if (pstmt != null)
+							pstmt.close();
+						if (conn != null)
+							conn.close();
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				}
+				return totCnt;
+			}
+	
+	// 3. 후기게시판 게시글 작성  --------------------------------------------------
 	public int writeReview(ReviewBoardDto review) {
 		int result = FAIL;
 		Connection conn = null;
@@ -160,8 +255,8 @@ public class ReviewBoardDao {
 		return result;
 	}
 	
-	// 4. 게시글 상세보기
-	// 4-1 조회수 1 증가
+	// 4. 게시글 상세보기  --------------------------------------------------
+	// 4-1. 조회수 1 증가
 	private void hitUpBoard(int rno) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -185,8 +280,7 @@ public class ReviewBoardDao {
 		}
 	}
 	
-	
-	// 4-2 상세보기 출력
+	// 4-2. 상세보기 출력 
 	public ReviewBoardDto getReview(int rno) {
 		hitUpBoard(rno);
 		ReviewBoardDto review = null;
@@ -203,7 +297,6 @@ public class ReviewBoardDao {
 			pstmt.setInt(1, rno);
 			rs    = pstmt.executeQuery();
 			if(rs.next()) {
-				// int rno = rs.getInt("rno");
 				String mid = rs.getString("mid");
 				String sid = rs.getString("sid");
 				String rtitle = rs.getString("rtitle");
@@ -216,7 +309,6 @@ public class ReviewBoardDao {
 				int rstep = rs.getInt("rstep");
 				int rindent = rs.getInt("rindent");
 				String rip = rs.getString("rip");
-
 				// member
 				String name = rs.getString("WRITERNAME");
 				review = new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup, rstep, rindent, rip, name);
@@ -238,7 +330,7 @@ public class ReviewBoardDao {
 		return review;
 	}
 	
-	// 5. 리뷰게시판 게시글 수정
+	// 5. 리뷰게시판 게시글 수정  --------------------------------------------------
 	public int modifyReview(ReviewBoardDto review) {
 		int result = FAIL;
 		Connection conn = null;
@@ -247,7 +339,6 @@ public class ReviewBoardDao {
 					 "    RTITLE = ?," + 
 					 "    RCONTENT = ?," + 
 					 "    RPHOTO = ?," + 
-					 "    RRDATE = SYSDATE," + 
 					 "    RIP = ?" + 
 					 "	WHERE RNO = ?";
 		try {
@@ -274,7 +365,7 @@ public class ReviewBoardDao {
 		return result;
 	}
 	
-	// 6. 리뷰게시판 게시글 삭제
+	// 6. 리뷰게시판 게시글 삭제  --------------------------------------------------
 	public int deleteReview(int rno) {
 		int result = FAIL;
 		Connection conn = null;
@@ -306,7 +397,7 @@ public class ReviewBoardDao {
 		return result;
 	}
 	
-	// 7. 답글 작성
+	// 7. 답글 작성  --------------------------------------------------
 	// 7-1. STEP1 답변글 작성 전 작업
 	private void preReplyStep(int rgroup, int rstep) {
 		Connection conn = null;	
@@ -334,7 +425,7 @@ public class ReviewBoardDao {
 		}	
 	}
 	
-	// 7-2. STEP2 답변글 작성
+	// 7-2. STEP2 답변글 작성 
 	public int replyReview(ReviewBoardDto review) {
 		preReplyStep(review.getRgroup(), review.getRstep());
 		int result = FAIL;
@@ -374,94 +465,4 @@ public class ReviewBoardDao {
 		
 	}
 	
-	// 8. 게시글 검색
-	public ArrayList<ReviewBoardDto> searchReviewList(String schStr, int startRow, int endRow){
-		ArrayList<ReviewBoardDto> reviewList = new ArrayList<ReviewBoardDto>();
-		Connection        conn  = null;
-		PreparedStatement pstmt = null;
-		ResultSet         rs    = null;
-		String sql = "SELECT L.*," + 
-				"        (SELECT MNAME FROM MEMBER WHERE L.MID = MID) || " + 
-				"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) NAME" + 
-				"        FROM (SELECT ROWNUM RN, RBOARD.*" + 
-				"            FROM(SELECT * FROM REVIEWBOARD " + 
-				"                 WHERE RTITLE LIKE '%' || ? || '%'" + 
-				"                 ORDER BY RGROUP DESC, RSTEP) RBOARD) L" + 
-				"    WHERE RN BETWEEN ? AND ?";
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, schStr);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				int rno = rs.getInt("rno");
-				String mid = rs.getString("mid");
-				String sid = rs.getString("sid");
-				String rtitle = rs.getString("rtitle");
-				String rcontent = rs.getString("rcontent");
-				String rpw = rs.getString("rpw");
-				String rphoto = rs.getString("rphoto");
-				Timestamp rrdate = rs.getTimestamp("rrdate");
-				int rhit = rs.getInt("rhit");
-				int rgroup = rs.getInt("rgroup");
-				int rstep = rs.getInt("rstep");
-				int rindent = rs.getInt("rindent");
-				String rip = rs.getString("rip");
-
-				// member
-				String name = rs.getString("NAME");
-				reviewList.add(new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup,
-						rstep, rindent, rip, name));
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		return reviewList;
-	}
-	
-	// 9. 검색된 총 글 갯수 조회
-		public int getSchReviewTotCnt(String schStr) {
-			int totCnt = 0;
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = "SELECT COUNT(*) CNT "+ 
-					"		FROM REVIEWBOARD "+ 
-					"		 WHERE RTITLE LIKE '%' || ? || '%'";
-			try {
-				conn = getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, schStr);
-				rs = pstmt.executeQuery();
-				rs.next();
-				totCnt = rs.getInt("cnt");
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			} finally {
-				try {
-					if (rs != null)
-						rs.close();
-					if (pstmt != null)
-						pstmt.close();
-					if (conn != null)
-						conn.close();
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-			}
-			return totCnt;
-		}
 }

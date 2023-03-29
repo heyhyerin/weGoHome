@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+/* 탭 전체 스타일 */
+.tabs {
+	padding-top: 40px;
+	width: 800px;
+	margin: 0 auto;
+}
+
+/* 탭 스타일 */
+.tab_item {
+	width: calc(100%/ 2);
+	height: 50px;
+	border-bottom: 3px solid #FF4600;
+	line-height: 50px;
+	font-size: 16px;
+	text-align: center;
+	color: #aaaaaa;
+	display: block;
+	float: left;
+	text-align: center;
+	font-weight: bold;
+	transition: all 0.3s ease;
+}
+
+/* 라디오 버튼 UI삭제*/
+input[name="tab_item"] {
+	display: none;
+}
+
+/* 탭 컨텐츠 스타일 */
+.tab_content {
+	display: none;
+	clear: both;
+	overflow: hidden;
+}
+
+/* 선택 된 탭 콘텐츠를 표시 */
+#all:checked ~ #all_content, #programming:checked ~ #programming_content, #design:checked 
+	 ~ #design_content {
+	display: block;
+}
+
+/* 선택된 탭 스타일 */
+.tabs input:checked+.tab_item {
+	background-color: #FF4600;
+	color: #ffffff;
+	border-radius: 8px 8px 0 0;
+}
+
+.commentArea{
+	display: inline-flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* 보호동물 상세보기 */
+.animal-content{
+	width: 800px;
+	height: 340px;
+	border-top: none;
+}
+
+/* 문의 댓글 */
+.commentBox {
+	width: 700px;
+	height: auto;
+	padding:20px;
+	margin-top: 20px;
+	background-color: #eeeeee;
+	border-radius: 10px;
+	margin: 20 auto;
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
+.commentBox:last-child {
+	height: 150px;
+	justify-content: flex-end;
+}
+
+/* 보호동물 > 문의 댓글  */
+.commentBox:last-child input.btn{
+	margin-top: 15px;
+}
+
+.commentBox pre {
+	padding: 5px 0;
+	font-weight: bold;
+}
+
+.commentBox textarea{
+	width: 700px;
+	height: 100px;
+}
+
+.commentContent form{
+	display: inline-flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: baseline;
+}
+
+.commentContent form input{
+	margin-top: 15px; 
+}

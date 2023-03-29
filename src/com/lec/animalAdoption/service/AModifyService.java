@@ -35,6 +35,7 @@ public class AModifyService implements Service {
 			Enumeration<String> params = mRequest.getFileNames();
 			String param = params.nextElement();
 			filename = mRequest.getFilesystemName(param);
+			dbfilename = mRequest.getParameter("dbfilename");
 			
 			// 파일을 수정하지 않은 경우
 			if (filename == null) {
