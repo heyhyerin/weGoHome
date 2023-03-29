@@ -18,7 +18,10 @@ public class ASearchService implements Service {
 		HttpSession httpSession = request.getSession();
 		MemberDto member = (MemberDto)httpSession.getAttribute("member");
 		
-		String mid = member.getMid();
+		String mid = "";
+		if (member != null) {
+			mid = member.getMid();
+		}
 		String schAbreed = request.getParameter("abreed");
 		String schAgender = request.getParameter("agender");
 		String aweightStr = request.getParameter("aweight");

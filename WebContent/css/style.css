@@ -71,8 +71,9 @@ div.container-image {
 }
 
 .div-search {
-	display: flex;
-	flex-direction: row-reverse;
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: flex-end;
 }
 
 .center {
@@ -362,6 +363,12 @@ b.red {
 b.green {
 	color: #14be00;
 	font-size: 12pt;
+}
+
+b.grey {
+	color: #bbbbbb;
+	font-size: 12pt;
+	cursor: pointer;
 }
 
 /* ----------- hr ----------- */

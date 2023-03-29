@@ -97,7 +97,60 @@ public class ReviewBoardDao {
 	}
 	
 	// 1-2. 인기순 정렬(hit수)
-	
+	public ArrayList<ReviewBoardDto> getReviewListHit(int startRow, int endRow){
+		ArrayList<ReviewBoardDto> reviewList = new ArrayList<ReviewBoardDto>();
+		Connection        conn  = null;
+		PreparedStatement pstmt = null;
+		ResultSet         rs    = null;
+		String sql = "SELECT L.*,\r\n" + 
+				"        (SELECT MNAME FROM MEMBER WHERE L.MID = MID) || " + 
+				"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) WRITERNAME " + 
+				"        FROM (SELECT ROWNUM RN, RBOARD.* " + 
+				"            FROM(SELECT * FROM REVIEWBOARD " + 
+				"            ORDER BY RHIT DESC,RGROUP DESC, RSTEP) RBOARD) L" + 
+				"    WHERE RN BETWEEN ? AND ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int rno = rs.getInt("rno");
+				String mid = rs.getString("mid");
+				String sid = rs.getString("sid");
+				String rtitle = rs.getString("rtitle");
+				String rcontent = rs.getString("rcontent");
+				String rpw = rs.getString("rpw");
+				String rphoto = rs.getString("rphoto");
+				Timestamp rrdate = rs.getTimestamp("rrdate");
+				int rhit = rs.getInt("rhit");
+				int rgroup = rs.getInt("rgroup");
+				int rstep = rs.getInt("rstep");
+				int rindent = rs.getInt("rindent");
+				String rip = rs.getString("rip");
+
+				// member
+				String name = rs.getString("writername");
+				reviewList.add(new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup,
+						rstep, rindent, rip, name));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return reviewList;
+	}
 	
 	// 1-3. 등록된 총 글 갯수 조회  --------------------------------------------------
 	public int getReviewTotCnt() {

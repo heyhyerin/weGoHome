@@ -180,7 +180,7 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/animalModify.do")) {
 			service = new AModifyService();
 			service.execute(request, response);
-			viewPage = "animalContent.do";
+			viewPage = "animalList.do";
 		}
 		
 		// 보호동물 글 삭제
@@ -225,8 +225,12 @@ public class FrontController extends HttpServlet {
 		
 		// reviewBoard ----------------------------------------
 		// 리뷰게시판 글 목록
-		else if (command.equals("/reviewBoardList.do")) {
+		else if (command.equals("/reviewBoardList.do")) { // 등록순 정렬: 기본
 			service = new RBoardListService();
+			service.execute(request, response);
+			viewPage = "reviewBoard/reviewBoardList.jsp";
+		} else if (command.equals("/reviewBoardListRhit.do")) { // 인기순 정렬
+			service = new RBoardContentRhitService();
 			service.execute(request, response);
 			viewPage = "reviewBoard/reviewBoardList.jsp";
 		}

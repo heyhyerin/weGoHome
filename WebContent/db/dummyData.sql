@@ -1,12 +1,17 @@
 -- MEMBER
 INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)
-    VALUES ('test1', '111', '사용자1' , '010-1111-1111', 'test1@gmail.com', 'M', 
-            '1995/01/01', '서울시 용산구');
-            
+    VALUES ('amem', '111', '구보영' , '01011111111', 'amem@gmail.com', '', 
+            '', ''); 
 INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)
-    VALUES ('test2', '111', '사용자2' , '010-2222-2222', 'test2@gmail.com', 'M', 
-            '1995/01/01', '서울시 용산구');
-            
+    VALUES ('bmem', '111', '김단오' , '01022222222', 'bmem@gmail.com', '', 
+            '', '');
+INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)
+    VALUES ('cmem', '111', '김보민' , '01033333333', 'cmem@gmail.com', '', 
+            '', '');
+INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)
+    VALUES ('dmem', '111', '김유미' , '01044444444', 'dmem@gmail.com', '', 
+            '', '');
+         
 -- SHELTER
 INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
     VALUES ('ashel', '111', '서울동물복지지원센터', '02-2124-2839', 'ashel@seoulAnimal.co.kr', '서울특별시 마포구 매봉산로 31(상암동)');

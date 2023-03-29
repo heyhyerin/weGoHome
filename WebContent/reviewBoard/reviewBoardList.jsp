@@ -44,6 +44,10 @@
 	<div id="wrap">
 		<h1>입양 후기 게시판</h1>
 		<div class="div-search">
+			<div>
+				<b class="grey" onclick="location.href='${conPath}/reviewBoardList.do'">등록순</b> | <b
+					class="grey" onclick="location.href='${conPath}/reviewBoardListRhit.do'">인기순</b>
+			</div>
 			<form action="${conPath}/reviewSearch.do">
 				<input type="text" name="searchBox" id="searchBox" class="data-input" placeholder="검색어를 입력하세요">
 				<button class="btn-grey">검색</button>
@@ -55,7 +59,7 @@
 		
 		<table class="dataTable">
 			<tr>
-				<th>번호</th>
+				<th>글번호</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
@@ -72,13 +76,17 @@
 						<td>${review.rno }</td>
 						<td class="td-tltle">
 							<c:forEach var="i" begin="1" end="${review.rindent }">
-								<c:if test="${i == review.rindent }">
-									 &nbsp; ㄴ
-									</c:if>
 								<c:if test="${i != review.rindent }">
 									 &nbsp; &nbsp; 
-									</c:if>
-							</c:forEach>${review.rtitle }</td>
+								</c:if>
+								<c:if test="${i == review.rindent }">
+									 ㄴ
+								</c:if>
+							</c:forEach>
+							${review.rtitle }
+								<c:if test="${review.rhit > 10}">&#127752;<b class="red">인기글</b></c:if><!-- 인기글 -->
+								<c:if test="${not empty review.rphoto}">&#128196;</c:if><!-- 파일첨부 -->
+						</td>
 						<td>${review.name }</td>
 						<td>${review.rhit }</td>
 						<td>

@@ -58,8 +58,8 @@
 	
 		<h1>보호 동물 관리</h1>
 		<div class="div-search">
-			<input type="button" value="글 작성" class="btn" onclick="location.href='animalWriteView.do'">
 			<span>total: ${totCnt }</span>
+			<input type="button" value="글 작성" class="btn" onclick="location.href='animalWriteView.do'">
 		</div>
 		
 		<table class="dataTable">
@@ -98,7 +98,7 @@
 								<b class="red">보호중</b>
 							</c:if>
 							<c:if test="${animal.aadopt eq 'ADOPT'}">
-								<b>입양완료</b>
+								<b class="green">입양완료</b>
 							</c:if>
 						</td>
 						<td>${animal.likeChk }</td>

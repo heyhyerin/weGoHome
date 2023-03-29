@@ -187,8 +187,8 @@
 				<tr>
 					<td colspan="2" class="center">
 						<input type="submit" value="수정" class="btn">
-						<input type="button" value="삭제" class="btn-grey" onclick="${conPath}/animalDelete.do?ano=${animal.ano}">
-						<input type="button" value="글목록" class="btn-grey" onclick="${conPath}/animalList.do">
+						<input type="button" value="삭제" class="btn-grey" onclick="location.href='${conPath}/animalDelete.do?ano=${animal.ano}'">
+						<input type="button" value="글목록" class="btn-grey" onclick="location.href='${conPath}/animalList.do'">
 					</td>
 				</tr>
 			</table>
