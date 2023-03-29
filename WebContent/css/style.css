@@ -12,6 +12,8 @@
 	font-family: Noto Sans KR;
 	padding: 0;
 	margin: 0;
+	list-style: none;
+	text-decoration: none;
 }
 
 /* ------------- wrap ------------- */
@@ -365,9 +367,10 @@ b.green {
 	font-size: 12pt;
 }
 
-b.grey {
+.grey {
 	color: #bbbbbb;
 	font-size: 12pt;
+	font-weight: bold;
 	cursor: pointer;
 }
 

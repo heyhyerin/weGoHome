@@ -14,24 +14,27 @@ INSERT INTO MEMBER (MID, MPW, MNAME, MTEL, MEMAIL, MGENDER, MBIRTH, MADDRESS)
          
 -- SHELTER
 INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
-    VALUES ('ashel', '111', '서울동물복지지원센터', '02-2124-2839', 'ashel@seoulAnimal.co.kr', '서울특별시 마포구 매봉산로 31(상암동)');
-
+    VALUES ('ashel', '111', '서울동물복지지원센터', '0221242839', 'ashel@seoulAnimal.co.kr', '서울특별시 마포구 매봉산로 31(상암동)');
 INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
-    VALUES ('bshel', '111', '강동구청 반려동물팀', '02-3425-6015', 'gangdong@seoulAnimal.co.kr', '서울특별시 강동구 성내로 25(성내동, 강동구청)');
+    VALUES ('bshel', '111', '한국동물구조관리협회', '0221336548', 'kanimal@koreaAnimal.co.kr', '경기도 양주시 남면 감악산로 63-37(남면)');
+INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
+    VALUES ('cshel', '111', '남양유기견보호센터', '0313562281', 'namyang@gungkiAnimal.co.kr', '경기도 화성시 남양읍 화성로 1482-27(남양읍)');
+INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
+    VALUES ('dshel', '111', '가평군유기동물보호소', '0318679119', 'gappeng@gungkiAnimal.co.kr', '경기도 가평군 가평읍 아랫마장길 59(가평읍)');
     
 -- ANIMAL
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, AAGE, AWEIGHT, ACONTENT, AADDRESS, ARDATE, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'ashel', 'wgh_0001.png', '개/진도 믹스', '수컷', '4', '12',
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'ashel', NULL, '개/진도 믹스', '수컷', '4', '12',
             '사람을 잘 따라요', '서울시 용산역 부근', SYSDATE, 'PROTECT', '197.0.0.1');
             
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
                    AAGE, AWEIGHT, ACONTENT, AADDRESS, ARDATE, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'bshel', 'wgh_0002.png', '개/푸들', '암컷(중성화 O)', '5', '4',
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'bshel', NULL, '개/푸들', '암컷(중성화 O)', '5', '4',
             '사람을 잘 따라요', '중산마을 9단지', SYSDATE, 'PROTECT', '197.0.0.1');
 
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
                    AAGE, AWEIGHT, ACONTENT, AADDRESS, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'SHELTER2', 'wgh_0000.png', '푸들', '암컷(중성화 O)', '5', '4',
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'SHELTER2', NULL, '푸들', '암컷(중성화 O)', '5', '4',
             '사람을 잘 따라요', '중산마을 9단지', 'PROTECT', '197.0.0.1');
 
 -- ANIMALCOMMENT
@@ -42,22 +45,32 @@ INSERT INTO ANIMALCOMMENT (ACNO, MID, ANO, ACCONTENT, ACRDATE, ACIP)
     VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, 'member', '12', '아니요 굉장히 안좋습니다.', SYSDATE, '210.0.0.1');
 
 SELECT * FROM ANIMALCOMMENT;
+
 -- REVIEWBOARD
 INSERT INTO REVIEWBOARD
     (RNO, MID, SID, RTITLE, RCONTENT, RPW, RPHOTO, RRDATE, RHIT, RGROUP, RSTEP, RINDENT, RIP)
-VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, 'test1', NULL, '입양 5주차 후기', '입양 5주차 이제는 친해졌어요',
+    VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, 'amem', NULL, '입양 5주차 후기', '입양 5주차 이제는 친해졌어요',
         '111', NULL, SYSDATE, 0, REVIEWBOARD_RNO_SEQ.CURRVAL, 0, 0, '197.0.0.1');
-        
 INSERT INTO REVIEWBOARD
     (RNO, MID, SID, RTITLE, RCONTENT, RPW, RPHOTO, RRDATE, RHIT, RGROUP, RSTEP, RINDENT, RIP)
-VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, 'test1', NULL, '입양 6주차 후기', '입양 6주차 산책도 잘해요',
+    VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, NULL, 'ashel', '2023년 3월 기부금품 모집 완료 보고', '본문',
         '111', NULL, SYSDATE, 0, REVIEWBOARD_RNO_SEQ.CURRVAL, 0, 0, '197.0.0.1');
-        
 INSERT INTO REVIEWBOARD
     (RNO, MID, SID, RTITLE, RCONTENT, RPW, RPHOTO, RRDATE, RHIT, RGROUP, RSTEP, RINDENT, RIP)
-VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, NULL, 'SHELTER1', '입양 6주차 후기', '입양 6주차 산책도 잘해요',
+VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, null, 'bshel', 'WE GO HOME 정기 후원 안내', '후원해 주셔서 감사합니다.',
         '111', NULL, SYSDATE, 0, REVIEWBOARD_RNO_SEQ.CURRVAL, 0, 0, '197.0.0.1');
-
+INSERT INTO REVIEWBOARD
+    (RNO, MID, SID, RTITLE, RCONTENT, RPW, RPHOTO, RRDATE, RHIT, RGROUP, RSTEP, RINDENT, RIP)
+VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, 'cmem', NULL, '입양 문의드립니다', '입양 고민 중 입니다.',
+        '111', NULL, SYSDATE, 0, REVIEWBOARD_RNO_SEQ.CURRVAL, 0, 0, '197.0.0.1');
+INSERT INTO REVIEWBOARD
+    (RNO, MID, SID, RTITLE, RCONTENT, RPW, RPHOTO, RRDATE, RHIT, RGROUP, RSTEP, RINDENT, RIP)
+VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, NULL, 'bshel', '결산내역 보고', '본문',
+        '111', NULL, SYSDATE, 0, REVIEWBOARD_RNO_SEQ.CURRVAL, 0, 0, '197.0.0.1');
+INSERT INTO REVIEWBOARD
+    (RNO, MID, SID, RTITLE, RCONTENT, RPW, RPHOTO, RRDATE, RHIT, RGROUP, RSTEP, RINDENT, RIP)
+VALUES (REVIEWBOARD_RNO_SEQ.NEXTVAL, null, 'ashel', '[3월]기업 봉사 후기', '봉사 후기 본문',
+        '111', NULL, SYSDATE, 0, REVIEWBOARD_RNO_SEQ.CURRVAL, 0, 0, '197.0.0.1');
 -- LIKElIST
 INSERT INTO LIKELIST (LNO, MID, ANO)
     VALUES (LIKELIST_LNO_SEQ.NEXTVAL ,'aaaa', '16');

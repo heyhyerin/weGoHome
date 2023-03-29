@@ -107,20 +107,21 @@
 			</c:if>
 		</table>
 
-		<div class="paging">
+		<div class="paging" >
 			<c:if test="${startPage > BLOCKSIZE }">
-				<a href="${conPath }/boardList.do?pageNum=${startPage-1}"> 이전 </a>
+				<a href="${conPath }/animalList.do?pageNum=${startPage-1}"><b class="grey" > 이전 &nbsp;&nbsp;</b></a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage }" end="${endPage }">
 				<c:if test="${i == pageNum }">
-					<b class="red"> ${i } </b>
+					<b class="red" > ${i }&nbsp; </b>
 				</c:if>
 				<c:if test="${i != pageNum }">
-					<a href="${conPath }/boardList.do?pageNum=${i}"> ${i } </a>
+					<a href="${conPath }/animalList.do?pageNum=${i}&order_by=${order_by}">
+					<b class="grey" > ${i }&nbsp; </b></a>
 				</c:if>
 			</c:forEach>
-			<c:if test="${endPage<pageCnt }">
-				<a href="${conPath }/boardList.do?pageNum=${endPage+1}"> 다음 </a>
+			<c:if test="${endPage < pageCnt }">
+				<a href="${conPath }/animalList.do?pageNum=${endPage+1}"><b class="grey" >&nbsp;&nbsp; 다음 </b></a>
 			</c:if>
 		</div>
 

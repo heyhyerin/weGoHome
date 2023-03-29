@@ -54,6 +54,10 @@ input[name="tab_item"] {
 	flex-wrap: wrap;
 }
 
+.form-commentWrite{
+	margin-left: 30px;
+}
+
 /* 보호동물 상세보기 */
 .animal-content{
 	width: 800px;

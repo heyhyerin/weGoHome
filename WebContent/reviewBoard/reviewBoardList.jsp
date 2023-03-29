@@ -45,8 +45,11 @@
 		<h1>입양 후기 게시판</h1>
 		<div class="div-search">
 			<div>
-				<b class="grey" onclick="location.href='${conPath}/reviewBoardList.do'">등록순</b> | <b
-					class="grey" onclick="location.href='${conPath}/reviewBoardListRhit.do'">인기순</b>
+				<span class="grey"
+					onclick="location.href='reviewBoardList.do?order_by=rdate'">등록순</span>
+				|
+				<span class="grey"
+					onclick="location.href='reviewBoardList.do?order_by=rhit'">인기순</span>
 			</div>
 			<form action="${conPath}/reviewSearch.do">
 				<input type="text" name="searchBox" id="searchBox" class="data-input" placeholder="검색어를 입력하세요">
@@ -56,7 +59,7 @@
 				</c:if>
 			</form>
 		</div>
-		
+
 		<table class="dataTable">
 			<tr>
 				<th>글번호</th>
@@ -67,7 +70,9 @@
 			</tr>
 			<c:if test="${totCnt == 0}">
 				<tr>
-					<td colspan="5"><h4>등록된 게시글이 없습니다.</h4></td>
+					<td colspan="5">
+						<h4>등록된 게시글이 없습니다.</h4>
+					</td>
 				</tr>
 			</c:if>
 			<c:if test="${totCnt != 0}">
@@ -84,8 +89,11 @@
 								</c:if>
 							</c:forEach>
 							${review.rtitle }
-								<c:if test="${review.rhit > 10}">&#127752;<b class="red">인기글</b></c:if><!-- 인기글 -->
-								<c:if test="${not empty review.rphoto}">&#128196;</c:if><!-- 파일첨부 -->
+							<c:if test="${review.rhit > 10}">&#127752;<b class="red">인기글</b>
+							</c:if>
+							<!-- 인기글 -->
+							<c:if test="${not empty review.rphoto}">&#128196;</c:if>
+							<!-- 파일첨부 -->
 						</td>
 						<td>${review.name }</td>
 						<td>${review.rhit }</td>
@@ -97,20 +105,21 @@
 			</c:if>
 		</table>
 
-		<div class="paging">
+		<div class="paging" >
 			<c:if test="${startPage > BLOCKSIZE }">
-				<a href="${conPath }/boardList.do?pageNum=${startPage-1}"> 이전 </a>
+				<a href="${conPath }/reviewBoardList.do?pageNum=${startPage-1}"><b class="grey" > 이전 &nbsp;&nbsp;</b></a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage }" end="${endPage }">
 				<c:if test="${i == pageNum }">
-					<b class="red"> ${i } </b>
+					<b class="red" > ${i }&nbsp; </b>
 				</c:if>
 				<c:if test="${i != pageNum }">
-					<a href="${conPath }/boardList.do?pageNum=${i}"> ${i } </a>
+					<a href="${conPath }/reviewBoardList.do?pageNum=${i}&order_by=${order_by}">
+					<b class="grey" > ${i }&nbsp; </b></a>
 				</c:if>
 			</c:forEach>
-			<c:if test="${endPage<pageCnt }">
-				<a href="${conPath }/boardList.do?pageNum=${endPage+1}"> 다음 </a>
+			<c:if test="${endPage < pageCnt }">
+				<a href="${conPath }/reviewBoardList.do?pageNum=${endPage+1}"><b class="grey" >&nbsp;&nbsp; 다음 </b></a>
 			</c:if>
 		</div>
 

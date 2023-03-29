@@ -31,7 +31,7 @@ public class ASearchService implements Service {
 		String schSname = request.getParameter("sname");
 		
 		// 검색 시 1page로
-		String pageNum = "1";
+		String pageNum = request.getParameter("pageNum");
 		int currentPage = Integer.parseInt(pageNum);
 		final int PAGESIZE = 8, BLOCKSIZE = 10;
 		int startRow = (currentPage -1) * PAGESIZE + 1;

@@ -229,10 +229,6 @@ public class FrontController extends HttpServlet {
 			service = new RBoardListService();
 			service.execute(request, response);
 			viewPage = "reviewBoard/reviewBoardList.jsp";
-		} else if (command.equals("/reviewBoardListRhit.do")) { // 인기순 정렬
-			service = new RBoardContentRhitService();
-			service.execute(request, response);
-			viewPage = "reviewBoard/reviewBoardList.jsp";
 		}
 
 		// 리뷰게시판 글 작성

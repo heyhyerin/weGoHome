@@ -1,5 +1,10 @@
 -- MEMBER ----------------------------------------------------------------------
--- 1. 사용자 회원가입
+-- 1. 로그인
+-- public int loginMember(String mid, String mpw)
+SELECT * FROM MEMBER
+    WHERE MID = 'test1' AND MPW = '111';
+
+-- 2. 사용자 회원가입
     -- id 중복확인
     -- public int idConfirm (String mid)
     SELECT * FROM MEMBER WHERE MID = 'aaa';
@@ -9,10 +14,9 @@
     -- SELECT * FROM MEMBER WHERE MTEL = '010-1111-1111';
     SELECT * FROM MEMBER WHERE MTEL = REGEXP_REPLACE('01011111111', '[^0-9]');
     
-    -- SELECT REGEXP_REPLACE(MTEL, '[^0-9]') FROM MEMBER;
-    
     -- email 중복확인
     -- public int emailConfirm (String memail)
+     -- SELECT REGEXP_REPLACE(MTEL, '[^0-9]') FROM MEMBER;
     SELECT * FROM MEMBER WHERE MEMAIL = 'test1@gmail.com';
     
     -- 회원가입
@@ -21,28 +25,23 @@
         VALUES ('test3', '111', '사용자3' , REGEXP_REPLACE('010-3333-3333','[^0-9]'), 'test3@gmail.com', 'M', 
                 '1995/01/01', '서울시 용산구');
 
--- 2. 로그인
--- public int loginMember(String mid, String mpw)
-SELECT * FROM MEMBER
-    WHERE MID = 'test1' AND MPW = '111';
-
--- 사용자 정보 수정
-    -- 3. 회원정보 조회
+-- 3. 사용자 정보 수정
+    -- 3-1. 회원정보 조회
     -- public MemberDto getMember(String mid)
     SELECT * FROM MEMBER WHERE MID = 'test1';
     
-    -- 4. 회원정보 수정
+    -- 3-2. 회원정보 수정
     -- public int modifyMember(MemberDto member)
     UPDATE MEMBER SET
             MPW = '111',
-            MTEL = REGEXP_REPLACE('010-3333-3333','[^0-9]'),
+            MTEL = REGEXP_REPLACE('010-3333-3333', '[^0-9]'),
             MEMAIL = 'test@gmail.com',
             MGENDER = 'M',
             MBIRTH = '1995/01/01',
             MADDRESS = '서울시 용산구'
     WHERE MID = 'test1';
 
--- 5. 회원 탈퇴
+-- 4. 회원 탈퇴
     -- 좋아요 목록 삭제
     DELETE FROM LIKELIST
         WHERE MID = 'bam';
@@ -70,11 +69,11 @@ SELECT * FROM SHELTER
       AND SPW = '111';
       
 -- 2. 보호소 정보 수정
-    -- 보호소 정보 출력
+    -- 2-1. 보호소 정보 출력
     -- public ShelterDto getShelter(String sid)
     SELECT * FROM SHELTER WHERE SID = 'SHELTER1';
     
-    -- 보호소 정보 수정
+    -- 2-2. 보호소 정보 수정
     -- public int modifyShelter(ShelterDto shelter)
     UPDATE SHELTER SET
             SPW = '111',
@@ -87,23 +86,7 @@ SELECT * FROM SHELTER
 -- ANIMAL ----------------------------------------------------------------------
 -- 1. 보호동물 목록 출력
 -- public ArrayList<AnimalDto> getAnimalList(int startRow, int endRow)
-SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
-         FROM(SELECT ANIMAL.*, SNAME 
-            FROM ANIMAL, SHELTER
-            WHERE ANIMAL.SID = SHELTER.SID
-            ORDER BY ARDATE DESC)ANIMALlIST)
-         WHERE RN BETWEEN 1 AND 2;
-        
-    -- 좋아요 체크까지 출력
-    SELECT A.*, SNAME, LNO LIKECHK
-      FROM ANIMAL A
-         , SHELTER S
-         , (SELECT * FROM LIKELIST WHERE MID = 'test3') L
-     WHERE A.SID = S.SID
-       AND  A.ANO = L.ANO(+)
-     ORDER BY ARDATE DESC;
-
-    -- 사용자 확인 화면
+    -- 1-1. 사용자 확인 화면
     SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
              FROM(SELECT A.*, SNAME, LNO LIKECHK
              FROM ANIMAL A
@@ -114,24 +97,24 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
          ORDER BY A.ANO DESC)ANIMALlIST)
             WHERE RN BETWEEN 1 AND 8;
 
-    -- 보호소 확인 화면
+    -- 1-2. 등록된 전체 동물 수 조회
+    -- public int getAnimalTotCnt()
+    SELECT COUNT(*) CNT FROM ANIMAL; 
+    
+    -- 2-1. 보호소 확인 화면
       SELECT * FROM(SELECT ROWNUM RN, ANIMALLIST.*
                FROM(SELECT A.*, (SELECT COUNT(*) 
                FROM LIKELIST WHERE ANO = A.ANO) LIKECHK
       FROM ANIMAL A
       WHERE SID = 'bshel'
       ORDER BY ARDATE DESC) ANIMALLIST)
-      WHERE RN BETWEEN 1 AND 10;
-      
-    -- 보호동물 총 숫자
+      WHERE RN BETWEEN 1 AND 10;  
+   
+   -- 2-1. 보호소가 보호중인 총 동물 수
     SELECT COUNT(*) CNT 
       FROM ANIMAL
-     WHERE SID = 'bshel';  
-   
--- 2. 등록된 전체 동물 수 조회
--- public int getAnimalTotCnt()
-SELECT COUNT(*) CNT FROM ANIMAL;    
-         
+     WHERE SID = 'bshel';
+
 -- 3. 보호공고 작성
 -- public int writeAnimal(AnimalDto animal)
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, AAGE, AWEIGHT, ACONTENT,
@@ -140,10 +123,7 @@ INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, AAGE, AWEIGHT, ACONTENT,
             '5', '5', '사람을 잘 따라요', '중산마을 9단지', 'PROTECT', '197.0.0.1');
 
 -- 4. 게시글 상세보기
--- public AnimalDto getAnimal(int ano)
-SELECT * FROM ANIMAL 
-    WHERE ANO = '4';
-    
+-- public AnimalDto getAnimal(int ano)  
 SELECT A.*,SNAME, STEL, SEMAIL, SADDRESS
     FROM ANIMAL A, SHELTER S
     WHERE A.SID = S.SID AND ANO = 4;
@@ -173,7 +153,7 @@ DELETE FROM ANIMALCOMMENT
 DELETE FROM ANIMAL
     WHERE ANO = '2';
 
--- 7. 동물 상세 검색
+-- 7-1. 동물 상세 검색
 -- public ArrayList<AnimalDto> searchAnimal(String abreed, String agender, int aweight)
 SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
          FROM(SELECT ANIMAL.*, SNAME 
@@ -185,7 +165,8 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
               AND SNAME LIKE '%'|| '' || '%'
             ORDER BY ARDATE DESC)ANIMALlIST)
          WHERE RN BETWEEN 1 AND 100;
-         
+
+-- 7-2. 검색된 총 동물 수
 SELECT COUNT(*) CNT FROM ANIMAL, SHELTER
             WHERE ANIMAL.SID = SHELTER.SID
               AND ABREED LIKE '%' || '' || '%' 
@@ -204,12 +185,12 @@ SELECT * FROM(SELECT ROWNUM RN, ANIMALlIST.*
             ORDER BY LNO)ANIMALlIST)
          WHERE RN BETWEEN 1 AND 8;
 
--- 8-2. 나의 관심동물 총 갯수
+-- 8-2. 나의 관심동물 총 수
 SELECT COUNT(*) CNT
   FROM ANIMAL, LIKELIST
  WHERE ANIMAL.ANO = LIKELIST.ANO
    AND LIKELIST.MID = 'aaaa';
-
+   
 -- ANIMALCOMMENT ---------------------------------------------------------------
 -- 1. 댓글 출력
 -- public ArrayList<AnimalCommentDto> getCommentList()
@@ -221,13 +202,14 @@ SELECT A.* , MNAME
 -- 2. 특정 글에 댓글 달기
 -- public int writeComment (AnimalCommentDto comment)
 INSERT INTO ANIMALCOMMENT (ACNO, MID, ANO, ACCONTENT, ACRDATE, ACIP)
-    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, 'test1', '2', '좋은 주인 만나렴', SYSDATE, '210.0.0.1');
+    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, 'test1', '2', 
+           '좋은 주인 만나렴', SYSDATE, '210.0.0.1');
 
 -- 3-1. 특정 문의글 정보 확인
 SELECT * FROM ANIMALCOMMENT
     WHERE ACNO = '1';
 
--- 3. 특정 문의글 수정
+-- 3-2. 특정 문의글 수정
 -- public int modifyComment (AnimalCommentDto comment)
 UPDATE ANIMALCOMMENT SET
         ACCONTENT = '입양 문의는 어디로 하면 될까요?',
@@ -313,7 +295,7 @@ SELECT L.*,
 
 SELECT * FROM REVIEWBOARD
     WHERE RTITLE LIKE '%' || '주차' || '%';
-    
+
 -- LIKELIST --------------------------------------------------------------------
 -- 1. 관심동물 등록
 INSERT INTO LIKELIST (LNO, MID, ANO)
@@ -322,3 +304,4 @@ INSERT INTO LIKELIST (LNO, MID, ANO)
 -- 2. 관심동물 해제
 DELETE FROM LIKELIST
     WHERE MID = 'aaaa' AND ANO = '19';
+    

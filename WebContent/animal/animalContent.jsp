@@ -95,61 +95,65 @@
 						<label class="tab_item" for="all">상세정보</label>
 						<input id="programming" type="radio" name="tab_item">
 						<label class="tab_item" for="programming">문의</label>
-		
+
 						<!-- 상세정보 -->
 						<div class="tab_content" id="all_content">
 							<div class="textarea-comment">
 								<pre>${animal.acontent }</pre>
 							</div>
 						</div>
-						
+
 						<!-- 문의 -->
 						<div class="tab_content" id="programming_content">
 							<div class="commentArea">
-							<c:if test="${not empty commentList }">
-							<c:set var="mid" value="${member.mid }"/>
-								<c:forEach var="comment" items="${commentList }">
-									
-									<!-- 수정 시 해당 div 수정 -->
-									<div class="commentBox comment${comment.acno }">
-										<div>
-											<pre>${comment.accontent }</pre>
-											${comment.mid }<span>|</span>${comment.acrdate }
+								<c:if test="${not empty commentList }">
+									<c:set var="mid" value="${member.mid }" />
+									<c:forEach var="comment" items="${commentList }">
+
+										<!-- 수정 시 해당 div 수정 -->
+										<div class="commentBox comment${comment.acno }">
+											<div>
+												<pre>${comment.accontent }</pre>
+												${comment.mid }<span>|</span>${comment.acrdate }
+											</div>
+											<c:choose>
+												<c:when test="${comment.mid eq mid }">
+													<div>
+														<input type="button" value="수정" id="${comment.acno }"
+															class="btn-grey commentModifyBtn">
+														<input type="button" value="삭제" class="btn-grey"
+															onclick="location.href='${conPath}/commentDelete.do?acno=${comment.acno }'">
+													</div>
+												</c:when>
+											</c:choose>
 										</div>
-										<c:choose>
-											<c:when test="${comment.mid eq mid }">
-												<div>
-													<input type="button" value="수정" id="${comment.acno }" class="btn-grey commentModifyBtn">
-													<input type="button" value="삭제" class="btn-grey"
-														onclick="location.href='${conPath}/commentDelete.do?acno=${comment.acno }'">
-												</div>
-											</c:when>
-										</c:choose>
-									</div>	
-								</c:forEach>
-							</c:if>
-							<!-- 문의글 작성 -->	
-							<form action="${conPath }/commentWrite.do">
-								<div class="commentBox">
+									</c:forEach>
+								</c:if>
+								<!-- 문의글 작성 -->
+								<form action="${conPath }/commentWrite.do" class="form-commentWrite">
 									<input type="hidden" name="mid" value="${member.mid }">
 									<input type="hidden" name="ano" value="${animal.ano }">
-									<textarea name="accontent" required="required" class="textarea-comment" ></textarea>
-									
-									<c:if test="${empty member }">
-										<pre>문의글은 로그인 후 작성할 수 있습니다.</pre>
-									</c:if>
-									<c:if test="${not empty member }">
-										<input type="submit" value="문의글 작성" class="btn">
-									</c:if>
-								</div>
-							</form>
+									<div class="commentBox">
+										<textarea name="accontent" required="required" class="textarea-comment"></textarea>
+										<c:if test="${empty member }">
+											<pre>문의글은 로그인 후 작성할 수 있습니다.</pre>
+										</c:if>
+										<c:if test="${not empty member }">
+											<span class="span-comment"> <input type="submit" value="문의글 작성" class="btn">
+											</span>
+										</c:if>
+									</div>
+								</form>
 							</div>
 						</div>
-					</div><!-- tabs -->
+					</div>
+					<!-- tabs -->
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4"><hr></td>
+				<td colspan="4">
+					<hr>
+				</td>
 			</tr>
 			<tr>
 				<th>보호소명</th>

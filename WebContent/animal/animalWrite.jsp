@@ -93,7 +93,7 @@
 				<tr>
 					<th>성별(중성화 유무)<b class="red">&nbsp;*</b></th>
 					<td>
-						<input type="radio" name="agender" value="수컷">
+						<input type="radio" name="agender" value="수컷" checked="checked">
 						수컷 &nbsp;
 						<input type="radio" name="agender" value="수컷(중성화 O)">
 						수컷(중성화 O) &nbsp;
