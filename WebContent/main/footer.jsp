@@ -17,7 +17,7 @@ footer {
 /* container */
 footer .container {
 	width: 1100px;
-	margin: 0 auto;
+	margin: 30px auto 0;
 	padding: 20px 10px;
 	display: flex;
 	align-items: flex-end;

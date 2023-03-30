@@ -23,18 +23,17 @@ INSERT INTO SHELTER(SID, SPW, SNAME, STEL, SEMAIL, SADDRESS)
     VALUES ('dshel', '111', '가평군유기동물보호소', '0318679119', 'gappeng@gungkiAnimal.co.kr', '경기도 가평군 가평읍 아랫마장길 59(가평읍)');
     
 -- ANIMAL
-INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, AAGE, AWEIGHT, ACONTENT, AADDRESS, ARDATE, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'ashel', NULL, '개/진도 믹스', '수컷', '4', '12',
+INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
+            AAGE, AWEIGHT, ACONTENT, AADDRESS, ARDATE, AADOPT, AIP)
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'ashel', 'noimg.png', '개/믹스', '수컷', '4', '12',
             '사람을 잘 따라요', '서울시 용산역 부근', SYSDATE, 'PROTECT', '197.0.0.1');
-            
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
                    AAGE, AWEIGHT, ACONTENT, AADDRESS, ARDATE, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'bshel', NULL, '개/푸들', '암컷(중성화 O)', '5', '4',
-            '사람을 잘 따라요', '중산마을 9단지', SYSDATE, 'PROTECT', '197.0.0.1');
-
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'bshel', 'noimg.png', '개/푸들', '암컷(중성화 O)', '5', '4',
+            '사람을 잘 따라요', '서울시 서울역 부근', SYSDATE, 'PROTECT', '197.0.0.1');
 INSERT INTO ANIMAL(ANO, SID, APHOTO, ABREED, AGENDER, 
                    AAGE, AWEIGHT, ACONTENT, AADDRESS, AADOPT, AIP)
-    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'SHELTER2', NULL, '푸들', '암컷(중성화 O)', '5', '4',
+    VALUES (ANIMAL_ANO_SEQ.NEXTVAL, 'bshel', 'noimg.png', '고양이/믹스', '암컷', '5', '4',
             '사람을 잘 따라요', '중산마을 9단지', 'PROTECT', '197.0.0.1');
 
 -- ANIMALCOMMENT

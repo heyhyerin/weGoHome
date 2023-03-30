@@ -74,7 +74,9 @@
 			</tr>
 			<tr>
 				<th>등록일</th>
-				<td>${animal.ardate}</td>
+				<td>
+					<fmt:formatDate value="${animal.ardate}" dateStyle="long"/>
+				</td>
 			</tr>
 			<tr>
 				<th>입양현황</th>
@@ -114,7 +116,8 @@
 										<div class="commentBox comment${comment.acno }">
 											<div>
 												<pre>${comment.accontent }</pre>
-												${comment.mid }<span>|</span>${comment.acrdate }
+												${comment.mid }<span>|</span>
+												<fmt:formatDate value="${comment.acrdate }" type="both" dateStyle="short"/>
 											</div>
 											<c:choose>
 												<c:when test="${comment.mid eq mid }">

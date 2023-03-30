@@ -38,7 +38,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td>${review.name }<span>|</span> ${review.rrdate }<span>|</span>
+				<td>${review.name }
+					<span>|</span> 
+					<fmt:formatDate value="${review.rrdate }" type="both" dateStyle="short"/>
+					<span>|</span>
 					<b>조회수&nbsp;</b>${review.rhit }
 				</td>
 			</tr>

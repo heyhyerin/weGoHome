@@ -124,8 +124,9 @@
 		<!-- 유기동물 검색 -->
 		<form action="${conPath }/animalSearch.do">
 		<div class="container-col">
+		<input type="hidden" name="pageNum" value="${pageNum }">
 			<div class="serchBox">
-				<h3>동물구분</h3>
+				<h3>동물 구분</h3>
 				<p>개/고양이<p>
 				<select name="abreed">
 					<option value="" <c:if test="${param.abreed == ''}">selected="selected"</c:if>>ALL</option>
@@ -153,7 +154,7 @@
 				</select>
 			</div>
 			<div class="serchBox">
-				<h3>보호소명</h3>
+				<h3>보호소 명</h3>
 				<p>animal adoption<p>
 				<input type="search" name="sname" class="search-input">
 			</div>
@@ -230,6 +231,7 @@
 				<a href="${conPath }/animalBoardList.do?pageNum=${endPage+1}"><b class="grey" >&nbsp;&nbsp; 다음 </b></a>
 			</c:if>
 		</div>
+	</div>
 	<jsp:include page="../main/footer.jsp" />
 </body>
 </html>
