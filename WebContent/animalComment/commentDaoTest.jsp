@@ -29,7 +29,7 @@
 	%>
 	
 	<h2>2. 댓글 작성</h2>
-	<%
+<%-- 	<%
 	String mid = "member";
 	ano = 3;
 	String accontent = "제가 입양하고 싶어요";
@@ -47,7 +47,7 @@
 	AnimalCommentDto modifyComment = new AnimalCommentDto(acno, "0", 0, accontent, null, acip);
 	
 	result = acDao.modifyComment(modifyComment);
-	%>
+	%> --%>
 	<%=result == 0 ? "댓글 수정 실패" : "댓글 수정 성공" %>
 	<%-- 
 	<h2>4. 댓글 삭제</h2>
