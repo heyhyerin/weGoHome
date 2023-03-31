@@ -6,17 +6,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.lec.animalAdoption.dao.AnimalCommentDao;
 import com.lec.animalAdoption.dto.AnimalCommentDto;
 
-public class CommentViewService implements Service {
+public class CommentReplyViewService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		int acno = Integer.parseInt(request.getParameter("acno"));
-
-		// 수정 댓글 정보 출력
-		AnimalCommentDao acDao = AnimalCommentDao.getInstance();
-		AnimalCommentDto comment = acDao.getComment(acno);
+		int acno = Integer.parseInt(request.getParameter("acgroup"));
 		
-		request.setAttribute("comment", comment);
+		AnimalCommentDao acDao = AnimalCommentDao.getInstance();
+		AnimalCommentDto originComment = acDao.getComment(acno);
+		System.out.println(originComment);
+		
+		request.setAttribute("originComment", originComment);
 
 	}
 

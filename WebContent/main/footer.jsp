@@ -17,7 +17,7 @@ footer {
 /* container */
 footer .container {
 	width: 1100px;
-	margin: 30px auto 0;
+	margin: 0 auto ;
 	padding: 20px 10px;
 	display: flex;
 	align-items: flex-end;
@@ -71,8 +71,5 @@ footer .container .right{
 			</div>
 		</div>
 	</footer>
-	<div class="launcher">
-		<img alt="문의하기" src="${conPath }/img/launcher_icon.png">
-	</div>
 </body>
 </html>

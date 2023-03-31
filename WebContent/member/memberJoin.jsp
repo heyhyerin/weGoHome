@@ -210,7 +210,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="center">추가입력사항</td>
+					<td colspan="2" class="center"><b>추가입력사항</b></td>
 				</tr>
 				<tr>
 					<td colspan="2">

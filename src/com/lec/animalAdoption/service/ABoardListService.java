@@ -37,23 +37,24 @@ public class ABoardListService implements Service {
 		int endRow = startRow + PAGESIZE -1;
 		
 		AnimalDao aDao = AnimalDao.getInstance();
-		ArrayList<AnimalDto> animalList = aDao.getAnimalList(mid, startRow, endRow);
-		request.setAttribute("animalList", animalList);
+			ArrayList<AnimalDto> animalList = aDao.getAnimalList(mid, startRow, endRow);
+			request.setAttribute("animalList", animalList);
+			
+			int totCnt = aDao.getAnimalTotCnt();
+			int pageCnt = (int)Math.ceil((double)totCnt / PAGESIZE);
+			int startPage = ((currentPage - 1) / BLOCKSIZE) * BLOCKSIZE + 1;
+			int endPage = startPage + BLOCKSIZE - 1;
+			if (endPage > pageCnt) {
+				endPage = pageCnt;
+			}
+			
+			request.setAttribute("BLOCKSIZE", BLOCKSIZE);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("pageCnt", pageCnt);
+			request.setAttribute("totCnt", totCnt);
+			request.setAttribute("pageNum", currentPage);
 		
-		int totCnt = aDao.getAnimalTotCnt();
-		int pageCnt = (int)Math.ceil((double)totCnt / PAGESIZE);
-		int startPage = ((currentPage - 1) / BLOCKSIZE) * BLOCKSIZE + 1;
-		int endPage = startPage + BLOCKSIZE - 1;
-		if (endPage > pageCnt) {
-			endPage = pageCnt;
-		}
-		
-		request.setAttribute("BLOCKSIZE", BLOCKSIZE);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("totCnt", totCnt);
-		request.setAttribute("pageNum", currentPage);
 	}
 
 }

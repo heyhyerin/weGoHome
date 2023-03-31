@@ -30,7 +30,6 @@ public class ASearchService implements Service {
 		int schHighAweight = Integer.parseInt(aweightStr.substring(idx+1));
 		String schSname = request.getParameter("sname");
 		
-		// 검색 시 1page로
 		String pageNum = request.getParameter("pageNum");
 		int currentPage = Integer.parseInt(pageNum);
 		final int PAGESIZE = 8, BLOCKSIZE = 10;

@@ -14,6 +14,7 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
 	$(function() {
+		// 댓글 수정
 		$('.commentModifyBtn').click(function() {
 			var acno = $(this).attr('id');
 			$.ajax({
@@ -22,15 +23,29 @@
 				data : 'acno=' + acno,
 				dataType : 'html',
 				success: function(data) {
-					$('.comment'+acno).html(data);
+					$('.commentBox'+acno).html(data);
 				},
 			});
 		});
+		
+		$('.commentReplyBtn').click(function () {
+			var acgroup = $(this).attr('id');
+			$.ajax({
+				url : '${conPath}/commentReplyView.do',
+				type : 'get',
+				data : 'acgroup=' + acgroup,
+				dataType : 'html',
+				success: function(data) {
+					$('.comment-row'+acgroup).html(data);
+				},
+			});
+		});
+		
 	});
 </script>
 </head>
 <body>
-	<!-- 댓글 작성 결과 -->
+	<!-- 문의글, 답변글 작성 결과 -->
 	<c:if test="${not empty resultMsg }">
 		<script>
 			alert('${resultMsg}');
@@ -98,53 +113,87 @@
 						<input id="programming" type="radio" name="tab_item">
 						<label class="tab_item" for="programming">문의</label>
 
-						<!-- 상세정보 -->
 						<div class="tab_content" id="all_content">
 							<div class="textarea-comment">
 								<pre>${animal.acontent }</pre>
 							</div>
 						</div>
 
-						<!-- 문의 -->
+						<!------------ 문의 ------------>
 						<div class="tab_content" id="programming_content">
 							<div class="commentArea">
 								<c:if test="${not empty commentList }">
-									<c:set var="mid" value="${member.mid }" />
 									<c:forEach var="comment" items="${commentList }">
+										<c:set var="ano" value="${comment.ano }"/>
+										<c:set var="mid" value="${member.mid }" />
+										<c:set var="sid" value="${shelter.sid }" />
+										<c:set var="acstep" value="${comment.acstep }" />
+										
+										<!-- 사용자: 문의글출력 -->
+										<c:if test="${acstep eq 0}">
+											<div class="commentBox commentBox${comment.acno }">
+												<div class="comment-right">
+													<pre class="bold">${comment.accontent }</pre>
+													<pre>${comment.name }<span>|</span
+														><fmt:formatDate value="${comment.acrdate }" type="both" dateStyle="short" /><span>|</span
+														>${comment.acip }</pre>
+												</div>
 
-										<!-- 수정 시 해당 div 수정 -->
-										<div class="commentBox comment${comment.acno }">
-											<div>
-												<pre>${comment.accontent }</pre>
-												${comment.mid }<span>|</span>
-												<fmt:formatDate value="${comment.acrdate }" type="both" dateStyle="short"/>
+												<div class="comment-row comment-row${comment.acno }">
+													<!-- 버튼 출력 -->
+													<c:choose>
+														<c:when test="${comment.mid eq mid }">
+															<input type="button" value="수정" id="${comment.acno }"
+																class="btn-grey commentModifyBtn">
+															<input type="button" value="삭제" class="btn-grey"
+																onclick="location.href='${conPath}/commentDelete.do?acno=${comment.acno }'">
+														</c:when>
+														<c:when test="${animal.sid eq sid }">
+															<!-- 공고를 작성한 해당 보호소만 답글 작성 가능 -->
+															<input type="button" value="답변" class="btn commentReplyBtn" id="${comment.acgroup }">
+														</c:when>
+													</c:choose>
+												</div>
 											</div>
-											<c:choose>
-												<c:when test="${comment.mid eq mid }">
-													<div>
-														<input type="button" value="수정" id="${comment.acno }"
-															class="btn-grey commentModifyBtn">
-														<input type="button" value="삭제" class="btn-grey"
-															onclick="location.href='${conPath}/commentDelete.do?acno=${comment.acno }'">
-													</div>
-												</c:when>
-											</c:choose>
-										</div>
+										</c:if>
+
+										<!-- 보호소: 답글 -->
+										<c:if test="${acstep > 0 }">
+											<div class="commentBox comment${comment.acno } border">
+												<div class="comment-right">
+													<pre class="bold">${comment.accontent }</pre>
+													<pre>${comment.name }<span>|</span
+														><fmt:formatDate value="${comment.acrdate }" type="both" dateStyle="short" /><span>|</span
+														>${comment.acip }</pre>
+												</div>
+												
+												<div class="comment-row comment-row${comment.acno }">
+													<c:choose>
+														<c:when test="${comment.sid eq sid }">
+															<input type="button" value="수정" id="${comment.acno }"
+																class="btn-grey commentModifyBtn">
+															<input type="button" value="삭제" class="btn-grey"
+																onclick="location.href='${conPath}/commentDelete.do?acno=${comment.acno }'">
+														</c:when>
+													</c:choose>
+												</div>
+											</div>
+										</c:if>
 									</c:forEach>
 								</c:if>
-								<!-- 문의글 작성 -->
+								<!------------ 사용자: 문의글 작성 ------------>
 								<form action="${conPath }/commentWrite.do" class="form-commentWrite">
-									<input type="hidden" name="mid" value="${member.mid }">
 									<input type="hidden" name="ano" value="${animal.ano }">
 									<div class="commentBox">
-										<textarea name="accontent" required="required" class="textarea-comment"></textarea>
-										<c:if test="${empty member }">
-											<pre>문의글은 로그인 후 작성할 수 있습니다.</pre>
-										</c:if>
-										<c:if test="${not empty member }">
-											<span class="span-comment"> <input type="submit" value="문의글 작성" class="btn">
-											</span>
-										</c:if>
+										<div class="comment-row">
+											<textarea name="accontent" required="required" class="textarea-comment"></textarea>
+											<c:if test="${empty member }">
+												<pre>문의글은 로그인 후 작성할 수 있습니다.</pre>
+											</c:if>
+											<c:if test="${not empty member }">
+												<span class="span-comment"><input type="submit" value="문의글 작성" class="btn"></span>
+											</c:if>
+										</div>
 									</div>
 								</form>
 							</div>

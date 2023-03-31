@@ -1,29 +1,39 @@
 package com.lec.animalAdoption.dto;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class AnimalCommentDto {
 	private int acno;
-	private String mid;
 	private int ano;
+	private String mid;
+	private String sid;
 	private String accontent;
 	private Timestamp acrdate;
+	private int acgroup;
+	private int acstep;
 	private String acip;
+
+	// member & shelter
+	private String name;
 
 	public AnimalCommentDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnimalCommentDto(int acno, String mid, int ano, String accontent, Timestamp acrdate, String acip) {
+	public AnimalCommentDto(int acno, int ano, String mid, String sid, String accontent, Timestamp acrdate, int acgroup,
+			int acstep, String acip, String name) {
 		super();
 		this.acno = acno;
-		this.mid = mid;
 		this.ano = ano;
+		this.mid = mid;
+		this.sid = sid;
 		this.accontent = accontent;
 		this.acrdate = acrdate;
+		this.acgroup = acgroup;
+		this.acstep = acstep;
 		this.acip = acip;
+		this.name = name;
 	}
 
 	public int getAcno() {
@@ -34,6 +44,14 @@ public class AnimalCommentDto {
 		this.acno = acno;
 	}
 
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
 	public String getMid() {
 		return mid;
 	}
@@ -42,12 +60,12 @@ public class AnimalCommentDto {
 		this.mid = mid;
 	}
 
-	public int getAno() {
-		return ano;
+	public String getSid() {
+		return sid;
 	}
 
-	public void setAno(int ano) {
-		this.ano = ano;
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 
 	public String getAccontent() {
@@ -66,6 +84,22 @@ public class AnimalCommentDto {
 		this.acrdate = acrdate;
 	}
 
+	public int getAcgroup() {
+		return acgroup;
+	}
+
+	public void setAcgroup(int acgroup) {
+		this.acgroup = acgroup;
+	}
+
+	public int getAcstep() {
+		return acstep;
+	}
+
+	public void setAcstep(int acstep) {
+		this.acstep = acstep;
+	}
+
 	public String getAcip() {
 		return acip;
 	}
@@ -74,10 +108,19 @@ public class AnimalCommentDto {
 		this.acip = acip;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
-		return "AnimalComment [acno=" + acno + ", mid=" + mid + ", ano=" + ano + ", accontent=" + accontent
-				+ ", acrdate=" + acrdate + ", acip=" + acip + "]";
+		return "AnimalCommentDto [acno=" + acno + ", ano=" + ano + ", mid=" + mid + ", sid=" + sid + ", accontent="
+				+ accontent + ", acrdate=" + acrdate + ", acgroup=" + acgroup + ", acstep=" + acstep + ", acip=" + acip
+				+ ", name=" + name + "]";
 	}
 
 }

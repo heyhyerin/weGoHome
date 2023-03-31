@@ -23,6 +23,10 @@ public class RBoardListService implements Service {
 			}
 		}
 
+		if(order_by == null) {
+			order_by = "rdate";
+		}
+		
 		int currentPage = Integer.parseInt(pageNum);
 		final int PAGESIZE = 10, BLOCKSIZE = 10;
 		int startRow = (currentPage - 1) * PAGESIZE + 1;
@@ -50,7 +54,7 @@ public class RBoardListService implements Service {
 			request.setAttribute("totCnt", totCnt);
 			request.setAttribute("pageNum", currentPage);
 			
-		} else {
+		} else if("rdate".equals(order_by)){
 			ArrayList<ReviewBoardDto> reviewList = rbDao.getReviewList(startRow, endRow);
 			request.setAttribute("reviewList", reviewList);
 			
@@ -61,6 +65,7 @@ public class RBoardListService implements Service {
 			if (endPage > pageCnt) {
 				endPage = pageCnt;
 			}
+			
 			request.setAttribute("order_by", order_by);
 			request.setAttribute("BLOCKSIZE", BLOCKSIZE);
 			request.setAttribute("startPage", startPage);

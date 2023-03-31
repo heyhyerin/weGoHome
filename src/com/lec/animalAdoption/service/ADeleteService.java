@@ -16,9 +16,9 @@ public class ADeleteService implements Service {
 		int result = aDao.deleteAnimal(ano);
 		
 		if (result == AnimalDao.SUCCESS) {
-			request.setAttribute("resultMsg", "게시글 삭제가 정상적으로 처리되었습니다.");
+			request.setAttribute("resultMsg", "입양 공고 삭제가 정상적으로 처리되었습니다.");
 		} else if (result == AnimalDao.FAIL) {
-			request.setAttribute("resultErrorMsg", "게시글 삭제가 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "입양 공고 삭제가 실패했습니다.");
 		}
 
 	}

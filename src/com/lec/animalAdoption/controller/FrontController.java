@@ -16,7 +16,6 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public FrontController() {
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -221,6 +220,17 @@ public class FrontController extends HttpServlet {
 			service = new CommentDeleteService();
 			service.execute(request, response);
 			viewPage = "animalBoardList.do";
+		}
+		
+		// 특정 댓글에 답글 작성
+		else if(command.equals("/commentReplyView.do")) {
+			service = new CommentReplyViewService();
+			service.execute(request, response);
+			viewPage = "animalComment/commentReply.jsp";
+		} else if(command.equals("/commentReply.do")) {
+			service = new CommentReplyService();
+			service.execute(request, response);
+			viewPage = "animalContent.do";
 		}
 		
 		// reviewBoard ----------------------------------------

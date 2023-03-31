@@ -15,7 +15,7 @@ public class CommentModifyService implements Service {
 		String acip = request.getLocalAddr();
 		
 		AnimalCommentDao acDao = AnimalCommentDao.getInstance();
-		AnimalCommentDto comment = new AnimalCommentDto(acno, null, 0, accontent, null, acip);
+		AnimalCommentDto comment = new AnimalCommentDto(acno, 0, null, null, accontent, null, 0, 0, acip, null);
 		
 		int result = acDao.modifyComment(comment);
 		

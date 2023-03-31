@@ -204,11 +204,10 @@ table.contentTable span:not(.span-comment) {
 /* contentTable 본문 */
 table.contentTable textarea:not(.textarea-comment){
 	width: 800px;
-	height: 200px; 
+	height: 160px; 
 	padding-top: 20px;
 	margin: 20px 0;
 	border: none;
-	/* border-top: 1px solid #eeeeee; */
 }
 
 textarea {
@@ -231,8 +230,8 @@ textarea:disabled {
 }
 
 .textarea-comment {
-	width: 800px;
-	min-height: 100px;
+	width: 700px;
+	min-height: 80px;
 	padding: 15px;
 	font-size: 16px;
 }
@@ -380,9 +379,16 @@ hr{
 	margin: 20px 0;
 }
 
-/* ----------- launcher ----------- */
-.launcher {
-	position: fixed;
-	bottom: 50px;
-	right: 100px;
+/* ----------- background-color ----------- */
+div.border {
+	background-color: white;
+	border: 1px solid #bbbbbb;
+}
+
+div.center{
+	margin: 0 auto;
+}
+
+.center h1{
+	color: #dddddd;
 }

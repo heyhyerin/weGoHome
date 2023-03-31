@@ -19,7 +19,7 @@ public class ReviewBoardDto {
 	private int rindent;
 	private String rip;
 
-	// member
+	// member & shelter
 	private String name;
 
 	public ReviewBoardDto() {

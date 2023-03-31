@@ -60,13 +60,13 @@ public class AWriteService implements Service {
 			}
 			
 			if (result == ReviewBoardDao.SUCCESS) {
-				request.setAttribute("resultMsg", "게시글 작성이 완료되었습니다.");
+				request.setAttribute("resultMsg", "입양 공고 작성이 완료되었습니다.");
 			} else if (result == ReviewBoardDao.FAIL) {
-				request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
+				request.setAttribute("resultErrorMsg", "입양 공고 작성이 실패했습니다.");
 			}
 			
 		} catch (Exception e) {
-			request.setAttribute("resultErrorMsg", "게시글 작성이 실패했습니다.");
+			request.setAttribute("resultErrorMsg", "입양 공고 작성이 실패했습니다.");
 			System.out.println(e.getMessage());
 		}
 		

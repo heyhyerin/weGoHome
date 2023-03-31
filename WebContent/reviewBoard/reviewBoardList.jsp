@@ -107,19 +107,19 @@
 
 		<div class="paging" >
 			<c:if test="${startPage > BLOCKSIZE }">
-				<a href="${conPath }/reviewBoardList.do?pageNum=${startPage-1}"><b class="grey" > 이전 &nbsp;&nbsp;</b></a>
+				<a href="${conPath }/reviewBoardList.do?order_by=${order_by}&pageNum=${startPage-1}"><b class="grey" > 이전 &nbsp;&nbsp;</b></a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage }" end="${endPage }">
 				<c:if test="${i == pageNum }">
 					<b class="red" > ${i }&nbsp; </b>
 				</c:if>
 				<c:if test="${i != pageNum }">
-					<a href="${conPath }/reviewBoardList.do?pageNum=${i}&order_by=${order_by}">
+					<a href="${conPath }/reviewBoardList.do?order_by=${order_by}&pageNum=${i}">
 					<b class="grey" > ${i }&nbsp; </b></a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${endPage < pageCnt }">
-				<a href="${conPath }/reviewBoardList.do?pageNum=${endPage+1}"><b class="grey" >&nbsp;&nbsp; 다음 </b></a>
+				<a href="${conPath }/reviewBoardList.do?order_by=${order_by}&pageNum=${endPage+1}"><b class="grey" >&nbsp;&nbsp; 다음 </b></a>
 			</c:if>
 		</div>
 

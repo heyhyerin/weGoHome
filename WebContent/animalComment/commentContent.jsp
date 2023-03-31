@@ -12,13 +12,13 @@
 	<div class="commentContent">
 		<form action="${conPath }/commentModify.do">
 			<input type="hidden" name="acno" value="${comment.acno }">
-			<input type="hidden" name="mid" value="${comment.mid }">
+			<input type="hidden" name="name" value="${comment.name }">
 			<input type="hidden" name="ano" value="${comment.ano }">
 			<textarea name="accontent" required="required" class="textarea-comment" >${comment.accontent }</textarea>
-			<span class="span-comment">${comment.mid }<span>|</span>${comment.acrdate }</span>
+			<span class="span-comment">${comment.name }<span>|</span>${comment.acrdate }</span>
 			<span class="span-comment">
 				<input type="submit" value="문의글 수정" class="btn">
-				<input type="button" value="취소" class="btn-grey" onclick="history.back()">
+				<input type="button" value="취소" class="btn-grey" onclick="location.reload()">
 			</span>
 		</form>
 	</div>

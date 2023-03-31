@@ -116,6 +116,14 @@
 		
 		<!-- 유기동물 목록 4x3 -->
 		<div class="container-image">
+			<!-- 검색 결과가 없을 때 -->
+			<c:if test="${empty animalList}">
+				<div class="center">
+					<img alt="검색결과없음 이미지" src="${conPath }/img/sch-noimg.png"><br>
+					<h1>아직 관심있는 동물이 없어요!</h1>
+				</div>
+			</c:if>
+		
 			<c:if test="${not empty animalList }">
 				<c:forEach var="animal" items="${animalList }">
 					<div class="animalBox">

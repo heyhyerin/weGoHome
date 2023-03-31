@@ -49,9 +49,10 @@ public class ReviewBoardDao {
 		ResultSet         rs    = null;
 		String sql = "SELECT L.*," + 
 				"        (SELECT MNAME FROM MEMBER WHERE L.MID = MID) || " + 
-				"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) WRITERNAME" + 
-				"        FROM (SELECT ROWNUM RN, RBOARD.*" + 
-				"            FROM(SELECT * FROM REVIEWBOARD ORDER BY RGROUP DESC, RSTEP) RBOARD) L" + 
+				"        (SELECT SNAME FROM SHELTER WHERE L.SID = SID) WRITERNAME " + 
+				"        FROM (SELECT ROWNUM RN, RBOARD.* " + 
+				"            FROM(SELECT * FROM REVIEWBOARD " + 
+				"            ORDER BY RGROUP DESC, RSTEP) RBOARD) L" + 
 				"    WHERE RN BETWEEN ? AND ?";
 		try {
 			conn = getConnection();
@@ -73,7 +74,6 @@ public class ReviewBoardDao {
 				int rstep = rs.getInt("rstep");
 				int rindent = rs.getInt("rindent");
 				String rip = rs.getString("rip");
-
 				// member
 				String name = rs.getString("writername");
 				reviewList.add(new ReviewBoardDto(rno, mid, sid, rtitle, rcontent, rpw, rphoto, rrdate, rhit, rgroup,

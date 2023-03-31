@@ -79,19 +79,12 @@
 	box-sizing: border-box;
 }
 
-.center{
-	margin: 0 auto;
-}
-
-.center h1{
-	color: #dddddd;
-}
-
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
 	$(function() {
+		var member = '${member}'
 		// 상세보기
 		$('.clickBox').click(function() {
 			var ano = $(this).children().eq(0).val();
@@ -99,7 +92,7 @@
 		});
 		
 		$('div.heart-line').click(function() {
-			if(${empty member.mid}){
+			if(!member){
 				alert('로그인 후 이용 가능한 서비스입니다.');
 				location.href='${conPath}/loginView.do';
 			} else {

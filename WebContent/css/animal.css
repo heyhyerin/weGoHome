@@ -49,14 +49,12 @@ input[name="tab_item"] {
 }
 
 .commentArea{
-	display: inline-flex;
+	width: 740px;
+	margin: 0 auto;
+	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
 }
-/* 
-.form-commentWrite{
-	margin-left: 30px;
-} */
 
 /* 보호동물 상세보기 */
 .animal-content{
@@ -73,16 +71,17 @@ input[name="tab_item"] {
 	margin-top: 20px;
 	background-color: #eeeeee;
 	border-radius: 10px;
-	margin: 20 auto;
-	display: inline-flex;
-	justify-content: space-between;
-	align-items: flex-end;
-	flex-wrap: wrap;
 }
 
-.commentBox:last-child {
-	height: 150px;
-	justify-content: flex-end;
+.comment-right{
+	width: 700px;
+}
+
+.comment-row{
+	width: 700px;
+	display:flex;
+	justify-content: end;
+	flex-wrap: wrap;
 }
 
 /* 보호동물 > 문의 댓글  */
@@ -90,7 +89,7 @@ input[name="tab_item"] {
 	margin-top: 15px;
 }
 
-.commentBox pre {
+.commentBox pre.bold {
 	padding: 5px 0;
 	font-weight: bold;
 }
@@ -98,15 +97,12 @@ input[name="tab_item"] {
 .commentBox textarea{
 	width: 700px;
 	height: 100px;
+	margin: 15px 0;
 }
 
 .commentContent form{
 	display: inline-flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	flex-wrap: wrap;
 	align-items: baseline;
-}
-
-.commentContent form input{
-	margin-top: 15px; 
 }

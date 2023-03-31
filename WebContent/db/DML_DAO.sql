@@ -194,19 +194,24 @@ SELECT COUNT(*) CNT
 -- ANIMALCOMMENT ---------------------------------------------------------------
 -- 1. 댓글 출력
 -- public ArrayList<AnimalCommentDto> getCommentList()
-SELECT A.* , MNAME
-    FROM ANIMALCOMMENT A, MEMBER
-    WHERE A.MID = MEMBER.MID AND ANO = '2'
-    ORDER BY ACNO DESC;
+SELECT AC.*,
+  (SELECT MNAME FROM MEMBER WHERE AC.MID = MID) ||
+  (SELECT SNAME FROM SHELTER WHERE AC.SID = SID) WRITERNAME
+   FROM ANIMALCOMMENT AC
+   WHERE AC.ANO = '2'
+   ORDER BY ACGROUP DESC, ACSTEP;
 
 -- 2. 특정 글에 댓글 달기
 -- public int writeComment (AnimalCommentDto comment)
-INSERT INTO ANIMALCOMMENT (ACNO, MID, ANO, ACCONTENT, ACRDATE, ACIP)
-    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, 'test1', '2', 
-           '좋은 주인 만나렴', SYSDATE, '210.0.0.1');
+INSERT INTO ANIMALCOMMENT (ACNO, ANO, MID, SID, ACCONTENT, ACRDATE, ACGROUP, ACSTEP, ACIP)
+    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, '2', 'amem', NULL, 
+           '좋은 주인 만나렴', SYSDATE, ANIMALCOMMENT_ACNO_SEQ.CURRVAL , 0, '210.0.0.1');
 
 -- 3-1. 특정 문의글 정보 확인
-SELECT * FROM ANIMALCOMMENT
+SELECT AC.*,
+    (SELECT MNAME FROM MEMBER WHERE AC.MID = MID) ||
+    (SELECT SNAME FROM SHELTER WHERE AC.SID = SID) WRITERNAME
+    FROM ANIMALCOMMENT AC
     WHERE ACNO = '1';
 
 -- 3-2. 특정 문의글 수정
@@ -219,8 +224,20 @@ UPDATE ANIMALCOMMENT SET
 -- 4. 특정 문의글 삭제
 -- public int deleteComment (int acno)
 DELETE FROM ANIMALCOMMENT
-    WHERE ACNO = '4';
-    
+    WHERE ACNO = '3';
+
+-- 5. 특정 댓글에 답글
+-- 5-1. 답글 작성 전 STEP +1
+UPDATE ANIMALCOMMENT SET ACSTEP = ACSTEP +1
+    WHERE ACGROUP = 1
+      AND ACSTEP > 0;
+
+
+-- 5-2. 댓글 답글 작성
+INSERT INTO ANIMALCOMMENT (ACNO, ANO, MID, SID, ACCONTENT, ACRDATE, ACGROUP, ACSTEP, ACIP)
+    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, '2', NULL, 'ashel', 
+           '답변드립니다.', SYSDATE, 1, 1, '210.0.0.1');
+
 -- REVIEWBOARD -----------------------------------------------------------------
 -- 1. 후기게시판 글 목록
 -- 1-1. 등록 순 정렬

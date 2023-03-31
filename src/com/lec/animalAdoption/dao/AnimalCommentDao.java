@@ -46,10 +46,12 @@ public class AnimalCommentDao {
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
 		ResultSet         rs    = null;
-		String sql = "SELECT A.* , MNAME" + 
-					 "    FROM ANIMALCOMMENT A, MEMBER" + 
-					 "    WHERE A.MID = MEMBER.MID AND ANO = ?" + 
-					 "    ORDER BY ACNO DESC";
+		String sql = "SELECT AC.*," + 
+					"  (SELECT MNAME FROM MEMBER WHERE AC.MID = MID) ||" + 
+					"  (SELECT SNAME FROM SHELTER WHERE AC.SID = SID) WRITERNAME" + 
+					"   FROM ANIMALCOMMENT AC" + 
+					"   WHERE AC.ANO = ?" + 
+					"   ORDER BY ACGROUP DESC, ACSTEP";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -58,10 +60,15 @@ public class AnimalCommentDao {
 			while(rs.next()) {
 				int acno = rs.getInt("acno");
 				String mid = rs.getString("mid");
+				String sid = rs.getString("sid");
 				String accontent = rs.getString("accontent");
 				Timestamp acrdate = rs.getTimestamp("acrdate");
+				int acgroup = rs.getInt("acgroup");
+				int acstep = rs.getInt("acstep");
 				String acip = rs.getString("acip");
-				commentList.add(new AnimalCommentDto(acno, mid, ano, accontent, acrdate, acip));
+				// member
+				String name = rs.getString("writername");
+				commentList.add(new AnimalCommentDto(acno, ano, mid, sid, accontent, acrdate, acgroup, acstep, acip, name));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -85,15 +92,17 @@ public class AnimalCommentDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO ANIMALCOMMENT (ACNO, MID, ANO, ACCONTENT, ACRDATE, ACIP)" + 
-					 "    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, ?)";
+		String sql = "INSERT INTO ANIMALCOMMENT (ACNO, ANO, MID, SID, ACCONTENT, ACRDATE, ACGROUP, ACSTEP, ACIP)" + 
+					 "    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, ?, ?, ?, ?, " + 
+					 "            SYSDATE, ANIMALCOMMENT_ACNO_SEQ.CURRVAL , 0, ?)";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, comment.getMid());
-			pstmt.setInt(2, comment.getAno());
-			pstmt.setString(3, comment.getAccontent());
-			pstmt.setString(4, comment.getAcip());
+			pstmt.setInt(1, comment.getAno());
+			pstmt.setString(2, comment.getMid());
+			pstmt.setString(3, comment.getSid());
+			pstmt.setString(4, comment.getAccontent());
+			pstmt.setString(5, comment.getAcip());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -116,20 +125,28 @@ public class AnimalCommentDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM ANIMALCOMMENT" + 
-				"    WHERE ACNO = ?";
+		String sql = "SELECT AC.*," + 
+					"    (SELECT MNAME FROM MEMBER WHERE AC.MID = MID) ||" + 
+					"    (SELECT SNAME FROM SHELTER WHERE AC.SID = SID) WRITERNAME" + 
+					"    FROM ANIMALCOMMENT AC" + 
+					"    WHERE ACNO = ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, acno);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				String mid = rs.getString("mid");
 				int ano = rs.getInt("ano");
+				String mid = rs.getString("mid");
+				String sid = rs.getString("sid");
 				String accontent = rs.getString("accontent");
 				Timestamp acrdate = rs.getTimestamp("acrdate");
+				int acgroup = rs.getInt("acgroup");
+				int acstep = rs.getInt("acstep");
 				String acip = rs.getString("acip");
-				comment = new AnimalCommentDto(acno, mid, ano, accontent, acrdate, acip);
+				// member
+				String name = rs.getString("writername");
+				comment = new AnimalCommentDto(acno, ano, mid, sid, accontent, acrdate, acgroup, acstep, acip, name);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -209,4 +226,67 @@ public class AnimalCommentDao {
 		return result;		
 	}
 	
+	// 5. 답글 작성
+	// 5-1. STEP1 답변글 작성 전 작업
+	private void commentReplyStep(int acgroup, int acstep) {
+		Connection conn = null;	
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE ANIMALCOMMENT SET ACSTEP = ACSTEP +1" + 
+				"    WHERE ACGROUP = ?" + 
+				"      AND ACSTEP > ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, acgroup);
+			pstmt.setInt(2, acstep);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}	
+	}
+	
+	// 5-2. STEP2 답글 작성
+	public int replyComment(AnimalCommentDto comment) {
+		commentReplyStep(comment.getAcgroup(), comment.getAcstep());
+		int result = FAIL;
+		Connection conn = null;	
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO ANIMALCOMMENT (ACNO, ANO, MID, SID, ACCONTENT, ACRDATE, ACGROUP, ACSTEP, ACIP)" + 
+				"    VALUES (ANIMALCOMMENT_ACNO_SEQ.NEXTVAL, ?, null, ?," + 
+				"           ?, SYSDATE, ?, ?, ?)";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comment.getAno());
+			pstmt.setString(2, comment.getSid());
+			pstmt.setString(3, comment.getAccontent());
+			pstmt.setInt(4, comment.getAcgroup());
+			pstmt.setInt(5, comment.getAcstep() + 1);
+			pstmt.setString(6, comment.getAcip());
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+		
+	}
+
 } // AnimalCommentDao

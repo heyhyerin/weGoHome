@@ -148,7 +148,7 @@ header .gnb li a {
 							<a href="${conPath }/animalBoardList.do">입양하기</a>
 						</c:if>
 					</li>
-					<li><a href="${conPath }/reviewBoardList.do">자유게시판</a></li>
+					<li><a href="${conPath }/reviewBoardList.do">입양후기</a></li>
 				</ul>
 			</div>
 			<!-- 로그아웃 gnb -->

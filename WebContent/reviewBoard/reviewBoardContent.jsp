@@ -101,7 +101,6 @@
 					</td>
 				</tr>
 			</c:if>
-
 		</table>
 
 	</div>
