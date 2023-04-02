@@ -19,7 +19,7 @@
 	AnimalDao aDao = AnimalDao.getInstance();
 	int result = 0;
 	%>
-	
+	<%-- 
 	<h2>1. 보호동물 목록 출력</h2>
 	<%
 	int startRow = 0;
@@ -36,8 +36,7 @@
 	totCnt = aDao.getAnimalTotCnt();
 	%>
 	등록된 전체 동물 수 : <%=totCnt %>
-
-<%-- 	
+	
 	<h2>3. 공고 게시글 작성</h2>
 	<%
 	String sid = "SHELTER1";
@@ -56,7 +55,7 @@
 	result = aDao.writeAnimal(animal);
 	%>
 	<%=result == 0 ? "공고 게시글 작성 실패" : "공고 게시글 작성 성공" %><br>
-	<%=animal %> --%>
+	<%=animal %> 
 	
 
 	<h2>4. 공고 게시글 상세보기</h2>
@@ -122,5 +121,6 @@
 	}
 	%>
 	<%=likeList.size() %>
+	--%>
 </body>
 </html>

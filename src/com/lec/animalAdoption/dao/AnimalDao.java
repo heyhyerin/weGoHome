@@ -255,7 +255,7 @@ public class AnimalDao {
 				"            WHERE ANIMAL.SID = SHELTER.SID" + 
 				"              AND LIKELIST.ANO = ANIMAL.ANO" + 
 				"              AND LIKELIST.MID = ?" + 
-				"            ORDER BY LNO)ANIMALlIST)" + 
+				"            ORDER BY LNO DESC)ANIMALlIST)" + 
 				"         WHERE RN BETWEEN ? AND ?";
 		try {
 			conn = getConnection();

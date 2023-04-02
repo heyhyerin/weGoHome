@@ -30,7 +30,7 @@
 
 	<jsp:include page="../main/header.jsp" />
 	<div id="wrap">
-		<h2>입양 후기 게시판</h2>
+		<h2>게시물 상세보기</h2>
 		<table class="contentTable">
 			<tr>
 				<td>
@@ -66,8 +66,10 @@
 				</tr>
 			</c:if>
 
+			<c:set var="mid" value="${member.mid }"/>
+			<c:set var="sid" value="${shelter.sid }"/>
 			<!-- 멤버로 로그인 시 -->
-			<c:if test="${not empty member && review.mid eq member.mid }">
+			<c:if test="${not empty member && review.mid eq mid }">
 				<tr>
 					<td><input type="button" value="수정" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardModifyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">
@@ -78,8 +80,9 @@
 					</td>
 				</tr>
 			</c:if>
+			
 			<!-- 보호소 계정으로 로그인 시 -->
-			<c:if test="${not empty shelter && review.sid eq shelter.sid }">
+			<c:if test="${not empty shelter && review.sid eq sid }">
 				<tr>
 					<td><input type="button" value="수정" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardModifyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">
@@ -92,7 +95,7 @@
 			</c:if>
 
 			<!-- 내가 작성한 글이 아닌 경우 -->
-			<c:if test="${review.mid != member.mid && review.sid != shelter.sid}">
+			<c:if test="${review.mid != mid || review.sid != sid}">
 				<tr>
 					<td><input type="button" value="답변작성" class="btn-grey"
 							onclick="location.href='${conPath}/reviewBoardReplyView.do?rno=${review.rno }&pageNum=${param.pageNum }'">

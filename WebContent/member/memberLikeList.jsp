@@ -41,17 +41,22 @@
 	cursor: pointer;
 }
 
-.animalBox:not(:nth-child(4n)) {
-	margin-right: 33.3px;
+.animalBox:not(:nth-child(4n)){
+	margin-right:33.3px;
 }
 
-.animalBox img.board-img {
+.animalBox .clickBox{
 	width: 250px;
 	height: 200px;
+	overflow: hidden;
+}
+
+.animalBox .clickBox img.board-img{
+	width: 250px;
+	position: center;
 }
 
 .animalBox .content {
-	width: 160px;
 	padding: 10px 20px;
 	font-size: 12pt;
 }
@@ -61,11 +66,27 @@
 	font-size: 10pt;
 }
 
-.animalBox div.heart {
+.animalBox div.heart{
 	position: relative;
-	bottom: 112px;
-	left: 200px;
+	bottom: 40px;
+	left: 198px;
 	cursor: pointer;
+}
+
+.serchBox{
+	width: 180px;
+	padding: 10px;
+}
+
+.serchBox select, .search-input {
+	width: 180px;
+	height: 34px;
+	padding: 5px 10px;
+	margin-top: 15px;
+	outline: none;
+	border: 2px solid #dddddd;
+	border-radius: 8px;
+	box-sizing: border-box;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -116,6 +137,7 @@
 		
 		<!-- 유기동물 목록 4x3 -->
 		<div class="container-image">
+		
 			<!-- 검색 결과가 없을 때 -->
 			<c:if test="${empty animalList}">
 				<div class="center">
@@ -134,7 +156,9 @@
 						<div class="content">
 							<h2>${animal.abreed }</h2>
 							<p>
-								${animal.agender }<br> ${animal.aage }살 추정 / ${animal.aweight }kg<br> <b>${animal.sname }</b>
+								${animal.agender }<br>
+								${animal.aage }살 추정 / ${animal.aweight }kg<br>
+								<b>${animal.sname }</b>
 							</p>
 						</div>
 

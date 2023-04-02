@@ -42,7 +42,7 @@
 
 	<jsp:include page="../main/header.jsp" />
 	<div id="wrap">
-		<h1>자유 게시판</h1>
+		<h1>입양 후기 게시판</h1>
 		<div class="div-search">
 			<div>
 				<span class="grey"

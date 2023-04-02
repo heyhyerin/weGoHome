@@ -115,7 +115,7 @@
 
 						<div class="tab_content" id="all_content">
 							<div class="textarea-comment">
-								<pre>${animal.acontent }</pre>
+								<p>${animal.acontent }</p>
 							</div>
 						</div>
 
