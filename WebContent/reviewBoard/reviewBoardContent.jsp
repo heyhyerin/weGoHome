@@ -55,7 +55,7 @@
 			<!-- 첨부 이미지가 있는 경우 -->
 			<c:if test="${not empty review.rphoto}">
 				<tr>
-					<td class="center"><img alt="첨부이미지"
+					<td class="center"><img alt="첨부이미지" width="200px"
 						src="${conPath }/reviewBoardUp/${review.rphoto}"></td>
 				</tr>
 			</c:if>
