@@ -19,15 +19,15 @@
   
 
 ## 목차
-1. [작업분할 구조도](## 작업분할 구조도)
-2. [Gantt Chart](## Gantt Chart)
-3. [이용자권한](## 이용자 권한)
-4. [Usecase Diagram](## Usecase Diagram)
-5. [Sequence Diagram](## 순차 다이어그램 Sequence Diagram)
-6. [기능정의서](## 기능정의서)
-7. [E-R Diagram](## E-R Diagram)
-8. [Project Source Explorer](## Project Source Explorer)
-9. [UI시연 및 핵심기능](## UI시연 및 핵심기능)
+1. [작업분할 구조도](##작업분할 구조도)
+2. [Gantt Chart](##Gantt Chart)
+3. [이용자권한](##이용자 권한)
+4. [Usecase Diagram](##Usecase Diagram)
+5. [Sequence Diagram](##순차 다이어그램 Sequence Diagram)
+6. [기능정의서](##기능정의서)
+7. [E-R Diagram](##E-R Diagram)
+8. [Project Source Explorer](##Project Source Explorer)
+9. [UI시연 및 핵심기능](##UI시연 및 핵심기능)
 
 
 
